@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driven3 Automotive — Premium Pre-Owned Vehicles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #161616;
+    --border: #232323;
+    --mid: #2a2a2a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --accent: #e8c84a;
+    --accent2: #c9a227;
+    --red: #e84a4a;
+    --white: #ffffff;
+    --radius: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── ANNOUNCEMENT BAR ── */
+  .announcement {
+    background: var(--accent);
+    color: var(--black);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .announcement a { color: var(--black); text-decoration: underline; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 24px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--black);
+    letter-spacing: 0;
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    color: var(--white);
+  }
+  .logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 4px;
+    align-items: center;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--white); background: var(--mid); }
+  .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    background: var(--accent) !important;
+    color: var(--black) !important;
+    font-weight: 700 !important;
+    padding: 9px 20px !important;
+    border-radius: 6px !important;
+  }
+  .nav-cta:hover { background: var(--accent2) !important; }
+  .nav-phone {
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-phone a { color: var(--text); text-decoration: none; font-weight: 600; }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    border: none;
+    background: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .mobile-menu {
+    display: none;
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 16px 24px 24px;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block;
+    padding: 12px 0;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 92vh;
+    min-height: 580px;
+    max-height: 860px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: #0a0a0a;
+  }
+  .hero-bg img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(10,10,10,0.97) 30%, rgba(10,10,10,0.4) 100%);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    width: 100%;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,200,74,0.15);
+    border: 1px solid rgba(232,200,74,0.3);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 8vw, 110px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 0.85em;
+  }
+  .hero-desc {
+    max-width: 480px;
+    color: rgba(232,232,232,0.7);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'Outfit', sans-serif;
+  }
+  .btn-primary { background: var(--accent); color: var(--black); }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.25); }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.06); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  /* ── SEARCH BAR ── */
+  .search-section {
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px;
+  }
+  .search-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .search-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .search-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .search-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .search-group select,
+  .search-group input {
+    width: 100%;
+    background: var(--mid);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Outfit', sans-serif;
+    appearance: none;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .search-group select:focus,
+  .search-group input:focus { border-color: var(--accent); }
+  .search-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .search-btn {
+    background: var(--accent);
+    color: var(--black);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .search-btn:hover { background: var(--accent2); }
+
+  /* ── SECTION WRAPPER ── */
+  .section { padding: 80px 24px; }
+  .section-inner { max-width: 1400px; margin: 0 auto; }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 20px;
+  }
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    letter-spacing: 0.02em;
+    color: var(--white);
+    line-height: 1;
+  }
+  .view-all {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    padding: 10px 20px;
+    border: 1.5px solid rgba(232,200,74,0.3);
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .view-all:hover { background: rgba(232,200,74,0.08); border-color: var(--accent); }
+
+  /* ── CAR GRID ── */
+  .cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .car-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .car-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(232,200,74,0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .car-img-wrap {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--mid);
+  }
+  .car-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .car-card:hover .car-img-wrap img { transform: scale(1.07); }
+  .car-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--accent);
+    color: var(--black);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .car-badge.sold { background: var(--red); color: var(--white); }
+  .car-badge.new { background: #4ade80; color: var(--black); }
+  .car-fav {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    background: rgba(10,10,10,0.7);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(6px);
+  }
+  .car-fav:hover { background: rgba(232,200,74,0.2); }
+  .car-fav svg { width: 16px; height: 16px; stroke: var(--text); fill: none; transition: all 0.2s; }
+  .car-fav.active svg { stroke: var(--red); fill: var(--red); }
+  .car-body {
+    padding: 18px 20px 20px;
+  }
+  .car-make {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .car-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .car-variant {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .car-specs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .car-spec {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .car-spec svg { width: 13px; height: 13px; stroke: var(--muted); flex-shrink: 0; }
+  .car-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 16px;
+  }
+  .car-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .car-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    line-height: 1;
+  }
+  .car-price span {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+    letter-spacing: 0;
+  }
+  .car-btn {
+    background: var(--mid);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 9px 18px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .car-btn:hover { background: var(--accent); color: var(--black); border-color: var(--accent); }
+
+  /* ── FILTER TABS ── */
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .filter-tab {
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Outfit', sans-serif;
+  }
+  .filter-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-tab.active { background: var(--accent); color: var(--black); border-color: var(--accent); }
+
+  /* ── FEATURES STRIP ── */
+  .features-strip {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px;
+  }
+  .features-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(232,200,74,0.1);
+    border: 1px solid rgba(232,200,74,0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .feature-icon svg { width: 22px; height: 22px; stroke: var(--accent); }
+  .feature-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* ── SELL YOUR CAR ── */
+  .brands-strip { padding: 48px 24px; background: var(--dark); border-bottom: 1px solid var(--border); }
+  .brands-inner { max-width: 1400px; margin: 0 auto; }
+  .brands-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 28px; }
+  .brands-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .brand-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    transition: color 0.2s;
+    cursor: default;
+    filter: brightness(0.5);
+  }
+  .brand-logo:hover { color: var(--text); filter: brightness(1); }
+
+  /* ── SELL YOUR CAR ── */
+  .sell-section {
+    background: var(--black);
+  }
+  .sell-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .sell-img {
+    position: relative;
+    min-height: 400px;
+    background: url('https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=800&q=80') center/cover no-repeat;
+  }
+  .sell-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 60%, var(--dark));
+  }
+  .sell-content {
+    background: var(--dark);
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .sell-content .section-eyebrow { margin-bottom: 10px; }
+  .sell-content .section-title { margin-bottom: 20px; }
+  .sell-desc { color: rgba(232,232,232,0.65); font-size: 15px; line-height: 1.7; margin-bottom: 32px; }
+  .sell-steps { list-style: none; margin-bottom: 32px; }
+  .sell-steps li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text);
+  }
+  .sell-steps li:last-child { border-bottom: none; }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    background: var(--accent);
+    color: var(--black);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .reviews-section { background: var(--dark); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .review-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .review-stars { color: var(--accent); font-size: 14px; margin-bottom: 14px; }
+  .review-text { font-size: 14px; color: rgba(232,232,232,0.75); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--mid);
+    overflow: hidden;
+  }
+  .review-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .review-name { font-size: 14px; font-weight: 700; color: var(--white); }
+  .review-date { font-size: 12px; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 60px 24px 32px;
+  }
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .footer-brand .logo { margin-bottom: 16px; }
+  .footer-brand p { font-size: 13.5px; color: var(--muted); line-height: 1.7; max-width: 280px; margin-bottom: 20px; }
+  .footer-social { display: flex; gap: 10px; }
+  .social-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .social-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .social-btn svg { width: 16px; height: 16px; stroke: var(--text); transition: stroke 0.2s; }
+  .social-btn:hover svg { stroke: var(--black); }
+  .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { color: var(--muted); text-decoration: none; font-size: 13.5px; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--accent); }
+  .footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 13.5px;
+  }
+  .footer-contact-item svg { width: 15px; height: 15px; stroke: var(--accent); flex-shrink: 0; margin-top: 3px; }
+  .footer-contact-item a { color: var(--muted); text-decoration: none; }
+  .footer-contact-item a:hover { color: var(--accent); }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .footer-bottom a { color: var(--muted); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--accent); }
+  .footer-legal { display: flex; gap: 20px; }
+
+  /* ── BACK TO TOP ── */
+  .back-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(232,200,74,0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    z-index: 100;
+  }
+  .back-top.visible { opacity: 1; transform: translateY(0); }
+  .back-top svg { width: 18px; height: 18px; stroke: var(--black); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .search-form { grid-template-columns: 1fr 1fr; }
+    .search-btn { grid-column: span 2; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .reviews-grid { grid-template-columns: 1fr 1fr; }
+    .sell-grid { grid-template-columns: 1fr; }
+    .sell-img { min-height: 260px; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-phone { display: none; }
+    .hamburger { display: flex; }
+    .hero h1 { font-size: clamp(44px, 12vw, 72px); }
+    .hero-stats { gap: 24px; }
+    .hero-bg { background-position: 70% center; }
+    .search-form { grid-template-columns: 1fr; }
+    .search-btn { grid-column: span 1; }
+    .features-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; }
+    .sell-content { padding: 36px 28px; }
+    .section { padding: 56px 20px; }
+    .hero-btns { flex-direction: column; }
+    .hero-stats { flex-wrap: wrap; }
+    .section-header { flex-direction: column; align-items: flex-start; }
+    .cars-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 500px) {
+    .cars-grid { grid-template-columns: 1fr; }
+    .brands-logos { gap: 24px; }
+  }
+
+  /* ── UTILS ── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(232,200,74,0.1);
+    border: 1px solid rgba(232,200,74,0.2);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .hidden { display: none !important; }
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- Announcement -->
+<div class="announcement">
+  🏆 Award-Winning Used Car Dealer — Free UK Delivery Available — All Vehicles HPI Checked
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">D3</div>
+      <div class="logo-text">
+        <span class="logo-name">Driven3</span>
+        <span class="logo-sub">Automotive</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#stock">Search</a></li>
+      <li><a href="#sell">Sell Your Car</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="tel:01234567890" class="nav-cta">📞 Call Us</a></li>
+    </ul>
+    <div class="nav-phone">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.34h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <a href="tel:01234567890">01234 567 890</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Home</a>
+    <a href="#stock">Search</a>
+    <a href="#sell">Sell Your Car</a>
+    <a href="#about">About Us</a>
+    <a href="#contact">Contact</a>
+    <a href="tel:01234567890" style="color:var(--accent);font-weight:700;">📞 01234 567 890</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=85&auto=format&fit=crop" alt="Luxury car" fetchpriority="high">
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Premium Pre-Owned Vehicles</div>
+    <h1>Find Your<br><em>Perfect</em><br>Drive</h1>
+    <p class="hero-desc">Hand-picked prestige and performance vehicles. Every car inspected, prepared and presented to the highest standard.</p>
+    <div class="hero-btns">
+      <a href="#stock" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Browse Stock
+      </a>
+      <a href="#sell" class="btn btn-outline">Sell Your Car</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">120+</div>
+        <div class="hero-stat-label">Vehicles in Stock</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">5★</div>
+        <div class="hero-stat-label">Customer Rating</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">12yr</div>
+        <div class="hero-stat-label">In Business</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">Free</div>
+        <div class="hero-stat-label">UK Delivery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section class="search-section">
+  <div class="search-inner">
+    <div class="search-title">🔍 Search Our Stock</div>
+    <div class="search-form">
+      <div class="search-group">
+        <label>Make</label>
+        <select id="filterMake">
+          <option value="">Any Make</option>
+          <option>Audi</option>
+          <option>BMW</option>
+          <option>Mercedes-Benz</option>
+          <option>Porsche</option>
+          <option>Land Rover</option>
+          <option>Volkswagen</option>
+          <option>Lexus</option>
+          <option>Tesla</option>
+        </select>
+      </div>
+      <div class="search-group">
+        <label>Model</label>
+        <select id="filterModel"><option value="">Any Model</option></select>
+      </div>
+      <div class="search-group">
+        <label>Max Price</label>
+        <select id="filterPrice">
+          <option value="">Any Price</option>
+          <option value="15000">Up to £15,000</option>
+          <option value="25000">Up to £25,000</option>
+          <option value="35000">Up to £35,000</option>
+          <option value="50000">Up to £50,000</option>
+          <option value="75000">Up to £75,000</option>
+        </select>
+      </div>
+      <div class="search-group">
+        <label>Body Type</label>
+        <select id="filterBody">
+          <option value="">Any Type</option>
+          <option>Saloon</option>
+          <option>Estate</option>
+          <option>SUV</option>
+          <option>Coupe</option>
+          <option>Convertible</option>
+          <option>Hatchback</option>
+        </select>
+      </div>
+      <button class="search-btn" onclick="filterCars()">Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<div class="brands-strip">
+  <div class="brands-inner">
+    <div class="brands-label">Makes we stock</div>
+    <div class="brands-logos">
+      <div class="brand-logo">AUDI</div>
+      <div class="brand-logo">BMW</div>
+      <div class="brand-logo">MERCEDES</div>
+      <div class="brand-logo">PORSCHE</div>
+      <div class="brand-logo">LAND ROVER</div>
+      <div class="brand-logo">VOLKSWAGEN</div>
+      <div class="brand-logo">LEXUS</div>
+      <div class="brand-logo">TESLA</div>
+    </div>
+  </div>
+</div>
+
+<!-- STOCK -->
+<section class="section" id="stock">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div>
+        <div class="section-eyebrow">Our Stock</div>
+        <div class="section-title">Latest Arrivals</div>
+      </div>
+      <a href="#" class="view-all">View All Stock →</a>
+    </div>
+    <div class="filter-tabs fade-in">
+      <button class="filter-tab active" onclick="setTab(this,'all')">All Vehicles</button>
+      <button class="filter-tab" onclick="setTab(this,'suv')">SUVs</button>
+      <button class="filter-tab" onclick="setTab(this,'saloon')">Saloon</button>
+      <button class="filter-tab" onclick="setTab(this,'coupe')">Coupe</button>
+      <button class="filter-tab" onclick="setTab(this,'estate')">Estate</button>
+      <button class="filter-tab" onclick="setTab(this,'electric')">Electric</button>
+    </div>
+    <div class="cars-grid" id="carsGrid"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="features-strip">
+  <div class="features-grid">
+    <div class="feature-item fade-in">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"/></svg>
+      </div>
+      <div>
+        <div class="feature-title">Fully Inspected</div>
+        <div class="feature-desc">Every vehicle undergoes a rigorous 120-point inspection before sale.</div>
+      </div>
+    </div>
+    <div class="feature-item fade-in">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor"/></svg>
+      </div>
+      <div>
+        <div class="feature-title">Warranty Included</div>
+        <div class="feature-desc">All vehicles come with a minimum 3-month warranty for your peace of mind.</div>
+      </div>
+    </div>
+    <div class="feature-item fade-in">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 10h11M9 21V3M3 6l6-3 6 3M9 21l6-3V6" stroke="currentColor"/></svg>
+      </div>
+      <div>
+        <div class="feature-title">Free UK Delivery</div>
+        <div class="feature-desc">We deliver to your door anywhere in mainland UK, completely free.</div>
+      </div>
+    </div>
+    <div class="feature-item fade-in">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" stroke="currentColor"/></svg>
+      </div>
+      <div>
+        <div class="feature-title">HPI Checked</div>
+        <div class="feature-desc">Every vehicle is fully HPI checked — no hidden history, no surprises.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SELL YOUR CAR -->
+<section class="section sell-section" id="sell">
+  <div class="section-inner fade-in">
+    <div class="sell-grid">
+      <div class="sell-img"></div>
+      <div class="sell-content">
+        <div class="section-eyebrow">Sell or Part-Exchange</div>
+        <div class="section-title">Sell Us<br>Your Car</div>
+        <p class="sell-desc">Get a fair, honest valuation for your vehicle. We offer same-day payouts and make the process completely hassle-free.</p>
+        <ul class="sell-steps">
+          <li><div class="step-num">1</div> Enter your reg & mileage online</li>
+          <li><div class="step-num">2</div> Receive your instant valuation</li>
+          <li><div class="step-num">3</div> Book a free appraisal visit</li>
+          <li><div class="step-num">4</div> Get paid same day</li>
+        </ul>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="#" class="btn btn-primary">Get a Valuation</a>
+          <a href="#" class="btn btn-outline">Part-Exchange</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section reviews-section" id="about">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div>
+        <div class="section-eyebrow">Customer Reviews</div>
+        <div class="section-title">What Our Customers Say</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;color:var(--accent);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;">4.9</span>
+        <span style="font-size:13px;color:var(--muted);">from 240+ reviews</span>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Absolutely brilliant experience from start to finish. Found my dream BMW M3 and the team made everything so easy. Would 100% recommend to anyone looking for a quality used car."</p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=11" alt=""></div>
+          <div><div class="review-name">James Thornton</div><div class="review-date">2 weeks ago · Google</div></div>
+        </div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Part-exchanged my old car and it was seamless. Got a great price and drove away in a stunning Audi Q5 the same day. The finance team found me a really competitive rate too."</p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=5" alt=""></div>
+          <div><div class="review-name">Sarah Mitchell</div><div class="review-date">1 month ago · Trustpilot</div></div>
+        </div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Bought a Mercedes C Class and had it delivered to my door in Scotland. Arrived immaculate, exactly as described. Exceptional service — these guys genuinely care about their customers."</p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=22" alt=""></div>
+          <div><div class="review-name">David Campbell</div><div class="review-date">3 weeks ago · Google</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="margin-bottom:18px;display:inline-flex;">
+          <div class="logo-icon">D3</div>
+          <div class="logo-text">
+            <span class="logo-name">Driven3</span>
+            <span class="logo-sub">Automotive</span>
+          </div>
+        </a>
+        <p>Premium pre-owned vehicles, hand-picked and prepared to the highest standard. Finance available, free UK delivery.</p>
+        <div class="footer-social">
+          <div class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-linecap="round"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="currentColor"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="currentColor"/></svg></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#stock">Search Stock</a></li>
+          <li><a href="#sell">Sell Your Car</a></li>
+          <li><a href="#">Part-Exchange</a></li>
+          <li><a href="#">Sold Cars</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Vehicles</h4>
+        <ul>
+          <li><a href="#">SUVs & 4x4s</a></li>
+          <li><a href="#">Sports Cars</a></li>
+          <li><a href="#">Saloons</a></li>
+          <li><a href="#">Electric Cars</a></li>
+          <li><a href="#">Under £20,000</a></li>
+          <li><a href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor"/><circle cx="12" cy="10" r="3" stroke="currentColor"/></svg>
+          <span>123 Motor Mile, Birmingham, B1 1AB</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.34h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor"/></svg>
+          <a href="tel:01234567890">01234 567 890</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor"/><polyline points="22,6 12,13 2,6" stroke="currentColor"/></svg>
+          <a href="/cdn-cgi/l/email-protection#2e474048416e4a5c47584b401d4f5b5a4143415a47584b004d41005b45"><span class="__cf_email__" data-cfemail="8be2e5ede4cbeff9e2fdeee5b8eafeffe4e6e4ffe2fdeea5e8e4a5fee0">[email&#160;protected]</span></a>
+        </div>
+        <div class="footer-contact-item" style="margin-top:8px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><polyline points="12 6 12 12 16 14" stroke="currentColor"/></svg>
+          <div>
+            <div>Mon–Sat: 9am – 6pm</div>
+            <div>Sunday: 10am – 4pm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Driven3 Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Finance Disclosure</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="18 15 12 9 6 15" stroke="currentColor" stroke-linecap="round"/></svg>
+</button>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const cars = [
+  { id:1, make:'BMW', model:'M3 Competition', variant:'3.0 BiTurbo · Auto', year:2022, miles:'18,200', fuel:'Petrol', trans:'Automatic', price:62995, body:'saloon', img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80', badge:'New In', color:'Pearl White' },
+  { id:2, make:'Audi', model:'RS6 Avant', variant:'4.0 TFSI · Quattro', year:2021, miles:'24,500', fuel:'Petrol', trans:'Automatic', price:74995, body:'estate', img:'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80', badge:'Finance', color:'Nardo Grey' },
+  { id:3, make:'Porsche', model:'Cayenne S', variant:'2.9 V6 · Tiptronic', year:2020, miles:'31,000', fuel:'Petrol', trans:'Automatic', price:58995, body:'suv', img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80', badge:'', color:'Jet Black' },
+  { id:4, make:'Mercedes-Benz', model:'C63 S AMG', variant:'4.0 BiTurbo V8 · Auto', year:2021, miles:'22,700', fuel:'Petrol', trans:'Automatic', price:56995, body:'coupe', img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80', badge:'New In', color:'Obsidian Black' },
+  { id:5, make:'Land Rover', model:'Defender 110 X', variant:'3.0 D300 · Auto', year:2022, miles:'15,400', fuel:'Diesel', trans:'Automatic', price:67995, body:'suv', img:'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=600&q=80', badge:'Finance', color:'Santorini Black' },
+  { id:6, make:'Tesla', model:'Model S Plaid', variant:'Tri-Motor · Long Range', year:2022, miles:'12,800', fuel:'Electric', trans:'Automatic', price:79995, body:'electric', img:'https://images.unsplash.com/photo-1617704548623-340376564e68?w=600&q=80', badge:'New In', color:'Midnight Silver' },
+  { id:7, make:'Volkswagen', model:'Golf R', variant:'2.0 TSI 333 · DSG', year:2023, miles:'8,600', fuel:'Petrol', trans:'Automatic', price:39995, body:'saloon', img:'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&q=80', badge:'Nearly New', color:'Lapiz Blue' },
+  { id:8, make:'Lexus', model:'LC 500 Convertible', variant:'5.0 V8 · 10-Speed', year:2021, miles:'19,300', fuel:'Petrol', trans:'Automatic', price:71995, body:'coupe', img:'https://images.unsplash.com/photo-1563720223185-11003d516935?w=600&q=80', badge:'', color:'Sonic Titanium' },
+];
+
+let activeTab = 'all';
+let favs = new Set();
+
+function renderCars(list) {
+  const grid = document.getElementById('carsGrid');
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted);"><div style="font-size:48px;margin-bottom:16px;">🔍</div><div style="font-size:18px;font-weight:600;color:var(--text);">No vehicles found</div><div style="margin-top:8px;">Try adjusting your search filters</div></div>';
+    return;
+  }
+  grid.innerHTML = list.map(c => `
+    <div class="car-card" data-body="${c.body}">
+      <div class="car-img-wrap">
+        <img src="${c.img}" alt="${c.make} ${c.model}" loading="lazy">
+        ${c.badge ? `<div class="car-badge ${c.badge==='Sold'?'sold':c.badge==='Nearly New'?'new':''}">${c.badge}</div>` : ''}
+        <button class="car-fav ${favs.has(c.id)?'active':''}" onclick="toggleFav(event,${c.id})" aria-label="Save">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke-width="2"/></svg>
+        </button>
+      </div>
+      <div class="car-body">
+        <div class="car-make">${c.make}</div>
+        <div class="car-name">${c.model}</div>
+        <div class="car-variant">${c.variant}</div>
+        <div class="car-specs">
+          <div class="car-spec"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor"/></svg>${c.year}</div>
+          <div class="car-spec"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><polyline points="12 6 12 12 16 14" stroke="currentColor"/></svg>${c.miles} mi</div>
+          <div class="car-spec"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 15h18M5 19l-2-4 9-9 9 9-2 4" stroke="currentColor"/></svg>${c.fuel}</div>
+          <div class="car-spec"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><path d="M8 12l4-4 4 4" stroke="currentColor"/></svg>${c.trans}</div>
+        </div>
+        <div class="car-divider"></div>
+        <div class="car-footer">
+          <div class="car-price">£${c.price.toLocaleString()}</div>
+          <a href="#" class="car-btn">View Details</a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setTab(el, tab) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  activeTab = tab;
+  const filtered = tab === 'all' ? cars : cars.filter(c => c.body === tab);
+  renderCars(filtered);
+}
+
+function filterCars() {
+  const make = document.getElementById('filterMake').value.toLowerCase();
+  const price = parseInt(document.getElementById('filterPrice').value) || Infinity;
+  const body = document.getElementById('filterBody').value.toLowerCase();
+  const filtered = cars.filter(c =>
+    (!make || c.make.toLowerCase() === make) &&
+    c.price <= price &&
+    (!body || c.body === body)
+  );
+  document.getElementById('stock').scrollIntoView({behavior:'smooth'});
+  renderCars(filtered);
+}
+
+function toggleFav(e, id) {
+  e.stopPropagation();
+  const btn = e.currentTarget;
+  if (favs.has(id)) { favs.delete(id); btn.classList.remove('active'); }
+  else { favs.add(id); btn.classList.add('active'); }
+}
+
+// Back to top
+window.addEventListener('scroll', () => {
+  document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// Mobile menu
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Init
+renderCars(cars);
+
+// Late fade-in for dynamically added cards
+const gridObserver = new MutationObserver(() => {
+  document.querySelectorAll('.car-card').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s`;
+    requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'none'; });
+  });
+});
+gridObserver.observe(document.getElementById('carsGrid'), { childList: true });
+</script>
+</body>
+</html>
