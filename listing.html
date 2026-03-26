@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Details — Driven3 Automotive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #161616;
+    --border: #232323;
+    --mid: #2a2a2a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --accent: #e8c84a;
+    --accent2: #c9a227;
+    --red: #e84a4a;
+    --white: #ffffff;
+    --radius: 10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+  /* ── ANNOUNCEMENT ── */
+  .announcement { background: var(--accent); color: var(--black); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* ── NAV ── */
+  nav { position: sticky; top: 0; z-index: 1000; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1400px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+  .logo-icon { width: 36px; height: 36px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--black); }
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
+  .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.08em; color: var(--white); }
+  .logo-sub { font-size: 9px; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; font-weight: 600; }
+  .nav-links { display: flex; list-style: none; gap: 4px; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 13.5px; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
+  .nav-links a:hover { color: var(--white); background: var(--mid); }
+  .nav-cta { background: var(--accent) !important; color: var(--black) !important; font-weight: 700 !important; padding: 9px 20px !important; border-radius: 6px !important; }
+  .nav-cta:hover { background: var(--accent2) !important; }
+  .nav-phone { font-size: 13px; color: var(--muted); white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+  .nav-phone a { color: var(--text); text-decoration: none; font-weight: 600; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; border: none; background: none; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+  .mobile-menu { display: none; background: var(--dark); border-top: 1px solid var(--border); padding: 16px 24px 24px; }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; padding: 12px 0; color: var(--text); text-decoration: none; font-size: 15px; font-weight: 500; border-bottom: 1px solid var(--border); }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb-bar { background: var(--dark); border-bottom: 1px solid var(--border); padding: 14px 24px; }
+  .breadcrumb-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .breadcrumb-inner a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb-inner a:hover { color: var(--accent); }
+  .breadcrumb-inner svg { width: 14px; height: 14px; stroke: var(--border); flex-shrink: 0; }
+  .breadcrumb-inner span { color: var(--text); font-weight: 500; }
+
+  /* ── LISTING LAYOUT ── */
+  .listing-page { max-width: 1400px; margin: 0 auto; padding: 40px 24px 80px; }
+  .listing-grid { display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; }
+
+  /* ── GALLERY ── */
+  .gallery { position: relative; }
+  .gallery-main { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16/10; background: var(--card); border: 1px solid var(--border); margin-bottom: 12px; cursor: zoom-in; }
+  .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+  .gallery-main:hover img { transform: scale(1.02); }
+  .gallery-badge { position: absolute; top: 16px; left: 16px; background: var(--accent); color: var(--black); font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 5px; z-index: 2; }
+  .gallery-counter { position: absolute; bottom: 16px; right: 16px; background: rgba(10,10,10,0.75); backdrop-filter: blur(8px); color: var(--text); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 6px; z-index: 2; }
+  .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(10,10,10,0.7); backdrop-filter: blur(8px); border: 1px solid var(--border); color: var(--text); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 3; transition: all 0.2s; }
+  .gallery-nav:hover { background: var(--accent); border-color: var(--accent); color: var(--black); }
+  .gallery-nav svg { width: 18px; height: 18px; stroke: currentColor; }
+  .gallery-prev { left: 14px; }
+  .gallery-next { right: 14px; }
+  .gallery-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .thumb { border-radius: 8px; overflow: hidden; aspect-ratio: 16/10; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; opacity: 0.6; }
+  .thumb:hover { opacity: 0.9; }
+  .thumb.active { border-color: var(--accent); opacity: 1; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ── LISTING INFO ── */
+  .listing-info { margin-top: 32px; }
+  .listing-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .listing-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4vw, 56px); letter-spacing: 0.02em; color: var(--white); line-height: 1; margin-bottom: 6px; }
+  .listing-variant { font-size: 16px; color: var(--muted); margin-bottom: 24px; }
+  .specs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+  .spec-tile { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; }
+  .spec-tile svg { width: 20px; height: 20px; stroke: var(--accent); margin-bottom: 8px; }
+  .spec-tile-val { font-size: 15px; font-weight: 700; color: var(--white); display: block; }
+  .spec-tile-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+  /* ── TABS ── */
+  .tabs { margin-bottom: 0; }
+  .tab-nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+  .tab-btn { padding: 12px 20px; font-size: 13px; font-weight: 600; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.2s; margin-bottom: -1px; }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Tab: Overview */
+  .desc-text { font-size: 14.5px; color: rgba(232,232,232,0.75); line-height: 1.8; }
+  .desc-text p { margin-bottom: 14px; }
+
+  /* Tab: Specs */
+  .spec-table { width: 100%; border-collapse: collapse; }
+  .spec-table tr { border-bottom: 1px solid var(--border); }
+  .spec-table tr:last-child { border-bottom: none; }
+  .spec-table td { padding: 12px 0; font-size: 14px; }
+  .spec-table td:first-child { color: var(--muted); width: 45%; }
+  .spec-table td:last-child { color: var(--white); font-weight: 500; }
+  .spec-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin: 24px 0 12px; }
+  .spec-section-title:first-child { margin-top: 0; }
+
+  /* Tab: Features */
+  .features-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .feature-item-check { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--text); }
+  .feature-item-check svg { width: 16px; height: 16px; stroke: var(--accent); flex-shrink: 0; }
+
+  /* ── SIDEBAR ── */
+  .sidebar { position: sticky; top: 90px; display: flex; flex-direction: column; gap: 16px; }
+  .price-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+  .price-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .price-amount { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 0.02em; color: var(--white); line-height: 1; margin-bottom: 6px; }
+  .price-vat { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 20px; border-radius: var(--radius); font-size: 14px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s; font-family: 'Outfit', sans-serif; width: 100%; margin-bottom: 10px; }
+  .btn-primary { background: var(--accent); color: var(--black); }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-ghost { background: var(--mid); color: var(--text); }
+  .btn-ghost:hover { background: #333; }
+  .btn-last { margin-bottom: 0; }
+  .price-divider { height: 1px; background: var(--border); margin: 20px 0; }
+  .price-meta { display: flex; flex-direction: column; gap: 10px; }
+  .price-meta-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+  .price-meta-item svg { width: 15px; height: 15px; stroke: var(--accent); flex-shrink: 0; }
+  .price-meta-item strong { color: var(--text); }
+
+  /* Enquiry card */
+  .enquiry-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+  .enquiry-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .enquiry-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .form-group { margin-bottom: 12px; }
+  .form-group label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; background: var(--mid); border: 1.5px solid var(--border); color: var(--text); padding: 11px 14px; border-radius: 8px; font-size: 13.5px; font-family: 'Outfit', sans-serif; outline: none; transition: border-color 0.2s; resize: vertical; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); }
+  .form-group textarea { min-height: 80px; }
+  .form-submit { width: 100%; background: var(--accent); color: var(--black); border: none; padding: 13px; border-radius: var(--radius); font-size: 14px; font-weight: 700; font-family: 'Outfit', sans-serif; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; }
+  .form-submit:hover { background: var(--accent2); }
+
+  /* Dealer card */
+  .dealer-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+  .dealer-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .dealer-logo { width: 44px; height: 44px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--black); flex-shrink: 0; }
+  .dealer-name { font-size: 15px; font-weight: 700; color: var(--white); }
+  .dealer-location { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .dealer-stars { color: var(--accent); font-size: 13px; }
+  .dealer-rating { font-size: 12px; color: var(--muted); margin-left: 4px; }
+  .dealer-contact { display: flex; flex-direction: column; gap: 8px; }
+  .dealer-contact-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+  .dealer-contact-item svg { width: 14px; height: 14px; stroke: var(--accent); flex-shrink: 0; }
+  .dealer-contact-item a { color: var(--text); text-decoration: none; font-weight: 500; }
+  .dealer-contact-item a:hover { color: var(--accent); }
+
+  /* ── SIMILAR CARS ── */
+  .similar-section { max-width: 1400px; margin: 0 auto; padding: 0 24px 80px; }
+  .similar-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; }
+  .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 3vw, 42px); letter-spacing: 0.02em; color: var(--white); line-height: 1; }
+  .view-all { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; padding: 9px 18px; border: 1.5px solid rgba(232,200,74,0.3); border-radius: 8px; transition: all 0.2s; white-space: nowrap; }
+  .view-all:hover { background: rgba(232,200,74,0.08); border-color: var(--accent); }
+  .similar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+
+  /* Car cards (mini) */
+  .car-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; cursor: pointer; }
+  .car-card:hover { transform: translateY(-5px); border-color: rgba(232,200,74,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+  .car-img-wrap { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--mid); }
+  .car-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .car-card:hover .car-img-wrap img { transform: scale(1.07); }
+  .car-badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: var(--black); font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+  .car-body-mini { padding: 14px 16px 16px; }
+  .car-make-mini { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+  .car-name-mini { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 2px; line-height: 1.2; }
+  .car-variant-mini { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .car-specs-mini { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .car-spec-mini { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
+  .car-spec-mini svg { width: 11px; height: 11px; stroke: var(--muted); }
+  .car-footer-mini { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 12px; }
+  .car-price-mini { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white); }
+  .car-btn-mini { background: var(--mid); border: 1.5px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.2s; text-decoration: none; }
+  .car-btn-mini:hover { background: var(--accent); color: var(--black); border-color: var(--accent); }
+
+  /* ── LIGHTBOX ── */
+  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: none; align-items: center; justify-content: center; }
+  .lightbox.open { display: flex; }
+  .lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; }
+  .lightbox-inner img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; display: block; }
+  .lightbox-close { position: absolute; top: -48px; right: 0; background: none; border: none; color: var(--text); cursor: pointer; font-size: 28px; line-height: 1; }
+  .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(10,10,10,0.8); border: 1px solid var(--border); color: var(--text); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+  .lightbox-nav:hover { background: var(--accent); color: var(--black); }
+  .lightbox-nav svg { width: 20px; height: 20px; stroke: currentColor; }
+  .lightbox-prev { left: -60px; }
+  .lightbox-next { right: -60px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 48px 24px 28px; }
+  .footer-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  .footer-bottom { font-size: 12.5px; color: var(--muted); }
+  .footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-legal a { color: var(--muted); text-decoration: none; font-size: 12.5px; }
+  .footer-legal a:hover { color: var(--accent); }
+
+  /* ── BACK TO TOP ── */
+  .back-top { position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px; background: var(--accent); border: none; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(232,200,74,0.3); opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 100; }
+  .back-top.visible { opacity: 1; transform: translateY(0); }
+  .back-top svg { width: 18px; height: 18px; stroke: var(--black); }
+
+  /* ── TOAST ── */
+  .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--card); border: 1px solid var(--accent); color: var(--text); padding: 14px 24px; border-radius: 10px; font-size: 14px; font-weight: 500; opacity: 0; transition: all 0.3s; z-index: 9998; white-space: nowrap; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .listing-grid { grid-template-columns: 1fr 340px; }
+    .similar-grid { grid-template-columns: repeat(3, 1fr); }
+    .specs-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .listing-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .similar-grid { grid-template-columns: repeat(2, 1fr); }
+    .specs-grid { grid-template-columns: repeat(2, 1fr); }
+    .features-list { grid-template-columns: 1fr; }
+    .lightbox-prev { left: -50px; }
+    .lightbox-next { right: -50px; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-phone { display: none; }
+    .hamburger { display: flex; }
+    .listing-page { padding: 24px 16px 60px; }
+    .similar-section { padding: 0 16px 60px; }
+    .gallery-thumbs { grid-template-columns: repeat(4, 1fr); }
+    .similar-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .lightbox-prev, .lightbox-next { display: none; }
+  }
+  @media (max-width: 500px) {
+    .similar-grid { grid-template-columns: 1fr; }
+    .specs-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-thumbs { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="announcement">🏆 Award-Winning Used Car Dealer — Nationwide Delivery Available — All Vehicles HPI Checked</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">D3</div>
+      <div class="logo-text">
+        <span class="logo-name">Driven3</span>
+        <span class="logo-sub">Automotive</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#stock">Search</a></li>
+      <li><a href="index.html#sell">Sell Your Car</a></li>
+      <li><a href="index.html#about">About Us</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="tel:01234567890" class="nav-cta">📞 Call Us</a></li>
+    </ul>
+    <div class="nav-phone">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.34h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <a href="tel:01234567890">01234 567 890</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#stock">Search</a>
+    <a href="index.html#sell">Sell Your Car</a>
+    <a href="index.html#about">About Us</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="tel:01234567890" style="color:var(--accent);font-weight:700;">📞 01234 567 890</a>
+  </div>
+</nav>
+
+<div class="breadcrumb-bar">
+  <div class="breadcrumb-inner">
+    <a href="index.html">Home</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6" stroke="currentColor"/></svg>
+    <a href="index.html#stock">Search</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6" stroke="currentColor"/></svg>
+    <span id="breadcrumbTitle">Vehicle Details</span>
+  </div>
+</div>
+
+<!-- MAIN LISTING -->
+<div class="listing-page">
+  <div class="listing-grid">
+
+    <!-- LEFT: Gallery + Details -->
+    <div>
+      <!-- Gallery -->
+      <div class="gallery">
+        <div class="gallery-main" id="galleryMain" onclick="openLightbox(currentImg)">
+          <img id="mainImg" src="" alt="Car image">
+          <div class="gallery-badge" id="galleryBadge" style="display:none"></div>
+          <div class="gallery-counter" id="galleryCounter">1 / 5</div>
+          <button class="gallery-nav gallery-prev" onclick="event.stopPropagation();changeImg(-1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-linecap="round"/></svg>
+          </button>
+          <button class="gallery-nav gallery-next" onclick="event.stopPropagation();changeImg(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="9 18 15 12 9 6" stroke="currentColor" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="listing-info">
+        <div class="listing-eyebrow" id="infoMake"></div>
+        <div class="listing-title" id="infoTitle"></div>
+        <div class="listing-variant" id="infoVariant"></div>
+
+        <div class="specs-grid" id="specsGrid"></div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab(this,'overview')">Overview</button>
+            <button class="tab-btn" onclick="switchTab(this,'specs')">Full Specs</button>
+            <button class="tab-btn" onclick="switchTab(this,'features')">Features</button>
+          </div>
+          <div class="tab-panel active" id="tab-overview">
+            <div class="desc-text" id="descText"></div>
+          </div>
+          <div class="tab-panel" id="tab-specs">
+            <div id="specsTable"></div>
+          </div>
+          <div class="tab-panel" id="tab-features">
+            <div class="features-list" id="featuresList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Sidebar -->
+    <div class="sidebar">
+      <div class="price-card">
+        <div class="price-label">Asking Price</div>
+        <div class="price-amount" id="sidebarPrice"></div>
+        <div class="price-vat">Price includes VAT. Finance available upon request.</div>
+        <button class="btn btn-primary" onclick="showToast('📞 Calling Driven3 Automotive…')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.34h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call About This Car
+        </button>
+        <button class="btn btn-ghost" onclick="document.getElementById('enquiryCard').scrollIntoView({behavior:'smooth'})">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Send Enquiry
+        </button>
+        <button class="btn btn-outline btn-last" onclick="showToast('📅 Booking confirmed — we\'ll be in touch!')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Book a Viewing
+        </button>
+        <div class="price-divider"></div>
+        <div class="price-meta">
+          <div class="price-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"/></svg>
+            <span><strong>HPI Clear</strong> — No outstanding finance</span>
+          </div>
+          <div class="price-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor"/></svg>
+            <span><strong>3-Month Warranty</strong> included</span>
+          </div>
+          <div class="price-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 10h11M9 21V3M3 6l6-3 6 3M9 21l6-3V6" stroke="currentColor"/></svg>
+            <span><strong>Nationwide Delivery</strong> across the UK</span>
+          </div>
+          <div class="price-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><path d="M12 8v4l3 3" stroke="currentColor"/></svg>
+            <span><strong>Part-Exchange</strong> welcome</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enquiry Form -->
+      <div class="enquiry-card" id="enquiryCard">
+        <div class="enquiry-title">Make an Enquiry</div>
+        <div class="enquiry-sub">We'll get back to you within 2 hours.</div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="John Smith">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="john@example.com">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="07700 900 000">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="I'm interested in this vehicle and would like to arrange a viewing…"></textarea>
+        </div>
+        <button class="form-submit" onclick="showToast('✅ Enquiry sent! We\'ll be in touch shortly.')">Send Enquiry</button>
+      </div>
+
+      <!-- Dealer -->
+      <div class="dealer-card">
+        <div class="dealer-header">
+          <div class="dealer-logo">D3</div>
+          <div>
+            <div class="dealer-name">Driven3 Automotive</div>
+            <div class="dealer-location">123 Motor Mile, Birmingham, B1 1AB</div>
+            <div style="margin-top:4px;">
+              <span class="dealer-stars">★★★★★</span>
+              <span class="dealer-rating">4.9 (240+ reviews)</span>
+            </div>
+          </div>
+        </div>
+        <div class="dealer-contact">
+          <div class="dealer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.34h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor"/></svg>
+            <a href="tel:01234567890">01234 567 890</a>
+          </div>
+          <div class="dealer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><polyline points="12 6 12 12 16 14" stroke="currentColor"/></svg>
+            <span>Mon–Sat 9am–6pm · Sun 10am–4pm</span>
+          </div>
+          <div class="dealer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor"/><circle cx="12" cy="10" r="3" stroke="currentColor"/></svg>
+            <a href="#">Get Directions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIMILAR VEHICLES -->
+<div class="similar-section">
+  <div class="similar-header">
+    <div>
+      <div class="section-eyebrow">You Might Also Like</div>
+      <div class="section-title">Similar Vehicles</div>
+    </div>
+    <a href="index.html#stock" class="view-all">View All Stock →</a>
+  </div>
+  <div class="similar-grid" id="similarGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">© 2025 Driven3 Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">Terms & Conditions</a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="18 15 12 9 6 15" stroke="currentColor" stroke-linecap="round"/></svg>
+</button>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-prev" onclick="changeImg(-1);document.getElementById('lightboxImg').src=images[currentImg]">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-linecap="round"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-next" onclick="changeImg(1);document.getElementById('lightboxImg').src=images[currentImg]">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="9 18 15 12 9 6" stroke="currentColor" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── ALL CARS DATA ──
+const cars = [
+  {
+    id:1, make:'BMW', model:'M3 Competition', variant:'3.0 BiTurbo · Automatic', year:2022,
+    miles:'18,200', fuel:'Petrol', trans:'Automatic', price:62995, body:'saloon',
+    img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+    badge:'New In', color:'Pearl White', doors:4, seats:5, engine:'3.0L Twin-Turbo I6',
+    power:'510 bhp', torque:'650 Nm', co2:'232 g/km', reg:'VN22 XYZ',
+    owners:1, mot:'March 2026', serviceHistory:'Full BMW Service History',
+    imgs:[
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
+      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+      'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=900&q=85',
+    ],
+    description: `<p>This exceptional BMW M3 Competition represents the pinnacle of the iconic M3 lineage. With just 18,200 miles from new and a single previous owner, this is a truly outstanding example of Bavaria's finest performance saloon.</p><p>Finished in stunning Pearl White with a full black leather M Sport interior, the specification on this car is exceptional. The 3.0L twin-turbocharged straight-six engine produces 510 bhp and rockets the car from 0–62 mph in just 3.9 seconds, with an electronically limited top speed of 180 mph with the M Driver's Package.</p><p>Supplied with a full BMW service history, the original handbook pack and two keys. HPI clear with no outstanding finance or adverse history.</p>`,
+    features:['M Carbon Ceramic Brakes','Head-Up Display','Harman Kardon Sound','M Drivers Package','Carbon Fibre Roof','Heated M Sport Seats','Reversing Camera','Front & Rear Parking Sensors','Apple CarPlay / Android Auto','Adaptive M Suspension','M Sport Exhaust','20" M Alloy Wheels','Sunroof / Panoramic Roof','Ambient Interior Lighting','Wireless Phone Charging','Lane Departure Warning','Blind Spot Monitoring','Active Cruise Control']
+  },
+  {
+    id:2, make:'Audi', model:'RS6 Avant', variant:'4.0 TFSI Quattro · Automatic', year:2021,
+    miles:'24,500', fuel:'Petrol', trans:'Automatic', price:74995, body:'estate',
+    img:'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
+    badge:'Finance', color:'Nardo Grey', doors:5, seats:5, engine:'4.0L Twin-Turbo V8',
+    power:'600 bhp', torque:'800 Nm', co2:'256 g/km', reg:'WN21 ABC',
+    owners:1, mot:'June 2026', serviceHistory:'Full Audi Service History',
+    imgs:[
+      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
+      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
+    ],
+    description:`<p>One of the most accomplished super-estates ever built, this Audi RS6 Avant in ultra-desirable Nardo Grey is a genuinely rare find. With just one previous owner and full Audi service history, this is the ultimate performance estate.</p><p>The 4.0L twin-turbocharged V8 develops 600 bhp and despatches 0–62 mph in 3.6 seconds, while the air suspension and Quattro all-wheel drive ensure all weather capability and supreme ride quality.</p><p>Loaded with options including Dynamic Package Plus, Carbon Optics and the Bang & Olufsen 3D Premium Sound System. HPI clear, two keys, full book pack.</p>`,
+    features:['Bang & Olufsen 3D Sound','Carbon Optics Package','Dynamic Package Plus','Matrix LED Headlights','RS Sports Exhaust','Panoramic Sunroof','Air Suspension','Head-Up Display','21" RS Alloy Wheels','Heated & Ventilated Seats','Virtual Cockpit Plus','Wireless CarPlay','Night Vision Assist','Lane Change Assist','Rear Cross Traffic Alert','Active Lane Assist','Park Assist','360° Camera System']
+  },
+  {
+    id:3, make:'Porsche', model:'Cayenne S', variant:'2.9L V6 Twin-Turbo · Tiptronic S', year:2020,
+    miles:'31,000', fuel:'Petrol', trans:'Automatic', price:58995, body:'suv',
+    img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+    badge:'', color:'Jet Black', doors:5, seats:5, engine:'2.9L Twin-Turbo V6',
+    power:'440 bhp', torque:'550 Nm', co2:'220 g/km', reg:'GP20 DEF',
+    owners:2, mot:'September 2025', serviceHistory:'Full Porsche Service History',
+    imgs:[
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
+      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
+      'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85',
+    ],
+    description:`<p>This Porsche Cayenne S in Jet Black is an outstanding example of the current generation Cayenne — arguably the finest luxury performance SUV on the market. Two owners from new with full Porsche dealer service history.</p><p>The 2.9L twin-turbo V6 produces 440 bhp and takes this full-size SUV to 62 mph in just 5.0 seconds, while the air suspension delivers a ride quality that belies the performance on tap.</p><p>Specification includes Sport Chrono Package, panoramic sunroof, Bose surround sound and the Sport Design body styling pack. Immaculate throughout.</p>`,
+    features:['Sport Chrono Package','Porsche Active Suspension','Bose Surround Sound','Panoramic Sunroof','Sport Design Package','21" Cayenne S Alloys','Heated/Ventilated Seats','PCM Navigation','Rear-Axle Steering','Lane Keeping Assist','Traffic Jam Assist','Night Vision Camera','Head-Up Display','Ambient Lighting','Wireless Charging','360° Surround Camera','Tow Bar','Privacy Glass']
+  },
+  {
+    id:4, make:'Mercedes-Benz', model:'C63 S AMG', variant:'4.0L BiTurbo V8 · 9G-Tronic', year:2021,
+    miles:'22,700', fuel:'Petrol', trans:'Automatic', price:56995, body:'coupe',
+    img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=85',
+    badge:'New In', color:'Obsidian Black', doors:2, seats:4, engine:'4.0L Twin-Turbo V8',
+    power:'510 bhp', torque:'700 Nm', co2:'242 g/km', reg:'WN21 GHI',
+    owners:1, mot:'April 2026', serviceHistory:'Full Mercedes-Benz Service History',
+    imgs:[
+      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=85',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
+      'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=900&q=85',
+    ],
+    description:`<p>An absolutely stunning Mercedes-AMG C63 S Coupé in Obsidian Black Metallic. One owner from new with full Mercedes-Benz service history, this brutally fast and beautifully styled coupé is in immaculate condition throughout.</p><p>The hand-built 4.0L twin-turbo V8 AMG engine produces 510 bhp and propels this stunning coupé to 62 mph in 3.9 seconds, accompanied by one of the greatest exhaust notes in the business.</p><p>AMG Night Package, Burmester Surround Sound, Driver Assistance Package and AMG Track Pace. A must-see vehicle.</p>`,
+    features:['AMG Night Package','Burmester Surround Sound','AMG Track Pace','Driver Assistance Package','AMG Performance Exhaust','Carbon Fibre Trim','Heated Sport Seats','Head-Up Display','19" AMG Alloys','MBUX Infotainment','Apple CarPlay','Adaptive Cruise Control','Blind Spot Assist','Active Brake Assist','Parking Package','Panoramic Sunroof','Ambient Lighting','Rear View Camera']
+  },
+  {
+    id:5, make:'Land Rover', model:'Defender 110 X', variant:'3.0L D300 Mild Hybrid · Auto', year:2022,
+    miles:'15,400', fuel:'Diesel', trans:'Automatic', price:67995, body:'suv',
+    img:'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85',
+    badge:'Finance', color:'Santorini Black', doors:5, seats:7, engine:'3.0L Inline-6 Diesel MHEV',
+    power:'300 bhp', torque:'650 Nm', co2:'210 g/km', reg:'VN22 JKL',
+    owners:1, mot:'February 2026', serviceHistory:'Full Land Rover Service History',
+    imgs:[
+      'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85',
+      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+    ],
+    description:`<p>The new Defender X represents the very pinnacle of the Defender range — the most capable, luxurious and well-equipped Defender ever made. This stunning Santorini Black example has covered just 15,400 miles from new with one owner and full Land Rover service history.</p><p>The 3.0L six-cylinder mild hybrid diesel produces 300 bhp and 650 Nm of torque, offering effortless performance both on and off-road. Ground clearance of 291mm and Wade sensing to 900mm make this the ultimate all-rounder.</p><p>Specification includes Meridian Signature Sound, Pivi Pro Infotainment, configurable terrain response and the contrast roof pack. Seven seats. Immaculate condition.</p>`,
+    features:['Meridian Signature Sound','Pivi Pro Infotainment','Terrain Response 2','Wade Sensing','Air Suspension','Pixel LED Headlights','Seven Seat Configuration','Panoramic Sunroof','22" Style 5103 Alloys','Heated Steering Wheel','Front/Rear Heated Seats','360° Camera System','3D Surround Camera','Head-Up Display','Wireless Charging','Activity Key','Tow Pack 3,500kg','Apple CarPlay / Android Auto']
+  },
+  {
+    id:6, make:'Tesla', model:'Model S Plaid', variant:'Tri-Motor · Long Range AWD', year:2022,
+    miles:'12,800', fuel:'Electric', trans:'Automatic', price:79995, body:'electric',
+    img:'https://images.unsplash.com/photo-1617704548623-340376564e68?w=900&q=85',
+    badge:'New In', color:'Midnight Silver', doors:4, seats:5, engine:'Tri-Motor Electric',
+    power:'1,020 bhp', torque:'1,420 Nm', co2:'0 g/km', reg:'VN22 MNO',
+    owners:1, mot:'N/A (Electric)', serviceHistory:'Full Tesla Service History',
+    imgs:[
+      'https://images.unsplash.com/photo-1617704548623-340376564e68?w=900&q=85',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+      'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=900&q=85',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
+    ],
+    description:`<p>The Tesla Model S Plaid is the world's fastest-accelerating production saloon, full stop. With 1,020 bhp from three electric motors, it dispatches 0–62 mph in just 1.99 seconds — a number that defies belief until you experience it.</p><p>This Midnight Silver example has just 12,800 miles from new with one owner. The 405-mile WLTP range means real-world anxiety is a thing of the past, and Supercharger access across Europe makes long journeys effortless.</p><p>The 17" landscape touchscreen, yoke steering wheel, full self-driving capability and premium audio make this the most technologically advanced car in our stock. A truly extraordinary machine.</p>`,
+    features:['Full Self-Driving Capability','17" Landscape Touchscreen','Premium Audio (22 Speakers)','Yoke Steering Wheel','405 Mile WLTP Range','Supercharger Access','Over-The-Air Updates','Autopilot','Dashcam (Sentry Mode)','Rear Entertainment Screens','Heated/Cooled Seats','HEPA Air Filtration','21" Arachnid Wheels','Tinted Glass Roof','Dog Mode & Camp Mode','Bioweapon Defence Mode','Fart Mode (obviously)','Track Mode']
+  },
+  {
+    id:7, make:'Volkswagen', model:'Golf R', variant:'2.0L TSI 333 · DSG 7', year:2023,
+    miles:'8,600', fuel:'Petrol', trans:'Automatic', price:39995, body:'saloon',
+    img:'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=85',
+    badge:'Nearly New', color:'Lapiz Blue', doors:5, seats:5, engine:'2.0L Turbocharged TSI',
+    power:'333 bhp', torque:'420 Nm', co2:'185 g/km', reg:'YN23 PQR',
+    owners:1, mot:'January 2027', serviceHistory:'Full Volkswagen Service History',
+    imgs:[
+      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=85',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
+      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+    ],
+    description:`<p>The 333 Edition Golf R is the definitive performance hatchback — a limited edition model celebrating 333 bhp and equipped with an exclusive specification not available on the standard Golf R. This example in Lapiz Blue with just 8,600 miles is as close to new as you'll find.</p><p>The 2.0L turbocharged engine sends all 333 bhp to all four wheels via VW's 4Motion AWD system and the slick 7-speed DSG gearbox, resulting in a 0–62 mph time of 4.6 seconds.</p><p>This is genuinely one of the best all-round cars at any price. Practical, fast, understated and incredibly capable. As good as hot hatches get.</p>`,
+    features:['333 Edition Exclusive Spec','Akrapovič Titanium Exhaust','19" Estoril Alloys','DCC Adaptive Chassis','Performance Pack','Harman Kardon Sound','10" Infotainment Display','Digital Cockpit Pro','Wireless CarPlay','Heated Front Seats','Ambient Lighting Plus','Park Distance Control Front & Rear','Travel Assist','Lane Assist','Emergency Assist','Black Roof','Black Mirror Caps','Rear Spoiler']
+  },
+  {
+    id:8, make:'Lexus', model:'LC 500 Convertible', variant:'5.0L V8 · 10-Speed Direct Shift', year:2021,
+    miles:'19,300', fuel:'Petrol', trans:'Automatic', price:71995, body:'coupe',
+    img:'https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&q=85',
+    badge:'', color:'Sonic Titanium', doors:2, seats:4, engine:'5.0L Naturally Aspirated V8',
+    power:'471 bhp', torque:'540 Nm', co2:'249 g/km', reg:'WN21 STU',
+    owners:1, mot:'November 2025', serviceHistory:'Full Lexus Service History',
+    imgs:[
+      'https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&q=85',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
+      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
+      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
+    ],
+    description:`<p>The Lexus LC 500 Convertible is one of the most beautiful and sonorous cars available today. This stunning Sonic Titanium example combines jaw-dropping design with a high-revving 471 bhp V8 that delivers one of the greatest engine soundtracks of any car currently on sale.</p><p>Unlike almost every other modern performance car, the LC 500 uses a naturally aspirated 5.0L V8 which revs freely to 7,100 rpm — producing a symphony of mechanical music that never gets old. The 10-speed automatic gearbox keeps the engine in its power band at all times.</p><p>Ownership has been faultless — one fastidious owner, full Lexus service history and garaged from new. A genuine collector's car in waiting.</p>`,
+    features:['Mark Levinson 13-Speaker Sound','Semi-Aniline Leather','Alcantara Headliner','Heated & Cooled Seats','10" Navigation Display','Head-Up Display','Adaptive Variable Suspension','Active Rear Spoiler','21" Split 5-Spoke Alloys','Carbon Fibre Interior Trim','360° Camera System','Automatic Emergency Steering','Lane Departure Alert','Radar Cruise Control','Rear Cross Traffic Alert','Pre-Collision System','Road Sign Assist','Four-Seat Convertible Roof']
+  },
+];
+
+// ── ROUTING ──
+function getCarId() {
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id'));
+  return isNaN(id) ? 1 : id;
+}
+
+let currentCar = cars.find(c => c.id === getCarId()) || cars[0];
+let images = currentCar.imgs;
+let currentImg = 0;
+
+// ── BUILD PAGE ──
+function buildPage(car) {
+  document.title = `${car.make} ${car.model} — Driven3 Automotive`;
+  document.getElementById('breadcrumbTitle').textContent = `${car.make} ${car.model}`;
+
+  // Gallery
+  document.getElementById('mainImg').src = images[0];
+  if (car.badge) {
+    const b = document.getElementById('galleryBadge');
+    b.textContent = car.badge;
+    b.style.display = 'block';
+  }
+  updateCounter();
+
+  const thumbsEl = document.getElementById('galleryThumbs');
+  thumbsEl.innerHTML = images.map((img, i) => `
+    <div class="thumb ${i===0?'active':''}" onclick="goToImg(${i})">
+      <img src="${img}" alt="View ${i+1}" loading="lazy">
+    </div>
+  `).join('');
+
+  // Info
+  document.getElementById('infoMake').textContent = car.make;
+  document.getElementById('infoTitle').textContent = `${car.model}`;
+  document.getElementById('infoVariant').textContent = car.variant;
+
+  // Spec tiles
+  const specDefs = [
+    { icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor"/></svg>`, val: car.year, label: 'Year' },
+    { icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><polyline points="12 6 12 12 16 14" stroke="currentColor"/></svg>`, val: car.miles + ' mi', label: 'Mileage' },
+    { icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 15h18M5 19l-2-4 9-9 9 9-2 4" stroke="currentColor"/></svg>`, val: car.fuel, label: 'Fuel' },
+    { icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor"/></svg>`, val: car.power, label: 'Power' },
+    { icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3" stroke="currentColor"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke="currentColor"/></svg>`, val: car.trans, label: 'Gearbox' },
+    { icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor"/></svg>`, val: car.doors + ' Door', label: 'Doors' },
+    { icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4" stroke="currentColor"/><path d="M6 20v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="currentColor"/></svg>`, val: car.seats + ' Seats', label: 'Seats' },
+    { icon: `<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor"/></svg>`, val: car.color, label: 'Colour' },
+  ];
+  document.getElementById('specsGrid').innerHTML = specDefs.map(s => `
+    <div class="spec-tile">${s.icon}<span class="spec-tile-val">${s.val}</span><span class="spec-tile-label">${s.label}</span></div>
+  `).join('');
+
+  // Description
+  document.getElementById('descText').innerHTML = car.description;
+
+  // Full specs table
+  document.getElementById('specsTable').innerHTML = `
+    <div class="spec-section-title">Performance</div>
+    <table class="spec-table">
+      <tr><td>Engine</td><td>${car.engine}</td></tr>
+      <tr><td>Power Output</td><td>${car.power}</td></tr>
+      <tr><td>Torque</td><td>${car.torque}</td></tr>
+      <tr><td>Transmission</td><td>${car.trans}</td></tr>
+      <tr><td>Fuel Type</td><td>${car.fuel}</td></tr>
+      <tr><td>CO₂ Emissions</td><td>${car.co2}</td></tr>
+    </table>
+    <div class="spec-section-title">Vehicle</div>
+    <table class="spec-table">
+      <tr><td>Make</td><td>${car.make}</td></tr>
+      <tr><td>Model</td><td>${car.model}</td></tr>
+      <tr><td>Year</td><td>${car.year}</td></tr>
+      <tr><td>Body Type</td><td>${car.body.charAt(0).toUpperCase()+car.body.slice(1)}</td></tr>
+      <tr><td>Doors</td><td>${car.doors}</td></tr>
+      <tr><td>Seats</td><td>${car.seats}</td></tr>
+      <tr><td>Colour</td><td>${car.color}</td></tr>
+    </table>
+    <div class="spec-section-title">History & Condition</div>
+    <table class="spec-table">
+      <tr><td>Mileage</td><td>${car.miles} miles</td></tr>
+      <tr><td>Registration</td><td>${car.reg}</td></tr>
+      <tr><td>Previous Owners</td><td>${car.owners}</td></tr>
+      <tr><td>MOT Expiry</td><td>${car.mot}</td></tr>
+      <tr><td>Service History</td><td>${car.serviceHistory}</td></tr>
+      <tr><td>HPI Status</td><td>Clear ✓</td></tr>
+    </table>
+  `;
+
+  // Features
+  document.getElementById('featuresList').innerHTML = car.features.map(f => `
+    <div class="feature-item-check">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-linecap="round"/></svg>
+      ${f}
+    </div>
+  `).join('');
+
+  // Price
+  document.getElementById('sidebarPrice').textContent = '£' + car.price.toLocaleString();
+
+  // Similar
+  const similar = cars.filter(c => c.id !== car.id).slice(0, 4);
+  document.getElementById('similarGrid').innerHTML = similar.map(c => `
+    <div class="car-card" onclick="window.location.href='listing.html?id=${c.id}'">
+      <div class="car-img-wrap">
+        <img src="${c.img}" alt="${c.make} ${c.model}" loading="lazy">
+        ${c.badge ? `<div class="car-badge">${c.badge}</div>` : ''}
+      </div>
+      <div class="car-body-mini">
+        <div class="car-make-mini">${c.make}</div>
+        <div class="car-name-mini">${c.model}</div>
+        <div class="car-variant-mini">${c.variant}</div>
+        <div class="car-specs-mini">
+          <div class="car-spec-mini"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor"/></svg>${c.year}</div>
+          <div class="car-spec-mini"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><polyline points="12 6 12 12 16 14" stroke="currentColor"/></svg>${c.miles} mi</div>
+          <div class="car-spec-mini"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 15h18M5 19l-2-4 9-9 9 9-2 4" stroke="currentColor"/></svg>${c.fuel}</div>
+        </div>
+        <div class="car-footer-mini">
+          <div class="car-price-mini">£${c.price.toLocaleString()}</div>
+          <span class="car-btn-mini">View →</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── GALLERY CONTROLS ──
+function goToImg(i) {
+  currentImg = i;
+  document.getElementById('mainImg').src = images[i];
+  updateCounter();
+  document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
+}
+
+function changeImg(dir) {
+  currentImg = (currentImg + dir + images.length) % images.length;
+  goToImg(currentImg);
+}
+
+function updateCounter() {
+  document.getElementById('galleryCounter').textContent = `${currentImg + 1} / ${images.length}`;
+}
+
+// ── LIGHTBOX ──
+function openLightbox(i) {
+  document.getElementById('lightbox').classList.add('open');
+  document.getElementById('lightboxImg').src = images[i];
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') changeImg(-1);
+  if (e.key === 'ArrowRight') changeImg(1);
+});
+
+// ── TABS ──
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── MOBILE MENU ──
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+// ── INIT ──
+buildPage(currentCar);
+</script>
+</body>
+</html>
