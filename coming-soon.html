@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driven3 Automotive — Launch in Progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #161616;
+      --border: #232323;
+      --mid: #2a2a2a;
+      --text: #e8e8e8;
+      --muted: #888;
+      --accent: #e8c84a;
+      --accent2: #c9a227;
+      --red: #e84a4a;
+      --white: #ffffff;
+      --radius: 10px;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:'Outfit',sans-serif;
+      background:var(--black);
+      color:var(--text);
+      overflow-x:hidden;
+      line-height:1.6;
+    }
+    nav {
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(10,10,10,0.95);
+      border-bottom:1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width:1400px;
+      margin:0 auto;
+      padding:0 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:68px;
+      gap:24px;
+    }
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      flex-shrink:0;
+      color:inherit;
+    }
+    .logo-icon {
+      width:36px;height:36px;
+      background:var(--accent);
+      border-radius:6px;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Bebas Neue',sans-serif;
+      font-size:20px;
+      color:var(--black);
+    }
+    .logo-name {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:22px;
+      letter-spacing:0.08em;
+      color:var(--white);
+      line-height:1;
+    }
+    .logo-sub {
+      font-size:9px;
+      letter-spacing:0.2em;
+      color:var(--accent);
+      text-transform:uppercase;
+      font-weight:600;
+      margin-top:2px;
+      line-height:1;
+      display:block;
+    }
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:14px 28px;
+      border-radius:var(--radius);
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:0.02em;
+      text-decoration:none;
+      cursor:pointer;
+      transition:all 0.25s;
+      border:none;
+      font-family:'Outfit',sans-serif;
+      white-space:nowrap;
+    }
+    .btn-primary { background:var(--accent); color:var(--black); }
+    .btn-primary:hover { background:var(--accent2); transform: translateY(-2px); }
+    .btn-outline {
+      background:transparent;
+      color:var(--white);
+      border:1.5px solid rgba(255,255,255,0.25);
+    }
+    .wrap {
+      min-height:calc(100vh - 68px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:60px 24px;
+      position:relative;
+    }
+    .hero {
+      width:100%;
+      max-width:980px;
+      text-align:center;
+      padding:48px 24px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:linear-gradient(180deg, rgba(232,200,74,0.08) 0%, rgba(17,17,17,0.7) 100%);
+      box-shadow: 0 30px 120px rgba(0,0,0,0.45);
+    }
+    .hero h1 {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(44px, 6vw, 86px);
+      line-height:0.95;
+      letter-spacing:0.02em;
+      color:var(--white);
+      margin-bottom:18px;
+    }
+    .hero p {
+      max-width:640px;
+      margin:0 auto 26px;
+      color:rgba(232,232,232,0.75);
+      font-size:16px;
+      line-height:1.8;
+    }
+    .accent-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background:rgba(232,200,74,0.15);
+      border:1px solid rgba(232,200,74,0.3);
+      color:var(--accent);
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      padding:10px 16px;
+      border-radius:50px;
+      margin-bottom:18px;
+    }
+    .accent-dot {
+      width:8px;height:8px;
+      background:var(--accent);
+      border-radius:50%;
+      box-shadow: 0 0 0 6px rgba(232,200,74,0.12);
+    }
+    .hero-actions {
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="Driven3 Automotive home">
+        <div class="logo-icon">D3</div>
+        <div>
+          <span class="logo-name">Driven3</span>
+          <span class="logo-sub">Automotive</span>
+        </div>
+      </a>
+      <a href="tel:01234567890" class="btn btn-outline" style="padding:10px 18px;border-radius:8px;">📞 Call Us</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <section class="hero" aria-live="polite">
+      <div class="accent-pill">
+        <span class="accent-dot" aria-hidden="true"></span>
+        Launch Preparation
+      </div>
+      <h1>We’re developing the site.</h1>
+      <p>
+        Driven3 Automotive is currently in development, with improvements planned to help you browse and choose with ease.
+        We’ll share the full experience as soon as the updates are ready.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="tel:01234567890">Call for availability</a>
+        <a class="btn btn-outline" href="index.html">Try opening the homepage</a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+
