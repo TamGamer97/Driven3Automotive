@@ -9,462 +9,384 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black: #0a0a0a;
-  --dark: #111111;
-  --card: #161616;
-  --border: #232323;
-  --mid: #2a2a2a;
-  --mid2: #333;
-  --text: #e8e8e8;
-  --muted: #777;
-  --accent: #e8c84a;
-  --accent2: #c9a227;
-  --red: #e84a4a;
-  --green: #4ade80;
-  --blue: #60a5fa;
-  --white: #ffffff;
-  --radius: 10px;
-  --sidebar: 240px;
+  --black:#0a0a0a; --dark:#111; --card:#161616; --border:#232323; --mid:#2a2a2a;
+  --text:#e8e8e8; --muted:#777; --accent:#e8c84a; --accent2:#c9a227;
+  --red:#e84a4a; --green:#4ade80; --blue:#60a5fa; --white:#fff;
+  --radius:10px; --sidebar-w:240px; --topbar-h:62px; --bottom-nav-h:62px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:'Outfit',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;line-height:1.5}
-
-html{-webkit-text-size-adjust:100%}
-button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
+button,a,input,select,textarea{-webkit-tap-highlight-color:transparent;font-family:'Outfit',sans-serif}
 button,a{touch-action:manipulation}
-input,select,textarea{min-height:44px}
 
-@media(max-width:768px){
-  input,select,textarea{font-size:16px}
-}
+/* scrollbar */
+*{scrollbar-width:thin;scrollbar-color:rgba(232,200,74,0.4) var(--dark)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:rgba(232,200,74,0.45);border-radius:4px}
 
-/* ─── THEMED SCROLLBAR ─── */
-*{
-  scrollbar-width:thin;
-  scrollbar-color:rgba(232,200,74,0.55) var(--dark);
-}
-*::-webkit-scrollbar{width:11px;height:11px}
-*::-webkit-scrollbar-track{background:linear-gradient(180deg,#101010 0%,#151515 100%)}
-*::-webkit-scrollbar-thumb{
-  background:linear-gradient(180deg,rgba(232,200,74,0.72) 0%,rgba(201,162,39,0.72) 100%);
-  border:2px solid #121212;
-  border-radius:10px;
-}
-*::-webkit-scrollbar-thumb:hover{
-  background:linear-gradient(180deg,rgba(232,200,74,0.92) 0%,rgba(201,162,39,0.92) 100%);
-}
+/* ═══ LOGIN ═══ */
+#loginScreen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--black);background-image:radial-gradient(ellipse at 20% 50%,rgba(232,200,74,0.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(232,200,74,0.03) 0%,transparent 50%);padding:20px}
+.login-box{width:100%;max-width:400px}
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:36px;justify-content:center}
+.login-logo-icon{width:44px;height:44px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--black)}
+.login-logo-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.08em;color:var(--white);line-height:1}
+.login-logo-sub{font-size:10px;letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;font-weight:600}
+.login-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 28px}
+.login-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:0.04em;color:var(--white);margin-bottom:4px}
+.login-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.login-error{background:rgba(232,74,74,0.1);border:1px solid rgba(232,74,74,0.3);color:#f87171;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none}
+.login-field{margin-bottom:16px}
+.login-field label{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:7px}
+.login-field input{width:100%;background:var(--mid);border:1.5px solid var(--border);color:var(--text);padding:13px 16px;border-radius:9px;font-size:16px;outline:none;transition:border-color 0.2s}
+.login-field input:focus{border-color:var(--accent)}
+.login-btn{width:100%;background:var(--accent);color:var(--black);border:none;padding:15px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.03em;margin-top:6px}
+.login-btn:active{transform:scale(0.98);background:var(--accent2)}
+.login-hint{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
 
-/* ─── LOGIN SCREEN ─── */
-#loginScreen {
-  position:fixed;inset:0;background:var(--black);z-index:9999;
-  display:flex;align-items:center;justify-content:center;
-  background-image: radial-gradient(ellipse at 20% 50%, rgba(232,200,74,0.04) 0%, transparent 60%),
-                    radial-gradient(ellipse at 80% 20%, rgba(232,200,74,0.03) 0%, transparent 50%);
-}
-.login-box {
-  width:100%;max-width:420px;padding:24px;
-}
-.login-logo {
-  display:flex;align-items:center;gap:12px;margin-bottom:40px;justify-content:center;
-}
-.login-logo-icon {
-  width:44px;height:44px;background:var(--accent);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--black);
-}
-.login-logo-text { line-height:1; }
-.login-logo-name { font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.08em;color:var(--white); }
-.login-logo-sub { font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;font-weight:600; }
-.login-card {
-  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;
-}
-.login-title { font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:0.04em;color:var(--white);margin-bottom:4px; }
-.login-sub { font-size:13px;color:var(--muted);margin-bottom:28px; }
-.login-field { margin-bottom:18px; }
-.login-field label { display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px; }
-.login-field input {
-  width:100%;background:var(--mid);border:1.5px solid var(--border);color:var(--text);
-  padding:13px 16px;border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;
-  outline:none;transition:border-color 0.2s;
-}
-.login-field input:focus { border-color:var(--accent); }
-.login-error { background:rgba(232,74,74,0.1);border:1px solid rgba(232,74,74,0.3);color:#f87171;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none; }
-.login-btn {
-  width:100%;background:var(--accent);color:var(--black);border:none;padding:14px;
-  border-radius:var(--radius);font-size:14px;font-weight:700;font-family:'Outfit',sans-serif;
-  cursor:pointer;transition:all 0.2s;letter-spacing:0.03em;margin-top:4px;
-}
-.login-btn:hover { background:var(--accent2); }
-.login-hint { font-size:12px;color:var(--muted);text-align:center;margin-top:16px; }
+/* ═══ SHELL ═══ */
+#adminShell{display:none;min-height:100vh}
 
-/* ─── ADMIN SHELL ─── */
-#adminShell { display:none; min-height:100vh; }
+/* ─ TOPBAR ─ */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--topbar-h);background:rgba(17,17,17,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:12px}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.topbar-logo-icon{width:32px;height:32px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--black);flex-shrink:0}
+.topbar-logo-name{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:0.06em;color:var(--white)}
+.topbar-badge{background:rgba(232,200,74,0.12);border:1px solid rgba(232,200,74,0.25);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:50px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.topbar-avatar{width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--black)}
+.topbar-logout{background:var(--mid);border:1px solid var(--border);color:var(--muted);padding:7px 13px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.topbar-logout:hover{border-color:var(--red);color:var(--red)}
+.view-site-btn{background:var(--accent);color:var(--black);border:none;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background 0.2s}
+.view-site-btn:hover{background:var(--accent2)}
+.menu-toggle{display:none;width:36px;height:36px;background:var(--mid);border:1px solid var(--border);border-radius:8px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0}
+.menu-toggle span{display:block;width:16px;height:1.5px;background:var(--text);border-radius:2px}
 
-/* Topbar */
-.topbar {
-  position:fixed;top:0;left:0;right:0;height:62px;
-  background:rgba(17,17,17,0.97);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);z-index:200;
-  display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:16px;
-}
-.topbar-left { display:flex;align-items:center;gap:14px; }
-.topbar-logo { display:flex;align-items:center;gap:10px;text-decoration:none; }
-.topbar-logo-icon { width:32px;height:32px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--black); }
-.topbar-logo-name { font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:0.06em;color:var(--white); }
-.topbar-badge { background:rgba(232,200,74,0.12);border:1px solid rgba(232,200,74,0.25);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:50px; }
-.topbar-right { display:flex;align-items:center;gap:12px; }
-.topbar-user { display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted); }
-.topbar-user strong { color:var(--text); }
-.topbar-avatar { width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--black); }
-.topbar-logout { background:var(--mid);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s; }
-.topbar-logout:hover { border-color:var(--red);color:var(--red); }
-.view-site-btn { background:var(--accent);color:var(--black);border:none;padding:7px 16px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;text-decoration:none; }
-.view-site-btn:hover { background:var(--accent2); }
+/* ─ SIDEBAR ─ */
+.sidebar{position:fixed;top:var(--topbar-h);left:0;bottom:0;width:var(--sidebar-w);background:var(--dark);border-right:1px solid var(--border);padding:20px 0;overflow-y:auto;z-index:200}
+.sidebar-section{margin-bottom:6px}
+.sidebar-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);padding:0 18px 8px}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:10px 18px;color:var(--muted);font-size:13.5px;font-weight:500;cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;text-decoration:none;user-select:none}
+.sidebar-link svg{width:16px;height:16px;stroke:currentColor;flex-shrink:0}
+.sidebar-link:hover{color:var(--text);background:rgba(255,255,255,0.03)}
+.sidebar-link.active{color:var(--accent);border-left-color:var(--accent);background:rgba(232,200,74,0.05)}
+.sidebar-divider{height:1px;background:var(--border);margin:10px 18px}
+.sidebar-count{margin-left:auto;background:var(--mid);color:var(--muted);font-size:10px;font-weight:700;padding:2px 7px;border-radius:50px}
+.sidebar-count.accent{background:rgba(232,200,74,0.15);color:var(--accent)}
 
-/* Sidebar */
-.sidebar {
-  position:fixed;top:62px;left:0;bottom:0;width:var(--sidebar);
-  background:var(--dark);border-right:1px solid var(--border);
-  padding:24px 0;overflow-y:auto;z-index:100;
-}
-.sidebar-section { margin-bottom:8px; }
-.sidebar-label { font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);padding:0 20px 8px; }
-.sidebar-link {
-  display:flex;align-items:center;gap:10px;padding:10px 20px;
-  color:var(--muted);font-size:13.5px;font-weight:500;cursor:pointer;
-  transition:all 0.15s;border-left:2px solid transparent;text-decoration:none;
-}
-.sidebar-link svg { width:16px;height:16px;stroke:currentColor;flex-shrink:0; }
-.sidebar-link:hover { color:var(--text);background:rgba(255,255,255,0.03); }
-.sidebar-link.active { color:var(--accent);border-left-color:var(--accent);background:rgba(232,200,74,0.05); }
-.sidebar-divider { height:1px;background:var(--border);margin:12px 20px; }
-.sidebar-count { margin-left:auto;background:var(--mid);color:var(--muted);font-size:10px;font-weight:700;padding:2px 7px;border-radius:50px; }
-.sidebar-count.accent { background:rgba(232,200,74,0.15);color:var(--accent); }
+/* ─ MAIN ─ */
+.main{margin-left:var(--sidebar-w);margin-top:var(--topbar-h);padding:28px;min-height:calc(100vh - var(--topbar-h))}
 
-/* Main content */
-.main { margin-left:var(--sidebar);margin-top:62px;padding:32px;min-height:calc(100vh - 62px); }
+/* ═══ MOBILE BOTTOM NAV ═══ */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;height:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(13,13,13,0.98);backdrop-filter:blur(16px);border-top:1px solid var(--border);align-items:stretch}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:8px 0 4px;border:none;background:none;color:var(--muted);font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.15s;position:relative}
+.bn-item svg{width:20px;height:20px;stroke:currentColor}
+.bn-item.active{color:var(--accent)}
+.bn-item.active svg{stroke:var(--accent)}
+.bn-add{flex:0 0 56px;margin:8px 4px;border-radius:14px;background:var(--accent) !important;color:var(--black) !important;padding:0 !important;gap:0 !important}
+.bn-add svg{stroke:var(--black) !important;width:22px;height:22px}
+.bn-badge{position:absolute;top:5px;right:calc(50% - 20px);background:var(--accent);color:var(--black);font-size:8px;font-weight:800;min-width:15px;height:15px;border-radius:50px;display:flex;align-items:center;justify-content:center;padding:0 3px;line-height:1}
 
-/* ─── PANELS ─── */
-.panel { display:none; }
-.panel.active { display:block; }
+/* ═══ MOBILE DRAWER MENU ═══ */
+.drawer-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,0.6);backdrop-filter:blur(3px)}
+.drawer-overlay.open{display:block}
+.drawer{position:absolute;top:0;left:0;right:0;background:var(--dark);border-bottom:1px solid var(--border);border-radius:0 0 20px 20px;padding:calc(var(--topbar-h) + 6px) 0 16px;transform:translateY(-100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1)}
+.drawer-overlay.open .drawer{transform:translateY(0)}
+.drawer-item{display:flex;align-items:center;gap:12px;padding:15px 22px;color:var(--text);font-size:15px;font-weight:500;cursor:pointer;border-bottom:1px solid rgba(35,35,35,0.5);transition:background 0.15s}
+.drawer-item:last-child{border-bottom:none}
+.drawer-item svg{width:18px;height:18px;stroke:var(--accent);flex-shrink:0}
+.drawer-item:active{background:rgba(255,255,255,0.04)}
+.drawer-close-row{display:flex;justify-content:center;padding:12px 0 0}
+.drawer-close-btn{background:var(--mid);border:1px solid var(--border);color:var(--muted);padding:8px 24px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer}
 
-/* Page header */
-.page-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:16px;flex-wrap:wrap; }
-.page-title-wrap .page-eyebrow { font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:4px; }
-.page-title { font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:0.02em;color:var(--white);line-height:1; }
-.btn { display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;letter-spacing:0.02em;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;font-family:'Outfit',sans-serif; }
-.btn svg { width:15px;height:15px;stroke:currentColor; }
-.btn-primary { background:var(--accent);color:var(--black); }
-.btn-primary:hover { background:var(--accent2);transform:translateY(-1px); }
-.btn-outline { background:transparent;color:var(--text);border:1.5px solid var(--border); }
-.btn-outline:hover { border-color:var(--accent);color:var(--accent); }
-.btn-danger { background:rgba(232,74,74,0.1);color:var(--red);border:1px solid rgba(232,74,74,0.2); }
-.btn-danger:hover { background:rgba(232,74,74,0.2); }
-.btn-sm { padding:7px 14px;font-size:12px; }
-.btn-icon { padding:8px;width:34px;height:34px;border-radius:7px; }
+/* ═══ PANELS ═══ */
+.panel{display:none}
+.panel.active{display:block}
 
-/* ─── STATS ─── */
-.stats-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px; }
-.stat-card { background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;position:relative;overflow:hidden; }
-.stat-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0.4; }
-.stat-label { font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px; }
-.stat-value { font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--white);line-height:1;margin-bottom:4px; }
-.stat-sub { font-size:12px;color:var(--muted); }
-.stat-icon { position:absolute;top:20px;right:20px;opacity:0.08; }
-.stat-icon svg { width:48px;height:48px;stroke:var(--accent); }
+/* ═══ PAGE HEADER ═══ */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:14px;flex-wrap:wrap}
+.page-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.02em;color:var(--white);line-height:1}
 
-/* ─── TABLE ─── */
-.table-wrap { background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden; }
-.table-toolbar { display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap; }
-.table-search { display:flex;align-items:center;gap:10px;background:var(--mid);border:1.5px solid var(--border);border-radius:8px;padding:8px 14px;width:280px; }
-.table-search svg { width:15px;height:15px;stroke:var(--muted);flex-shrink:0; }
-.table-search input { background:none;border:none;outline:none;color:var(--text);font-size:13px;font-family:'Outfit',sans-serif;width:100%; }
-.table-search input::placeholder { color:var(--muted); }
-.table-filters { display:flex;gap:8px; }
-.filter-chip { padding:6px 14px;border-radius:50px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s; }
-.filter-chip:hover { border-color:var(--accent);color:var(--accent); }
-.filter-chip.active { background:var(--accent);color:var(--black);border-color:var(--accent); }
-table { width:100%;border-collapse:collapse; }
-thead tr { border-bottom:1px solid var(--border); }
-thead th { padding:12px 16px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap; }
-tbody tr { border-bottom:1px solid rgba(35,35,35,0.6);transition:background 0.15s; }
-tbody tr:last-child { border-bottom:none; }
-tbody tr:hover { background:rgba(255,255,255,0.02); }
-tbody td { padding:14px 16px;font-size:13.5px; }
-.td-img { width:56px;height:38px;border-radius:6px;object-fit:cover;background:var(--mid); }
-.td-make { font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent); }
-.td-model { font-weight:600;color:var(--white);font-size:14px; }
-.td-variant { font-size:12px;color:var(--muted);margin-top:1px; }
-.td-price { font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--white); }
-.badge { display:inline-flex;align-items:center;padding:3px 9px;border-radius:50px;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase; }
-.badge-active { background:rgba(74,222,128,0.1);color:var(--green);border:1px solid rgba(74,222,128,0.2); }
-.badge-sold { background:rgba(232,74,74,0.1);color:var(--red);border:1px solid rgba(232,74,74,0.2); }
-.badge-newin { background:rgba(232,200,74,0.12);color:var(--accent);border:1px solid rgba(232,200,74,0.25); }
-.td-actions { display:flex;gap:6px;align-items:center; }
-.pagination { display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--border);font-size:13px;color:var(--muted); }
-.pagination-btns { display:flex;gap:6px; }
-.page-btn { width:32px;height:32px;border-radius:6px;border:1.5px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.2s; }
-.page-btn:hover,.page-btn.active { border-color:var(--accent);color:var(--accent); }
+/* ═══ BUTTONS ═══ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:700;letter-spacing:0.02em;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.btn svg{width:14px;height:14px;stroke:currentColor;flex-shrink:0}
+.btn-primary{background:var(--accent);color:var(--black)}
+.btn-primary:hover{background:var(--accent2)}
+.btn-primary:active{transform:scale(0.97)}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-danger{background:rgba(232,74,74,0.1);color:var(--red);border:1px solid rgba(232,74,74,0.2)}
+.btn-danger:hover{background:rgba(232,74,74,0.2)}
+.btn-sm{padding:7px 12px;font-size:12px}
+.btn-icon{padding:0;width:36px;height:36px;border-radius:8px}
 
-/* ─── MODAL ─── */
-.modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:500;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto; }
-.modal-overlay.open { display:flex; }
-.modal { background:var(--dark);border:1px solid var(--border);border-radius:16px;width:100%;max-width:780px;padding:0;animation:modalIn 0.25s ease; }
-@keyframes modalIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
-.modal-header { display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid var(--border); }
-.modal-title { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.03em;color:var(--white); }
-.modal-close { width:34px;height:34px;background:var(--mid);border:1px solid var(--border);border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:16px;line-height:1;transition:all 0.2s; }
-.modal-close:hover { border-color:var(--red);color:var(--red); }
-.modal-body { padding:28px; }
-.modal-footer { padding:20px 28px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px; }
+/* ═══ STATS ═══ */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0.4}
+.stat-label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.stat-value{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--white);line-height:1;margin-bottom:3px}
+.stat-sub{font-size:12px;color:var(--muted)}
+.stat-icon{position:absolute;top:18px;right:18px;opacity:0.07}
+.stat-icon svg{width:44px;height:44px;stroke:var(--accent)}
 
-/* Form inside modal */
-.form-section-title { font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;padding-top:20px;border-top:1px solid var(--border); }
-.form-section-title:first-child { border-top:none;padding-top:0; }
-.form-grid { display:grid;gap:16px; }
-.form-grid-2 { grid-template-columns:1fr 1fr; }
-.form-grid-3 { grid-template-columns:1fr 1fr 1fr; }
-.form-grid-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
-.form-group { display:flex;flex-direction:column;gap:6px; }
-.form-group label { font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted); }
-.form-group label span { color:var(--red);margin-left:2px; }
-.form-group input,.form-group select,.form-group textarea {
-  background:var(--mid);border:1.5px solid var(--border);color:var(--text);
-  padding:11px 14px;border-radius:8px;font-size:13.5px;font-family:'Outfit',sans-serif;
-  width:100%;
-  outline:none;transition:border-color 0.2s;
-}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--accent); }
-.form-group select { appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px; }
-.form-group textarea { resize:vertical;min-height:90px; }
-.form-hint { font-size:11px;color:var(--muted);margin-top:2px; }
-.form-group-full { grid-column:1/-1; }
+/* ═══ TABLE ═══ */
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.table-toolbar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap}
+.t-search{display:flex;align-items:center;gap:9px;background:var(--mid);border:1.5px solid var(--border);border-radius:8px;padding:9px 13px;min-width:200px;flex:1;max-width:300px;transition:border-color 0.2s}
+.t-search:focus-within{border-color:var(--accent)}
+.t-search svg{width:14px;height:14px;stroke:var(--muted);flex-shrink:0}
+.t-search input{background:none;border:none;outline:none;color:var(--text);font-size:14px;width:100%}
+.t-search input::placeholder{color:var(--muted)}
+.filter-row{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;padding:6px 13px;border-radius:50px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.chip.active{background:var(--accent);color:var(--black);border-color:var(--accent)}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+table{width:100%;border-collapse:collapse}
+thead tr{border-bottom:1px solid var(--border)}
+thead th{padding:11px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+tbody tr{border-bottom:1px solid rgba(35,35,35,0.6);transition:background 0.15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(255,255,255,0.02)}
+tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
+.td-img{width:50px;height:34px;border-radius:6px;object-fit:cover;background:var(--mid);display:block}
+.td-make{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
+.td-model{font-weight:700;color:var(--white);font-size:13.5px}
+.td-variant{font-size:11px;color:var(--muted);margin-top:1px}
+.td-price{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--white)}
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:50px;font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+.badge-active{background:rgba(74,222,128,0.1);color:var(--green);border:1px solid rgba(74,222,128,0.2)}
+.badge-sold{background:rgba(232,74,74,0.1);color:var(--red);border:1px solid rgba(232,74,74,0.2)}
+.td-actions{display:flex;gap:6px;align-items:center}
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
 
-/* Image URLs input */
-.img-url-list { display:flex;flex-direction:column;gap:8px; }
-.img-url-row { display:flex;gap:8px;align-items:center; }
-.img-url-row input { flex:1; }
-.img-url-preview { width:44px;height:30px;border-radius:5px;object-fit:cover;background:var(--mid);border:1px solid var(--border);flex-shrink:0;display:none; }
-.img-url-remove { width:30px;height:30px;background:rgba(232,74,74,0.1);border:1px solid rgba(232,74,74,0.2);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0;transition:all 0.15s; }
-.img-url-remove:hover { background:rgba(232,74,74,0.25); }
-.img-url-remove svg { width:13px;height:13px;stroke:currentColor; }
-.add-img-btn { display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--accent);background:rgba(232,200,74,0.08);border:1.5px dashed rgba(232,200,74,0.3);border-radius:7px;padding:8px 14px;cursor:pointer;transition:all 0.2s;font-family:'Outfit',sans-serif;margin-top:4px; }
-.add-img-btn:hover { background:rgba(232,200,74,0.14); }
+/* ═══ MOBILE CARDS ═══ */
+.m-cards{display:none;flex-direction:column;gap:10px;padding:12px}
+.m-card{background:var(--black);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.2s}
+.m-card-top{display:flex}
+.m-card-img{width:108px;flex-shrink:0;background:var(--mid);aspect-ratio:4/3;overflow:hidden}
+.m-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.m-card-body{flex:1;padding:12px 12px 10px;min-width:0}
+.m-card-make{font-size:9px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.m-card-model{font-size:14px;font-weight:700;color:var(--white);line-height:1.2}
+.m-card-variant{font-size:11px;color:var(--muted);margin-top:1px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-card-pills{display:flex;flex-wrap:wrap;gap:4px}
+.m-pill{background:var(--mid);border:1px solid var(--border);color:var(--muted);font-size:10px;font-weight:600;padding:3px 8px;border-radius:50px}
+.m-card-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-top:1px solid var(--border);background:rgba(255,255,255,0.01)}
+.m-card-price{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--white);letter-spacing:0.02em}
+.m-card-right{display:flex;align-items:center;gap:8px}
+.m-btn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:9px;border:none;cursor:pointer;transition:all 0.15s;flex-shrink:0}
+.m-btn-edit{background:var(--mid);border:1.5px solid var(--border);color:var(--text)}
+.m-btn-edit:active{border-color:var(--accent);color:var(--accent)}
+.m-btn-del{background:rgba(232,74,74,0.08);border:1px solid rgba(232,74,74,0.2);color:var(--red)}
+.m-btn-del:active{background:rgba(232,74,74,0.2)}
+.m-btn svg{width:16px;height:16px;stroke:currentColor}
 
-/* ─── Photo Upload (Drag & Drop) ─── */
-.photo-dropzone{
-  border:1.5px dashed rgba(232,200,74,0.45);
-  background:rgba(232,200,74,0.06);
-  border-radius:12px;
-  padding:18px 16px;
-  cursor:pointer;
-  transition:all 0.2s;
-  user-select:none;
-}
-.photo-dropzone:hover{ border-color:rgba(232,200,74,0.75); background:rgba(232,200,74,0.1); }
-.photo-dropzone.dragover{ border-color:var(--accent); background:rgba(232,200,74,0.14); transform:translateY(-1px); }
-.photo-dropzone-label{
-  display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
-  color:var(--muted);font-size:13px;font-weight:600;
-}
-.photo-dropzone-label strong{ color:var(--accent); }
-.photo-preview-list{
-  margin-top:14px;
-  display:flex;flex-wrap:wrap;gap:12px;
-}
-.photo-preview{
-  width:118px;height:84px;
-  border-radius:12px;
-  background:var(--mid);
-  border:1.5px solid var(--border);
-  overflow:hidden;
-  position:relative;
-}
-.photo-preview img{ width:100%;height:100%;object-fit:cover;display:block; }
-.photo-preview.dragging{
-  opacity:0.6;
-  border-color:rgba(232,200,74,0.85);
-}
-.photo-remove{
-  position:absolute;top:6px;right:6px;
-  width:28px;height:28px;border-radius:9px;
-  border:1px solid rgba(232,74,74,0.25);
-  background:rgba(232,74,74,0.18);
-  color:var(--red);
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;line-height:1;
-  transition:all 0.15s;
-}
-.photo-remove:hover{ background:rgba(232,74,74,0.3); }
+/* ═══ MODAL / BOTTOM SHEET ═══ */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.modal-overlay.open{display:flex}
+.modal{background:var(--dark);border:1px solid var(--border);border-radius:16px;width:100%;max-width:800px;animation:modalIn 0.25s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.drag-handle{display:none;width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0;flex-shrink:0}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.03em;color:var(--white)}
+.modal-close{width:32px;height:32px;background:var(--mid);border:1px solid var(--border);border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:15px;transition:all 0.2s}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;flex-shrink:0;background:var(--dark)}
 
-/* Features tags */
-.features-input-wrap {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  background:rgba(255,255,255,0.02);
-  border:1.5px solid var(--border);
-  border-radius:10px;
-  padding:12px;
-}
-.features-tags {
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  min-height:40px;
-}
-.feature-tag { display:inline-flex;align-items:center;gap:6px;background:rgba(232,200,74,0.1);border:1px solid rgba(232,200,74,0.25);color:var(--accent);font-size:11px;font-weight:600;padding:5px 10px;border-radius:50px;letter-spacing:0.02em; }
-.feature-tag button { background:none;border:none;cursor:pointer;color:var(--accent);font-size:12px;line-height:1;padding:0;display:flex;align-items:center; }
-.feature-tag button:hover { color:var(--red); }
-.feature-add-row { display:flex;gap:8px; }
-.feature-add-row input {
-  flex:1;
-  background:var(--mid);
-  border:1.5px solid var(--border);
-  color:var(--text);
-  border-radius:8px;
-  padding:10px 12px;
-}
-.feature-add-row input:focus {
-  outline:none;
-  border-color:var(--accent);
-}
-.feature-add-row button {
-  background:var(--accent);
-  color:var(--black);
-  border:1.5px solid var(--accent);
-  padding:8px 14px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:700;
-  cursor:pointer;
-  font-family:'Outfit',sans-serif;
-  white-space:nowrap;
-  transition:all 0.2s;
-}
-.feature-add-row button:hover { background:var(--accent2); }
+/* ─ FORM ─ */
+.fsec{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;padding-top:20px;border-top:1px solid var(--border)}
+.fsec:first-child{border-top:none;padding-top:0}
+.fg{display:grid;gap:13px}
+.fg-2{grid-template-columns:1fr 1fr}
+.fg-3{grid-template-columns:1fr 1fr 1fr}
+.fg-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.fgroup{display:flex;flex-direction:column;gap:5px}
+.fgroup label{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)}
+.fgroup label span{color:var(--red);margin-left:2px}
+.fgroup input,.fgroup select,.fgroup textarea{background:var(--mid);border:1.5px solid var(--border);color:var(--text);padding:11px 13px;border-radius:9px;font-size:15px;width:100%;outline:none;transition:border-color 0.2s;-webkit-appearance:none;min-height:44px}
+.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{border-color:var(--accent)}
+.fgroup select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.fgroup textarea{resize:vertical;min-height:86px}
+.fhint{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
 
-/* Delete confirm modal */
-.delete-modal { max-width:440px; }
-.delete-icon { width:56px;height:56px;background:rgba(232,74,74,0.1);border:1px solid rgba(232,74,74,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px; }
-.delete-icon svg { width:28px;height:28px;stroke:var(--red); }
-.delete-title { font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--white);margin-bottom:8px; }
-.delete-desc { font-size:14px;color:var(--muted);line-height:1.6; }
+/* ─ PHOTO UPLOAD ─ */
+.dropzone{border:1.5px dashed rgba(232,200,74,0.4);background:rgba(232,200,74,0.05);border-radius:12px;padding:20px 16px;cursor:pointer;transition:all 0.2s;text-align:center}
+.dropzone:hover,.dropzone.dragover{border-color:var(--accent);background:rgba(232,200,74,0.1)}
+.dz-label{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:13px;font-weight:600;flex-wrap:wrap}
+.dz-label strong{color:var(--accent)}
+.photo-list{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px}
+.photo-thumb{width:96px;height:68px;border-radius:10px;background:var(--mid);border:1.5px solid var(--border);overflow:hidden;position:relative;flex-shrink:0}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-thumb.dragging{opacity:0.5;border-color:var(--accent)}
+.photo-rm{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:6px;border:1px solid rgba(232,74,74,0.3);background:rgba(10,10,10,0.8);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;transition:all 0.15s}
+.photo-rm:hover{background:rgba(232,74,74,0.25)}
 
-/* ─── TOAST ─── */
-.toast { position:fixed;bottom:calc(28px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 22px;border-radius:10px;font-size:13.5px;font-weight:500;opacity:0;transition:all 0.3s;z-index:9999;white-space:nowrap;pointer-events:none;display:flex;align-items:center;gap:10px; }
-.toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
-.toast.success { border-color:rgba(74,222,128,0.3);background:#0f1f14; }
-.toast.error { border-color:rgba(232,74,74,0.3);background:#1f0f0f; }
+/* ─ FEATURES ─ */
+.ftags-wrap{background:rgba(255,255,255,0.02);border:1.5px solid var(--border);border-radius:10px;padding:12px}
+.ftags{display:flex;flex-wrap:wrap;gap:6px;min-height:36px;margin-bottom:10px}
+.ftag{display:inline-flex;align-items:center;gap:6px;background:rgba(232,200,74,0.1);border:1px solid rgba(232,200,74,0.25);color:var(--accent);font-size:11px;font-weight:600;padding:5px 10px;border-radius:50px}
+.ftag button{background:none;border:none;cursor:pointer;color:var(--accent);font-size:13px;line-height:1;padding:0;display:flex;align-items:center}
+.ftag button:hover{color:var(--red)}
+.fadd-row{display:flex;gap:8px}
+.fadd-row input{flex:1;background:var(--mid);border:1.5px solid var(--border);color:var(--text);border-radius:8px;padding:10px 12px;font-size:15px;outline:none;transition:border-color 0.2s;min-height:44px}
+.fadd-row input:focus{border-color:var(--accent)}
+.fadd-row button{background:var(--accent);color:var(--black);border:none;padding:0 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;min-height:44px;transition:background 0.2s}
+.fadd-row button:active{background:var(--accent2)}
 
-/* ─── RESPONSIVE ─── */
-@media(max-width:1100px){
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
-  .form-grid-4{grid-template-columns:1fr 1fr}
-}
+/* ─ DELETE MODAL ─ */
+.del-modal{max-width:440px}
+.del-icon{width:52px;height:52px;background:rgba(232,74,74,0.1);border:1px solid rgba(232,74,74,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.del-icon svg{width:26px;height:26px;stroke:var(--red)}
+.del-title{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--white);margin-bottom:8px}
+.del-desc{font-size:13.5px;color:var(--muted);line-height:1.6}
+
+/* ─ TOAST ─ */
+.toast{position:fixed;bottom:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom) + 14px);left:50%;transform:translateX(-50%) translateY(12px);background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:all 0.3s;z-index:9999;white-space:nowrap;pointer-events:none;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:rgba(74,222,128,0.3);background:#0d1f12}
+.toast.error{border-color:rgba(232,74,74,0.3);background:#1f0d0d}
+
+/* ═══ RESPONSIVE ═══ */
 @media(max-width:900px){
-  :root{--sidebar:0px}
   .sidebar{display:none}
-  .main{margin-left:0;padding:20px}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
-  .form-grid-3{grid-template-columns:1fr 1fr}
+  .main{margin-left:0;padding:20px;padding-bottom:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom) + 16px)}
+  .bottom-nav{display:flex}
+  .menu-toggle{display:flex}
+  .view-site-btn,.topbar-logout,.topbar-avatar,.topbar-user strong{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .modal-overlay{padding:0;align-items:flex-end}
+  .modal{border-radius:22px 22px 0 0;border-bottom:none;max-height:93vh;display:flex;flex-direction:column;animation:sheetUp 0.3s cubic-bezier(0.4,0,0.2,1)}
+  @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .modal-body{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+  .drag-handle{display:block}
+  .modal-footer{flex-direction:column-reverse}
+  .modal-footer .btn{width:100%}
+  .toast{bottom:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom) + 12px)}
 }
 @media(max-width:640px){
+  .stats-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .stat-card{padding:14px}
+  .stat-value{font-size:32px}
+  .fg-2,.fg-3,.fg-4{grid-template-columns:1fr 1fr}
+  .table-toolbar{flex-direction:column}
+  .table-toolbar{align-items:stretch}
+  /* Align the search bar to the left (no centering) */
+  .t-search{max-width:none; width:100%; min-width:0; flex:0 0 auto}
+  /* Keep "Add Listing" compact on mobile */
+  .page-header .btn{flex:0 0 auto; align-self:flex-start; padding:9px 12px; font-size:12px; border-radius:8px}
+  .page-header .btn svg{width:14px; height:14px}
+  thead,.pagination{display:none}
+  .m-cards{display:flex}
+  .modal-header{padding:16px 18px}
+  .modal-body{padding:16px 18px}
+  .modal-footer{padding:14px 18px}
+  .topbar-badge{display:none}
+}
+@media(max-width:420px){
+  .fg-2,.fg-3,.fg-4{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:1fr 1fr}
-  .form-grid-2,.form-grid-3,.form-grid-4{grid-template-columns:1fr}
-  .table-toolbar{flex-direction:column;align-items:stretch}
-  .table-search{width:100%}
-  .modal-overlay{padding:20px 12px calc(20px + env(safe-area-inset-bottom)) 12px}
-  .modal-header{padding:20px 16px}
-  .modal-footer{padding:16px 16px}
-  .modal-body{padding:20px}
+}
+@media(min-width:901px){
+  .toast{bottom:28px}
 }
 </style>
+<!-- Supabase-backed admin auth + listings API -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/backend/supabase-config.js"></script>
+<script src="js/backend/supabase-client.js"></script>
+<script src="js/backend/listings-api.js"></script>
 </head>
 <body>
 
-<!-- ═══════════════ LOGIN SCREEN ═══════════════ -->
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">
       <div class="login-logo-icon">D3</div>
-      <div class="login-logo-text">
+      <div>
         <div class="login-logo-name">Driven3</div>
         <div class="login-logo-sub">Automotive</div>
       </div>
     </div>
     <div class="login-card">
       <div class="login-title">Admin Portal</div>
-      <div class="login-sub">Sign in to manage your vehicle listings</div>
+      <div class="login-sub">Sign in to manage your listings</div>
       <div class="login-error" id="loginError">Incorrect username or password.</div>
       <div class="login-field">
         <label>Username</label>
-        <input type="text" id="loginUser" placeholder="Enter username" autocomplete="username">
+        <input type="text" id="loginUser" placeholder="Username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">
       </div>
       <div class="login-field">
         <label>Password</label>
-        <input type="password" id="loginPass" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <input type="password" id="loginPass" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
       </div>
       <button class="login-btn" onclick="doLogin()">Sign In</button>
-      <div class="login-hint">Credentials are verified securely from Supabase DB.</div>
+      <div class="login-hint">Enter your admin credentials.</div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ ADMIN SHELL ═══════════════ -->
+<!-- ADMIN SHELL -->
 <div id="adminShell">
 
   <!-- Topbar -->
   <div class="topbar">
     <div class="topbar-left">
-      <a href="index.html" class="topbar-logo">
+      <button class="menu-toggle" id="menuToggle" onclick="toggleDrawer()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="driven3automotive.html" class="topbar-logo">
         <div class="topbar-logo-icon">D3</div>
         <span class="topbar-logo-name">Driven3</span>
       </a>
       <div class="topbar-badge">Admin</div>
     </div>
     <div class="topbar-right">
-      <a href="index.html" target="_blank" class="view-site-btn">View Site →</a>
-      <div class="topbar-user">
+      <a href="driven3automotive.html" target="_blank" class="view-site-btn">View Site →</a>
+      <div class="topbar-user" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)">
         <div class="topbar-avatar">A</div>
-        <strong>admin</strong>
+        <strong style="color:var(--text)">Admin</strong>
       </div>
       <button class="topbar-logout" onclick="doLogout()">Sign Out</button>
     </div>
   </div>
 
-  <!-- Sidebar -->
+  <!-- Desktop Sidebar -->
   <div class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Main</div>
-      <div class="sidebar-link active" onclick="showPanel('dashboard',this)">
+      <div class="sidebar-link active" onclick="gotoPanel('dashboard',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7" stroke="currentColor"/><rect x="14" y="3" width="7" height="7" stroke="currentColor"/><rect x="3" y="14" width="7" height="7" stroke="currentColor"/><rect x="14" y="14" width="7" height="7" stroke="currentColor"/></svg>
         Dashboard
       </div>
-      <div class="sidebar-link" onclick="showPanel('listings',this)">
+      <div class="sidebar-link" onclick="gotoPanel('listings',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 17H7A5 5 0 017 7h2M15 7h2a5 5 0 010 10h-2M8 12h8" stroke="currentColor"/></svg>
         All Listings
-        <span class="sidebar-count accent" id="sidebarCount">8</span>
+        <span class="sidebar-count accent" id="sidebarCount">0</span>
       </div>
-      <div class="sidebar-link" onclick="openNewModal();showPanel('listings',document.querySelector('[onclick*=listings]'))">
+      <div class="sidebar-link" onclick="openNewModal()">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><line x1="12" y1="8" x2="12" y2="16" stroke="currentColor"/><line x1="8" y1="12" x2="16" y2="12" stroke="currentColor"/></svg>
         Add Listing
       </div>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Filter By</div>
-      <div class="sidebar-link" onclick="filterSidebar('all',this)">
+      <div class="sidebar-label">Filter</div>
+      <div class="sidebar-link" onclick="sidebarFilter('all',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor"/></svg>
         All Vehicles
       </div>
-      <div class="sidebar-link" onclick="filterSidebar('active',this)">
+      <div class="sidebar-link" onclick="sidebarFilter('active',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><path d="M9 12l2 2 4-4" stroke="currentColor"/></svg>
         Active
       </div>
-      <div class="sidebar-link" onclick="filterSidebar('sold',this)">
+      <div class="sidebar-link" onclick="sidebarFilter('sold',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><line x1="15" y1="9" x2="9" y2="15" stroke="currentColor"/><line x1="9" y1="9" x2="15" y2="15" stroke="currentColor"/></svg>
         Sold
       </div>
@@ -479,281 +401,201 @@ tbody td { padding:14px 16px;font-size:13.5px; }
     </div>
   </div>
 
-  <!-- Main content -->
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()">
+    <div class="drawer" onclick="event.stopPropagation()">
+      <div class="drawer-item" onclick="closeDrawer();gotoPanel('dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7" stroke="currentColor"/><rect x="14" y="3" width="7" height="7" stroke="currentColor"/><rect x="3" y="14" width="7" height="7" stroke="currentColor"/><rect x="14" y="14" width="7" height="7" stroke="currentColor"/></svg>
+        Dashboard
+      </div>
+      <div class="drawer-item" onclick="closeDrawer();gotoPanel('listings')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 17H7A5 5 0 017 7h2M15 7h2a5 5 0 010 10h-2M8 12h8" stroke="currentColor"/></svg>
+        All Listings
+      </div>
+      <div class="drawer-item" onclick="closeDrawer();openNewModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor"/></svg>
+        Add New Listing
+      </div>
+      <div class="drawer-item" onclick="closeDrawer();doLogout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"/></svg>
+        Sign Out
+      </div>
+      <div class="drawer-close-row"><button class="drawer-close-btn" onclick="closeDrawer()">Close</button></div>
+    </div>
+  </div>
+
+  <!-- Main -->
   <div class="main">
 
-    <!-- ── DASHBOARD ── -->
+    <!-- DASHBOARD -->
     <div class="panel active" id="panel-dashboard">
       <div class="page-header">
-        <div class="page-title-wrap">
-          <div class="page-eyebrow">Overview</div>
-          <div class="page-title">Dashboard</div>
-        </div>
-        <button class="btn btn-primary" onclick="openNewModal();showPanel('listings',document.querySelectorAll('.sidebar-link')[1])">
+        <div><div class="page-eyebrow">Overview</div><div class="page-title">Dashboard</div></div>
+        <button class="btn btn-primary" onclick="openNewModal()">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor"/></svg>
-          Add New Listing
+          Add Listing
         </button>
       </div>
       <div class="stats-grid" id="statsGrid"></div>
-      <div class="table-wrap" style="margin-top:0">
+      <div class="table-wrap">
         <div class="table-toolbar">
-          <div style="font-size:13px;font-weight:600;color:var(--white)">Recent Listings</div>
-          <button class="btn btn-outline btn-sm" onclick="showPanel('listings',document.querySelectorAll('.sidebar-link')[1])">View All →</button>
+          <div style="font-size:13px;font-weight:700;color:var(--white)">Recent Listings</div>
+          <button class="btn btn-outline btn-sm" onclick="gotoPanel('listings')">View All →</button>
         </div>
-        <table>
-          <thead><tr>
-            <th>Vehicle</th><th>Reg</th><th>Year</th><th>Mileage</th><th>Price</th><th>Status</th><th>Actions</th>
-          </tr></thead>
-          <tbody id="dashRecentBody"></tbody>
-        </table>
+        <table><thead><tr><th>Vehicle</th><th>Reg</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="dashTableBody"></tbody></table>
+        <div class="m-cards" id="dashMobileCards"></div>
       </div>
     </div>
 
-    <!-- ── LISTINGS ── -->
+    <!-- LISTINGS -->
     <div class="panel" id="panel-listings">
       <div class="page-header">
-        <div class="page-title-wrap">
-          <div class="page-eyebrow">Inventory</div>
-          <div class="page-title">All Listings</div>
-        </div>
+        <div><div class="page-eyebrow">Inventory</div><div class="page-title">All Listings</div></div>
         <button class="btn btn-primary" onclick="openNewModal()">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor"/></svg>
-          Add New Listing
+          Add Listing
         </button>
       </div>
       <div class="table-wrap">
         <div class="table-toolbar">
-          <div class="table-search">
+          <div class="t-search">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8" stroke="currentColor"/><path d="m21 21-4.35-4.35" stroke="currentColor"/></svg>
-            <input type="text" id="tableSearch" placeholder="Search make, model, reg…" oninput="renderTable()">
+            <input type="text" id="tableSearch" placeholder="Search make, model, reg…" oninput="renderListings()">
           </div>
-          <div class="table-filters" id="tableFilters">
-            <button class="filter-chip active" onclick="setChip(this,'all')">All</button>
-            <button class="filter-chip" onclick="setChip(this,'active')">Active</button>
-            <button class="filter-chip" onclick="setChip(this,'sold')">Sold</button>
-            <button class="filter-chip" onclick="setChip(this,'petrol')">Petrol</button>
-            <button class="filter-chip" onclick="setChip(this,'diesel')">Diesel</button>
-            <button class="filter-chip" onclick="setChip(this,'electric')">Electric</button>
-          </div>
-        </div>
-        <table>
-          <thead><tr>
-            <th style="width:52px"></th>
-            <th>Vehicle</th>
-            <th>Reg</th>
-            <th>Year</th>
-            <th>Mileage</th>
-            <th>Fuel</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr></thead>
-          <tbody id="mainTableBody"></tbody>
-        </table>
-        <div class="pagination">
-          <div id="paginationInfo">Showing 1–8 of 8 listings</div>
-          <div class="pagination-btns">
-            <button class="page-btn active">1</button>
+          <div class="filter-row">
+            <button class="chip active" onclick="setChip(this,'all')">All</button>
+            <button class="chip" onclick="setChip(this,'active')">Active</button>
+            <button class="chip" onclick="setChip(this,'sold')">Sold</button>
+            <button class="chip" onclick="setChip(this,'petrol')">Petrol</button>
+            <button class="chip" onclick="setChip(this,'diesel')">Diesel</button>
+            <button class="chip" onclick="setChip(this,'electric')">Electric</button>
           </div>
         </div>
+        <table><thead><tr>
+          <th style="width:50px"></th><th>Vehicle</th><th>Reg</th><th>Year</th><th>Mileage</th><th>Fuel</th><th>Price</th><th>Status</th><th>Actions</th>
+        </tr></thead><tbody id="listingsTableBody"></tbody></table>
+        <div class="m-cards" id="listingsMobileCards"></div>
+        <div class="pagination"><div id="paginationInfo">0 listings</div></div>
       </div>
     </div>
 
-  </div><!-- /main -->
-</div><!-- /adminShell -->
+  </div>
 
-<!-- ═══════════════ ADD / EDIT MODAL ═══════════════ -->
+  <!-- Mobile Bottom Nav -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="bn-item active" id="bn-dashboard" onclick="gotoPanel('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7" stroke="currentColor"/><rect x="14" y="3" width="7" height="7" stroke="currentColor"/><rect x="3" y="14" width="7" height="7" stroke="currentColor"/><rect x="14" y="14" width="7" height="7" stroke="currentColor"/></svg>
+      Dash
+    </button>
+    <button class="bn-item" id="bn-listings" onclick="gotoPanel('listings')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 17H7A5 5 0 017 7h2M15 7h2a5 5 0 010 10h-2M8 12h8" stroke="currentColor"/></svg>
+      Listings
+      <span class="bn-badge" id="bnBadge">0</span>
+    </button>
+    <button class="bn-item bn-add" onclick="openNewModal()" aria-label="Add listing">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor"/></svg>
+    </button>
+    <button class="bn-item" onclick="toggleDrawer()">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor"/><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor"/></svg>
+      More
+    </button>
+    <button class="bn-item" onclick="doLogout()">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor"/></svg>
+      Out
+    </button>
+  </nav>
+</div>
+
+<!-- ADD/EDIT MODAL -->
 <div class="modal-overlay" id="listingModal">
   <div class="modal">
+    <div class="drag-handle"></div>
     <div class="modal-header">
-      <div class="modal-title" id="modalTitle">Add New Listing</div>
+      <div class="modal-title" id="modalTitle">Add Listing</div>
       <button class="modal-close" onclick="closeModal('listingModal')">✕</button>
     </div>
     <div class="modal-body">
 
-      <div class="form-section-title">Basic Information</div>
-      <div class="form-grid form-grid-3">
-        <div class="form-group">
-          <label>Make <span>*</span></label>
-          <input type="text" id="f_make" placeholder="e.g. BMW">
-        </div>
-        <div class="form-group">
-          <label>Model <span>*</span></label>
-          <input type="text" id="f_model" placeholder="e.g. M3 Competition">
-        </div>
-        <div class="form-group">
-          <label>Variant / Trim</label>
-          <input type="text" id="f_variant" placeholder="e.g. 3.0 BiTurbo · Auto">
-        </div>
+      <div class="fsec">Basic Info</div>
+      <div class="fg fg-3">
+        <div class="fgroup"><label>Make <span>*</span></label><input id="f_make" type="text" placeholder="BMW" autocapitalize="words"></div>
+        <div class="fgroup"><label>Model <span>*</span></label><input id="f_model" type="text" placeholder="M3 Competition" autocapitalize="words"></div>
+        <div class="fgroup"><label>Variant</label><input id="f_variant" type="text" placeholder="3.0 BiTurbo · Auto"></div>
       </div>
-      <div class="form-grid form-grid-4" style="margin-top:16px">
-        <div class="form-group">
-          <label>Year <span>*</span></label>
-          <input type="number" id="f_year" placeholder="2022" min="1990" max="2026">
-        </div>
-        <div class="form-group">
-          <label>Registration <span>*</span></label>
-          <input type="text" id="f_reg" placeholder="AB22 XYZ">
-        </div>
-        <div class="form-group">
-          <label>Mileage <span>*</span></label>
-          <input type="text" id="f_miles" placeholder="18,200">
-        </div>
-        <div class="form-group">
-          <label>Price (£) <span>*</span></label>
-          <input type="number" id="f_price" placeholder="62995" min="0">
-        </div>
+      <div class="fg fg-4" style="margin-top:13px">
+        <div class="fgroup"><label>Year <span>*</span></label><input id="f_year" type="number" placeholder="2022" inputmode="numeric"></div>
+        <div class="fgroup"><label>Reg <span>*</span></label><input id="f_reg" type="text" placeholder="AB22 XYZ" autocapitalize="characters" autocorrect="off"></div>
+        <div class="fgroup"><label>Mileage <span>*</span></label><input id="f_miles" type="text" placeholder="18,200" inputmode="numeric"></div>
+        <div class="fgroup"><label>Price £ <span>*</span></label><input id="f_price" type="number" placeholder="62995" inputmode="numeric"></div>
       </div>
 
-      <div class="form-section-title">Vehicle Details</div>
-      <div class="form-grid form-grid-4">
-        <div class="form-group">
-          <label>Body Type <span>*</span></label>
-          <select id="f_body">
-            <option value="">Select…</option>
-            <option>saloon</option>
-            <option>estate</option>
-            <option>suv</option>
-            <option>coupe</option>
-            <option>hatchback</option>
-            <option>convertible</option>
-            <option>electric</option>
-            <option>van</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Fuel Type <span>*</span></label>
-          <select id="f_fuel">
-            <option value="">Select…</option>
-            <option>Petrol</option>
-            <option>Diesel</option>
-            <option>Electric</option>
-            <option>Hybrid</option>
-            <option>Plug-in Hybrid</option>
-            <option>Mild Hybrid</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Transmission <span>*</span></label>
-          <select id="f_trans">
-            <option value="">Select…</option>
-            <option>Automatic</option>
-            <option>Manual</option>
-            <option>Semi-Automatic</option>
-            <option>CVT</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Colour</label>
-          <input type="text" id="f_color" placeholder="Pearl White">
-        </div>
+      <div class="fsec">Vehicle Details</div>
+      <div class="fg fg-4">
+        <div class="fgroup"><label>Body <span>*</span></label>
+          <select id="f_body"><option value="">Select…</option><option>saloon</option><option>estate</option><option>suv</option><option>coupe</option><option>hatchback</option><option>convertible</option><option>electric</option><option>van</option></select></div>
+        <div class="fgroup"><label>Fuel <span>*</span></label>
+          <select id="f_fuel"><option value="">Select…</option><option>Petrol</option><option>Diesel</option><option>Electric</option><option>Hybrid</option><option>Plug-in Hybrid</option><option>Mild Hybrid</option></select></div>
+        <div class="fgroup"><label>Transmission</label>
+          <select id="f_trans"><option value="">Select…</option><option>Automatic</option><option>Manual</option><option>Semi-Automatic</option><option>CVT</option></select></div>
+        <div class="fgroup"><label>Colour</label><input id="f_color" type="text" placeholder="Pearl White"></div>
       </div>
-      <div class="form-grid form-grid-4" style="margin-top:16px">
-        <div class="form-group">
-          <label>Doors</label>
-          <select id="f_doors">
-            <option value="">Select…</option>
-            <option>2</option><option>3</option><option>4</option><option>5</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Seats</label>
-          <select id="f_seats">
-            <option value="">Select…</option>
-            <option>2</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Previous Owners</label>
-          <input type="number" id="f_owners" placeholder="1" min="0" max="20">
-        </div>
-        <div class="form-group">
-          <label>Listing Badge</label>
-          <select id="f_badge">
-            <option value="">None</option>
-            <option>New In</option>
-            <option>Nearly New</option>
-            <option>Finance</option>
-            <option>Sold</option>
-            <option>Reserved</option>
-            <option>Reduced</option>
-          </select>
-        </div>
+      <div class="fg fg-4" style="margin-top:13px">
+        <div class="fgroup"><label>Doors</label>
+          <select id="f_doors"><option value="">–</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+        <div class="fgroup"><label>Seats</label>
+          <select id="f_seats"><option value="">–</option><option>2</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+        <div class="fgroup"><label>Prev. Owners</label><input id="f_owners" type="number" placeholder="1" inputmode="numeric"></div>
+        <div class="fgroup"><label>Badge</label>
+          <select id="f_badge"><option value="">None</option><option>New In</option><option>Nearly New</option><option>Sold</option><option>Reserved</option><option>Reduced</option></select></div>
       </div>
 
-      <div class="form-section-title">Technical Specs</div>
-      <div class="form-grid form-grid-3">
-        <div class="form-group">
-          <label>Engine</label>
-          <input type="text" id="f_engine" placeholder="3.0L Twin-Turbo I6">
-        </div>
-        <div class="form-group">
-          <label>Power Output</label>
-          <input type="text" id="f_power" placeholder="510 bhp">
-        </div>
-        <div class="form-group">
-          <label>Torque</label>
-          <input type="text" id="f_torque" placeholder="650 Nm">
-        </div>
+      <div class="fsec">Technical Specs</div>
+      <div class="fg fg-3">
+        <div class="fgroup"><label>Engine</label><input id="f_engine" type="text" placeholder="3.0L Twin-Turbo I6"></div>
+        <div class="fgroup"><label>Power</label><input id="f_power" type="text" placeholder="510 bhp"></div>
+        <div class="fgroup"><label>Torque</label><input id="f_torque" type="text" placeholder="650 Nm"></div>
       </div>
-      <div class="form-grid form-grid-3" style="margin-top:16px">
-        <div class="form-group">
-          <label>CO₂ Emissions</label>
-          <input type="text" id="f_co2" placeholder="232 g/km">
-        </div>
-        <div class="form-group">
-          <label>MOT Expiry</label>
-          <input type="text" id="f_mot" placeholder="March 2026">
-        </div>
-        <div class="form-group">
-          <label>Service History</label>
-          <input type="text" id="f_serviceHistory" placeholder="Full BMW Service History">
-        </div>
+      <div class="fg fg-3" style="margin-top:13px">
+        <div class="fgroup"><label>CO₂</label><input id="f_co2" type="text" placeholder="232 g/km"></div>
+        <div class="fgroup"><label>MOT Expiry</label><input id="f_mot" type="text" placeholder="March 2026"></div>
+        <div class="fgroup"><label>Service History</label><input id="f_serviceHistory" type="text" placeholder="Full BMW Service History"></div>
       </div>
 
-      <div class="form-section-title">Status</div>
-      <div class="form-grid form-grid-2">
-        <div class="form-group">
-          <label>Listing Status <span>*</span></label>
-          <select id="f_status">
-            <option value="active">Active — Visible on site</option>
-            <option value="sold">Sold</option>
-            <option value="reserved">Reserved</option>
-            <option value="draft">Draft — Hidden</option>
-          </select>
-        </div>
+      <div class="fsec">Status</div>
+      <div class="fg fg-2">
+        <div class="fgroup"><label>Listing Status <span>*</span></label>
+          <select id="f_status"><option value="active">Active — Visible on site</option><option value="sold">Sold</option><option value="reserved">Reserved</option><option value="draft">Draft — Hidden</option></select></div>
+        <div class="fgroup"><label>Featured?</label>
+          <select id="f_featured"><option value="no">No</option><option value="yes">Yes — Show featured</option></select></div>
       </div>
 
-      <div class="form-section-title">Photos</div>
-      <div class="form-hint" style="margin-bottom:10px;font-size:12px;color:var(--muted)">Drag & drop up to 10 images. The first image will be used as the thumbnail.</div>
-      <div id="photoDropzone" class="photo-dropzone" role="button" tabindex="0" aria-label="Upload photos by drag and drop">
-        <div class="photo-dropzone-label">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="2.2" stroke="currentColor" aria-hidden="true">
-            <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-            <polyline points="7 10 12 5 17 10" />
-            <line x1="12" y1="5" x2="12" y2="15" />
-          </svg>
-          <span><strong>Drag</strong> images here, or <span style="text-decoration:underline;cursor:pointer">click to upload</span></span>
+      <div class="fsec">Photos</div>
+      <div class="fhint" style="margin-bottom:10px">Tap or drag to add up to 10 images. First image = thumbnail.</div>
+      <div id="photoDropzone" class="dropzone">
+        <div class="dz-label">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="2" stroke="currentColor"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><polyline points="7 10 12 5 17 10"/><line x1="12" y1="5" x2="12" y2="15"/></svg>
+          <span><strong>Tap to upload</strong> or drag images here</span>
         </div>
         <input type="file" id="photoFileInput" accept="image/*" multiple style="display:none">
       </div>
-      <div class="photo-preview-list" id="photoPreviewList"></div>
+      <div class="photo-list" id="photoList"></div>
 
-      <div class="form-section-title">Description</div>
-      <div class="form-group">
+      <div class="fsec">Description</div>
+      <div class="fgroup">
         <label>Vehicle Description</label>
-        <textarea id="f_description" rows="5" placeholder="Write a detailed description of this vehicle. Highlight key features, condition, history and anything that makes this car special…"></textarea>
-        <div class="form-hint">HTML tags like &lt;p&gt; are supported.</div>
+        <textarea id="f_description" rows="4" placeholder="Describe the vehicle — condition, history, standout features…"></textarea>
+        <div class="fhint">Separate paragraphs with a blank line. HTML &lt;p&gt; tags supported.</div>
       </div>
 
-      <div class="form-section-title">Features & Equipment</div>
-      <div class="features-input-wrap">
-        <div class="features-tags" id="featuresTagsContainer"></div>
-        <div class="feature-add-row">
-          <input type="text" id="featureInput" placeholder="e.g. Heated Seats, Panoramic Roof…" onkeydown="if(event.key==='Enter'){event.preventDefault();addFeatureTag()}">
-          <button onclick="addFeatureTag()">Add</button>
+      <div class="fsec">Features & Equipment</div>
+      <div class="ftags-wrap">
+        <div class="ftags" id="featTagsEl"></div>
+        <div class="fadd-row">
+          <input type="text" id="featInput" placeholder="e.g. Heated Seats…" onkeydown="if(event.key==='Enter'){event.preventDefault();addFeat()}">
+          <button onclick="addFeat()">Add</button>
         </div>
-        <div class="form-hint">Press Enter or click Add after each feature.</div>
+        <div class="fhint" style="margin-top:6px">Press Enter or tap Add after each feature.</div>
       </div>
 
     </div>
@@ -767,572 +609,290 @@ tbody td { padding:14px 16px;font-size:13.5px; }
   </div>
 </div>
 
-<!-- Delete Confirm Modal -->
+<!-- DELETE MODAL -->
 <div class="modal-overlay" id="deleteModal">
-  <div class="modal delete-modal">
-    <div class="modal-body" style="padding:32px">
-      <div class="delete-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6" stroke="currentColor"/><path d="M9 6V4h6v2" stroke="currentColor"/></svg>
-      </div>
-      <div class="delete-title">Delete Listing?</div>
-      <div class="delete-desc" id="deleteDesc">This will permanently remove this listing from your inventory. This action cannot be undone.</div>
+  <div class="modal del-modal">
+    <div class="drag-handle"></div>
+    <div class="modal-body" style="padding:28px 24px">
+      <div class="del-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg></div>
+      <div class="del-title">Delete Listing?</div>
+      <div class="del-desc" id="deleteDesc">This will permanently remove this listing.</div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('deleteModal')">Cancel</button>
-      <button class="btn btn-danger" onclick="confirmDelete()">Delete Listing</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
     </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/backend/supabase-config.js"></script>
-<script src="js/backend/supabase-client.js"></script>
-<script src="js/backend/listings-api.js"></script>
 <script>
-// ─── AUTH ───
-async function doLogin() {
-  const u = document.getElementById('loginUser').value.trim();
-  const p = document.getElementById('loginPass').value;
-  document.getElementById('loginError').style.display = 'none';
-  try {
-    await window.D3ListingsApi.login(u, p);
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminShell').style.display = 'block';
-    await init();
-  } catch (err) {
-    document.getElementById('loginError').style.display = 'block';
-    document.getElementById('loginPass').value = '';
+/* AUTH */
+async function doLogin(){
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value;
+  const api=window.D3ListingsApi;
+  if(!api || !api.login){
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('loginPass').value='';
     document.getElementById('loginPass').focus();
-  }
-}
-function doLogout() {
-  window.D3ListingsApi.logout();
-  document.getElementById('adminShell').style.display = 'none';
-  document.getElementById('loginScreen').style.display = 'flex';
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  document.getElementById('loginError').style.display = 'none';
-}
-
-// ─── DATA ───
-let listings = [];
-let editingId = null;
-let deleteTargetId = null;
-let currentFilter = 'all';
-let currentFeatures = [];
-let currentPhotos = [];
-let photoNextId = 1;
-
-// ─── INIT ───
-async function loadListingsFromBackend() {
-  const remote = await window.D3ListingsApi.fetchAllListings();
-  if (Array.isArray(remote) && remote.length) {
-    listings = remote;
-  } else if (Array.isArray(remote)) {
-    listings = [];
-  }
-}
-
-async function init() {
-  try {
-    await loadListingsFromBackend();
-  } catch (err) {
-    console.warn('Supabase listings unavailable in admin.', err);
-    showToast('Supabase unavailable', 'error');
-  }
-  renderStats();
-  renderTable();
-  renderDashRecent();
-  document.getElementById('sidebarCount').textContent = listings.length;
-  bindPhotoUploader();
-}
-
-// ─── STATS ───
-function renderStats() {
-  const total = listings.length;
-  const active = listings.filter(l=>l.status==='active').length;
-  const sold = listings.filter(l=>l.status==='sold').length;
-  const totalVal = listings.filter(l=>l.status==='active').reduce((s,l)=>s+l.price,0);
-  document.getElementById('statsGrid').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-label">Total Listings</div>
-      <div class="stat-value">${total}</div>
-      <div class="stat-sub">All vehicles</div>
-      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" stroke="currentColor" rx="1"/><path d="M16 8h5l2 3v3h-7V8z" stroke="currentColor"/><circle cx="5.5" cy="18.5" r="2.5" stroke="currentColor"/><circle cx="18.5" cy="18.5" r="2.5" stroke="currentColor"/></svg></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Active</div>
-      <div class="stat-value">${active}</div>
-      <div class="stat-sub">Visible on site</div>
-      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10" stroke="currentColor"/><path d="M9 12l2 2 4-4" stroke="currentColor"/></svg></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Sold</div>
-      <div class="stat-value">${sold}</div>
-      <div class="stat-sub">This month</div>
-      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor"/></svg></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Stock Value</div>
-      <div class="stat-value">£${(totalVal/1000).toFixed(0)}k</div>
-      <div class="stat-sub">Active listings total</div>
-      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23" stroke="currentColor"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor"/></svg></div>
-    </div>
-  `;
-}
-
-// ─── TABLE ───
-function getFiltered() {
-  const q = (document.getElementById('tableSearch')?.value || '').toLowerCase();
-  return listings.filter(l => {
-    const matchQ = !q || `${l.make} ${l.model} ${l.reg} ${l.variant}`.toLowerCase().includes(q);
-    let matchF = true;
-    if (currentFilter === 'active') matchF = l.status === 'active';
-    else if (currentFilter === 'sold') matchF = l.status === 'sold';
-    else if (currentFilter === 'petrol') matchF = l.fuel.toLowerCase() === 'petrol';
-    else if (currentFilter === 'diesel') matchF = l.fuel.toLowerCase() === 'diesel';
-    else if (currentFilter === 'electric') matchF = l.fuel.toLowerCase() === 'electric';
-    return matchQ && matchF;
-  });
-}
-
-function renderTable() {
-  const filtered = getFiltered();
-  document.getElementById('paginationInfo').textContent = `Showing ${filtered.length} of ${listings.length} listings`;
-  document.getElementById('mainTableBody').innerHTML = filtered.map(l => tableRow(l)).join('');
-}
-
-function renderDashRecent() {
-  const recent = [...listings].slice(-5).reverse();
-  document.getElementById('dashRecentBody').innerHTML = recent.map(l => tableRow(l, true)).join('');
-}
-
-function tableRow(l, compact=false) {
-  const statusBadge = l.status === 'sold'
-    ? `<span class="badge badge-sold">Sold</span>`
-    : l.status === 'reserved'
-    ? `<span class="badge" style="background:rgba(96,165,250,0.1);color:var(--blue);border:1px solid rgba(96,165,250,0.2)">Reserved</span>`
-    : l.status === 'draft'
-    ? `<span class="badge" style="background:var(--mid);color:var(--muted);border:1px solid var(--border)">Draft</span>`
-    : `<span class="badge badge-active">Active</span>`;
-  return `<tr>
-    ${compact ? '' : `<td><img class="td-img" src="${l.img}" onerror="this.style.background='var(--mid)'" alt=""></td>`}
-    <td>
-      <div class="td-make">${l.make}</div>
-      <div class="td-model">${l.model}</div>
-      <div class="td-variant">${l.variant}</div>
-    </td>
-    <td style="font-size:13px;color:var(--muted);font-weight:500">${l.reg}</td>
-    <td style="font-size:13px">${l.year}</td>
-    <td style="font-size:13px;color:var(--muted)">${l.miles} mi</td>
-    ${compact ? '' : `<td style="font-size:13px;color:var(--muted)">${l.fuel}</td>`}
-    <td class="td-price">£${l.price.toLocaleString()}</td>
-    <td>${statusBadge}</td>
-    <td>
-      <div class="td-actions">
-        <button class="btn btn-sm btn-outline btn-icon" title="Edit" onclick="openEditModal('${l.id}')">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"/></svg>
-        </button>
-        <button class="btn btn-sm btn-danger btn-icon" title="Delete" onclick="openDeleteModal('${l.id}')">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg>
-        </button>
-      </div>
-    </td>
-  </tr>`;
-}
-
-function setChip(el, filter) {
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  currentFilter = filter;
-  renderTable();
-}
-
-function filterSidebar(filter, el) {
-  currentFilter = filter;
-  showPanel('listings', document.querySelectorAll('.sidebar-link')[1]);
-  // sync chips
-  document.querySelectorAll('.filter-chip').forEach(c => {
-    c.classList.toggle('active', c.getAttribute('onclick')?.includes(`'${filter}'`));
-  });
-  renderTable();
-}
-
-// ─── PANEL NAV ───
-function showPanel(id, el) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
-  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-  if (el) el.classList.add('active');
-}
-
-// ─── MODAL ───
-function openNewModal() {
-  editingId = null;
-  currentFeatures = [];
-  document.getElementById('modalTitle').textContent = 'Add New Listing';
-  clearForm();
-  renderFeatureTags();
-  document.getElementById('listingModal').classList.add('open');
-  resetListingModalScroll();
-}
-
-function openEditModal(id) {
-  const l = listings.find(x => String(x.id) === String(id));
-  if (!l) return;
-  editingId = id;
-  document.getElementById('modalTitle').textContent = `Edit — ${l.make} ${l.model}`;
-  clearForm();
-  currentFeatures = [...(l.features || [])];
-
-  // Populate all fields
-  document.getElementById('f_make').value = l.make || '';
-  document.getElementById('f_model').value = l.model || '';
-  document.getElementById('f_variant').value = l.variant || '';
-  document.getElementById('f_year').value = l.year || '';
-  document.getElementById('f_reg').value = l.reg || '';
-  document.getElementById('f_miles').value = l.miles || '';
-  document.getElementById('f_price').value = l.price || '';
-  document.getElementById('f_body').value = l.body || '';
-  document.getElementById('f_fuel').value = l.fuel || '';
-  document.getElementById('f_trans').value = l.trans || '';
-  document.getElementById('f_color').value = l.color || '';
-  document.getElementById('f_doors').value = l.doors || '';
-  document.getElementById('f_seats').value = l.seats || '';
-  document.getElementById('f_owners').value = l.owners || '';
-  document.getElementById('f_badge').value = l.badge || '';
-  document.getElementById('f_engine').value = l.engine || '';
-  document.getElementById('f_power').value = l.power || '';
-  document.getElementById('f_torque').value = l.torque || '';
-  document.getElementById('f_co2').value = l.co2 || '';
-  document.getElementById('f_mot').value = l.mot || '';
-  document.getElementById('f_serviceHistory').value = l.serviceHistory || '';
-  document.getElementById('f_status').value = l.status || 'active';
-  document.getElementById('f_description').value = (l.description || '').replace(/<[^>]+>/g, '');
-
-  // Photos
-  setPhotosFromListing(l);
-
-  renderFeatureTags();
-  document.getElementById('listingModal').classList.add('open');
-  resetListingModalScroll();
-}
-
-function closeModal(id) {
-  const modal = document.getElementById(id);
-  modal.classList.remove('open');
-  if (id === 'listingModal') resetListingModalScroll();
-}
-
-function resetListingModalScroll() {
-  const overlay = document.getElementById('listingModal');
-  if (!overlay) return;
-
-  const resetNow = () => {
-    overlay.scrollTop = 0;
-    const modal = overlay.querySelector('.modal');
-    const modalBody = overlay.querySelector('.modal-body');
-    if (modal) modal.scrollTop = 0;
-    if (modalBody) modalBody.scrollTop = 0;
-  };
-
-  resetNow();
-  requestAnimationFrame(resetNow);
-}
-
-function clearForm() {
-  ['f_make','f_model','f_variant','f_year','f_reg','f_miles','f_price','f_body','f_fuel','f_trans','f_color','f_doors','f_seats','f_owners','f_badge','f_engine','f_power','f_torque','f_co2','f_mot','f_serviceHistory','f_description'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '';
-  });
-  document.getElementById('f_status').value = 'active';
-  resetPhotoUploader();
-  currentFeatures = [];
-  renderFeatureTags();
-}
-
-async function saveListing() {
-  const make = document.getElementById('f_make').value.trim();
-  const model = document.getElementById('f_model').value.trim();
-  const price = parseInt(document.getElementById('f_price').value);
-  const year = parseInt(document.getElementById('f_year').value);
-  const reg = document.getElementById('f_reg').value.trim();
-  if (!make || !model || !price || !year || !reg) {
-    showToast('Please fill in all required fields (*)','error');
+    document.getElementById('loginError').textContent='Admin auth is not configured.';
     return;
   }
-
-  const imgs = currentPhotos.map(p => p.src).filter(Boolean);
-  const descRaw = document.getElementById('f_description').value.trim();
-  const desc = descRaw ? descRaw.split('\n\n').map(p=>`<p>${p}</p>`).join('') : '';
-
-  const data = {
-    make, model,
-    variant: document.getElementById('f_variant').value.trim(),
-    year, reg,
-    miles: document.getElementById('f_miles').value.trim(),
-    price,
-    body: document.getElementById('f_body').value,
-    fuel: document.getElementById('f_fuel').value,
-    trans: document.getElementById('f_trans').value,
-    color: document.getElementById('f_color').value.trim(),
-    doors: parseInt(document.getElementById('f_doors').value) || 4,
-    seats: parseInt(document.getElementById('f_seats').value) || 5,
-    owners: parseInt(document.getElementById('f_owners').value) || 1,
-    badge: document.getElementById('f_badge').value,
-    engine: document.getElementById('f_engine').value.trim(),
-    power: document.getElementById('f_power').value.trim(),
-    torque: document.getElementById('f_torque').value.trim(),
-    co2: document.getElementById('f_co2').value.trim(),
-    mot: document.getElementById('f_mot').value.trim(),
-    serviceHistory: document.getElementById('f_serviceHistory').value.trim(),
-    status: document.getElementById('f_status').value,
-    img: imgs[0] || 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80',
-    imgs: imgs.length ? imgs : ['https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85'],
-    description: desc,
-    features: [...currentFeatures],
-  };
-
-  try {
-    if (editingId) {
-      await window.D3ListingsApi.updateListing(editingId, data);
-      showToast(`✅ ${make} ${model} updated successfully`, 'success');
-    } else {
-      await window.D3ListingsApi.createListing(data);
-      showToast(`✅ ${make} ${model} added to inventory`, 'success');
-    }
-  } catch (err) {
-    console.error(err);
-    showToast('Failed to save listing to Supabase', 'error');
-    return;
-  }
-
-  await init();
-  closeModal('listingModal');
-}
-
-// ─── DELETE ───
-function openDeleteModal(id) {
-  deleteTargetId = id;
-  const l = listings.find(x => String(x.id) === String(id));
-  document.getElementById('deleteDesc').textContent = `This will permanently remove the ${l.make} ${l.model} (${l.reg}) from your inventory. This action cannot be undone.`;
-  document.getElementById('deleteModal').classList.add('open');
-}
-async function confirmDelete() {
-  const l = listings.find(x => String(x.id) === String(deleteTargetId));
-  try {
-    await window.D3ListingsApi.deleteListing(deleteTargetId);
-  } catch (err) {
-    console.error(err);
-    showToast('Failed to delete listing from Supabase', 'error');
-    return;
-  }
-
-  await init();
-  closeModal('deleteModal');
-  showToast(`🗑️ ${l.make} ${l.model} deleted`,'error');
-}
-
-// ─── PHOTO UPLOAD ───
-function bindPhotoUploader() {
-  const dropzone = document.getElementById('photoDropzone');
-  const fileInput = document.getElementById('photoFileInput');
-  if (!dropzone || !fileInput) return;
-  if (dropzone.dataset.bound === '1') return;
-  dropzone.dataset.bound = '1';
-
-  // Click-to-upload
-  dropzone.addEventListener('click', () => fileInput.click());
-  dropzone.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      fileInput.click();
-    }
-  });
-
-  // File picker
-  fileInput.addEventListener('change', () => {
-    void handlePhotoFiles(fileInput.files);
-    fileInput.value = '';
-  });
-
-  // Drag & drop
-  const prevent = e => { e.preventDefault(); e.stopPropagation(); };
-  ['dragenter', 'dragover'].forEach(evt => {
-    dropzone.addEventListener(evt, e => {
-      prevent(e);
-      dropzone.classList.add('dragover');
-    });
-  });
-  ['dragleave', 'dragend'].forEach(evt => {
-    dropzone.addEventListener(evt, e => {
-      prevent(e);
-      dropzone.classList.remove('dragover');
-    });
-  });
-  dropzone.addEventListener('drop', e => {
-    prevent(e);
-    dropzone.classList.remove('dragover');
-    void handlePhotoFiles(e.dataTransfer?.files);
-  });
-}
-
-function resetPhotoUploader() {
-  currentPhotos = [];
-  photoNextId = 1;
-  renderPhotoPreviews();
-}
-
-function setPhotosFromListing(l) {
-  resetPhotoUploader();
-  const srcs = (l.imgs && l.imgs.length ? l.imgs : [l.img || ''])
-    .map(s => (s || '').trim())
-    .filter(Boolean)
-    .slice(0, 10);
-  srcs.forEach(src => currentPhotos.push({ id: photoNextId++, src }));
-  renderPhotoPreviews();
-}
-
-function removePhoto(id) {
-  currentPhotos = currentPhotos.filter(p => p.id !== id);
-  renderPhotoPreviews();
-}
-
-function renderPhotoPreviews() {
-  const list = document.getElementById('photoPreviewList');
-  if (!list) return;
-  list.innerHTML = '';
-  currentPhotos.forEach(p => list.appendChild(createPhotoPreviewElement(p.id, p.src)));
-}
-
-function reorderPhoto(draggedId, targetId) {
-  const fromIndex = currentPhotos.findIndex(p => p.id === draggedId);
-  const toIndex = currentPhotos.findIndex(p => p.id === targetId);
-  if (fromIndex === -1 || toIndex === -1 || fromIndex === toIndex) return;
-
-  const [item] = currentPhotos.splice(fromIndex, 1);
-  // Adjust index if we removed an earlier item
-  let insertIndex = toIndex;
-  if (fromIndex < toIndex) insertIndex = toIndex - 1;
-  currentPhotos.splice(insertIndex, 0, item);
-  renderPhotoPreviews();
-}
-
-function createPhotoPreviewElement(id, src) {
-  const el = document.createElement('div');
-  el.className = 'photo-preview';
-  el.dataset.photoId = String(id);
-  el.draggable = true;
-  el.innerHTML = `
-    <img src="${src}" alt="Uploaded photo" loading="lazy">
-    <button type="button" class="photo-remove" title="Remove">×</button>
-  `;
-  el.querySelector('.photo-remove').addEventListener('click', e => {
-    e.preventDefault();
-    removePhoto(id);
-  });
-
-  el.addEventListener('dragstart', e => {
-    e.dataTransfer.setData('text/photo-id', String(id));
-    e.dataTransfer.effectAllowed = 'move';
-    el.classList.add('dragging');
-  });
-  el.addEventListener('dragend', () => {
-    el.classList.remove('dragging');
-  });
-  el.addEventListener('dragover', e => {
-    e.preventDefault(); // allow drop
-    e.dataTransfer.dropEffect = 'move';
-  });
-  el.addEventListener('drop', e => {
-    e.preventDefault();
-    const draggedId = parseInt(e.dataTransfer.getData('text/photo-id'), 10);
-    if (!Number.isNaN(draggedId)) reorderPhoto(draggedId, id);
-  });
-  return el;
-}
-
-async function handlePhotoFiles(files) {
-  const list = document.getElementById('photoPreviewList');
-  if (!list) return;
-  const arr = Array.from(files || []).filter(f => f && f.type && f.type.startsWith('image/'));
-  if (!arr.length) {
-    showToast('Please upload image files only (JPG/PNG/etc).', 'error');
-    return;
-  }
-
-  const remaining = Math.max(0, 10 - currentPhotos.length);
-  const toRead = arr.slice(0, remaining);
-  if (!toRead.length) {
-    showToast('You can add up to 10 photos per listing.', 'error');
-    return;
-  }
-  if (arr.length > toRead.length) {
-    showToast(`Only ${toRead.length} more photo(s) can be added.`, 'error');
-  }
-
-  for (const file of toRead) {
-    const src = await readFileAsDataURL(file);
-    const id = photoNextId++;
-    currentPhotos.push({ id, src });
-  }
-  renderPhotoPreviews();
-}
-
-function readFileAsDataURL(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(new Error('Failed to read file'));
-    reader.readAsDataURL(file);
-  });
-}
-
-// ─── FEATURES ───
-function addFeatureTag() {
-  const input = document.getElementById('featureInput');
-  const val = input.value.trim();
-  if (!val || currentFeatures.includes(val)) { input.value=''; return; }
-  currentFeatures.push(val);
-  input.value = '';
-  renderFeatureTags();
-}
-function removeFeatureTag(val) {
-  currentFeatures = currentFeatures.filter(f => f !== val);
-  renderFeatureTags();
-}
-function renderFeatureTags() {
-  document.getElementById('featuresTagsContainer').innerHTML = currentFeatures.map(f =>
-    `<div class="feature-tag">${f}<button onclick="removeFeatureTag('${f.replace(/'/g,"\\'")}')">×</button></div>`
-  ).join('');
-}
-
-// ─── TOAST ───
-function showToast(msg, type='') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast show ${type}`;
-  setTimeout(() => t.classList.remove('show'), 3200);
-}
-
-// ─── CLOSE ON OVERLAY CLICK ───
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay').forEach(o => o.classList.remove('open'));
-});
-
-// Restore session if already logged in.
-(async () => {
-  if (await window.D3ListingsApi.isAuthenticated()) {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminShell').style.display = 'block';
+  try{
+    await api.login(u,p);
+    document.getElementById('loginError').style.display='none';
+    document.getElementById('loginError').textContent='Incorrect username or password.';
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminShell').style.display='block';
     init();
+  }catch{
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('loginPass').value='';
+    document.getElementById('loginPass').focus();
+    document.getElementById('loginError').textContent='Incorrect username or password.';
   }
-})();
+}
+async function doLogout(){
+  try{
+    await window.D3ListingsApi?.logout?.();
+  }catch{
+    // Ignore logout failures; we still clear local UI/session.
+  }
+  document.getElementById('adminShell').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  ['loginUser','loginPass'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('loginError').style.display='none';
+}
+
+/* DATA */
+let listings=[
+  {id:1,make:'BMW',model:'M3 Competition',variant:'3.0 BiTurbo · Auto',year:2022,miles:'18,200',fuel:'Petrol',trans:'Automatic',price:62995,body:'saloon',color:'Pearl White',doors:4,seats:5,engine:'3.0L Twin-Turbo I6',power:'510 bhp',torque:'650 Nm',co2:'232 g/km',reg:'VN22 XYZ',owners:1,mot:'March 2026',serviceHistory:'Full BMW Service History',badge:'New In',status:'active',featured:'yes',img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80',imgs:['https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85'],description:'<p>Exceptional BMW M3 Competition with full history.</p>',features:['M Carbon Brakes','Head-Up Display','Harman Kardon','Carbon Roof']},
+  {id:2,make:'Audi',model:'RS6 Avant',variant:'4.0 TFSI · Quattro',year:2021,miles:'24,500',fuel:'Petrol',trans:'Automatic',price:74995,body:'estate',color:'Nardo Grey',doors:5,seats:5,engine:'4.0L Twin-Turbo V8',power:'600 bhp',torque:'800 Nm',co2:'256 g/km',reg:'WN21 ABC',owners:1,mot:'June 2026',serviceHistory:'Full Audi Service History',badge:'',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80',imgs:['https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85'],description:'<p>One of the most accomplished super-estates ever built.</p>',features:['B&O 3D Sound','Carbon Optics','Matrix LED']},
+  {id:3,make:'Porsche',model:'Cayenne S',variant:'2.9 V6 · Tiptronic',year:2020,miles:'31,000',fuel:'Petrol',trans:'Automatic',price:58995,body:'suv',color:'Jet Black',doors:5,seats:5,engine:'2.9L Twin-Turbo V6',power:'440 bhp',torque:'550 Nm',co2:'220 g/km',reg:'GP20 DEF',owners:2,mot:'September 2025',serviceHistory:'Full Porsche Service History',badge:'',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80',imgs:['https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85'],description:'<p>Outstanding Cayenne S in Jet Black.</p>',features:['Sport Chrono','Bose Sound','Air Suspension']},
+  {id:4,make:'Mercedes-Benz',model:'C63 S AMG',variant:'4.0 BiTurbo V8 · Auto',year:2021,miles:'22,700',fuel:'Petrol',trans:'Automatic',price:56995,body:'coupe',color:'Obsidian Black',doors:2,seats:4,engine:'4.0L Twin-Turbo V8',power:'510 bhp',torque:'700 Nm',co2:'242 g/km',reg:'WN21 GHI',owners:1,mot:'April 2026',serviceHistory:'Full Mercedes-Benz Service History',badge:'New In',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80',imgs:['https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=85'],description:'<p>Stunning AMG C63 S in Obsidian Black.</p>',features:['AMG Night Pack','Burmester Sound','AMG Track Pace']},
+  {id:5,make:'Land Rover',model:'Defender 110 X',variant:'3.0 D300 · Auto',year:2022,miles:'15,400',fuel:'Diesel',trans:'Automatic',price:67995,body:'suv',color:'Santorini Black',doors:5,seats:7,engine:'3.0L Inline-6 MHEV',power:'300 bhp',torque:'650 Nm',co2:'210 g/km',reg:'VN22 JKL',owners:1,mot:'February 2026',serviceHistory:'Full Land Rover Service History',badge:'',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=600&q=80',imgs:['https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85'],description:'<p>Pinnacle of the Defender range.</p>',features:['Meridian Sound','Terrain Response 2','Air Suspension']},
+  {id:6,make:'Tesla',model:'Model S Plaid',variant:'Tri-Motor · Long Range',year:2022,miles:'12,800',fuel:'Electric',trans:'Automatic',price:79995,body:'electric',color:'Midnight Silver',doors:4,seats:5,engine:'Tri-Motor Electric',power:'1,020 bhp',torque:'1,420 Nm',co2:'0 g/km',reg:'VN22 MNO',owners:1,mot:'N/A',serviceHistory:'Full Tesla Service History',badge:'New In',status:'active',featured:'yes',img:'https://images.unsplash.com/photo-1617704548623-340376564e68?w=600&q=80',imgs:['https://images.unsplash.com/photo-1617704548623-340376564e68?w=900&q=85'],description:'<p>World fastest-accelerating saloon.</p>',features:['Full Self-Driving','17" Touchscreen','405mi Range']},
+  {id:7,make:'Volkswagen',model:'Golf R',variant:'2.0 TSI 333 · DSG',year:2023,miles:'8,600',fuel:'Petrol',trans:'Automatic',price:39995,body:'saloon',color:'Lapiz Blue',doors:5,seats:5,engine:'2.0L TSI',power:'333 bhp',torque:'420 Nm',co2:'185 g/km',reg:'YN23 PQR',owners:1,mot:'January 2027',serviceHistory:'Full VW Service History',badge:'Nearly New',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&q=80',imgs:['https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=85'],description:'<p>Definitive performance hatchback.</p>',features:['Akrapovič Exhaust','DCC Chassis','Harman Kardon']},
+  {id:8,make:'Lexus',model:'LC 500 Convertible',variant:'5.0 V8 · 10-Speed',year:2021,miles:'19,300',fuel:'Petrol',trans:'Automatic',price:71995,body:'coupe',color:'Sonic Titanium',doors:2,seats:4,engine:'5.0L NA V8',power:'471 bhp',torque:'540 Nm',co2:'249 g/km',reg:'WN21 STU',owners:1,mot:'November 2025',serviceHistory:'Full Lexus Service History',badge:'',status:'sold',featured:'no',img:'https://images.unsplash.com/photo-1563720223185-11003d516935?w=600&q=80',imgs:['https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&q=85'],description:'<p>One of the most beautiful cars available.</p>',features:['Mark Levinson Audio','Semi-Aniline Leather','HUD']},
+];
+let nextId=9,editingId=null,deleteTargetId=null,filter='all',feats=[],photos=[],photoId=1;
+
+/* INIT */
+function init(){renderStats();renderListings();renderDashRecent();updateCounts();bindDropzone();}
+function updateCounts(){
+  const active=listings.filter(l=>l.status==='active').length;
+  document.getElementById('sidebarCount').textContent=listings.length;
+  document.getElementById('bnBadge').textContent=active;
+}
+
+/* PANELS */
+function gotoPanel(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
+  const bn=document.getElementById('bn-'+id);if(bn)bn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function sidebarFilter(f,el){filter=f;gotoPanel('listings',el);document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.getAttribute('onclick')?.includes("'"+f+"'")));renderListings();}
+
+/* DRAWER */
+function toggleDrawer(){document.getElementById('drawerOverlay').classList.toggle('open');}
+function closeDrawer(){document.getElementById('drawerOverlay').classList.remove('open');}
+
+/* STATS */
+function renderStats(){
+  const total=listings.length,active=listings.filter(l=>l.status==='active').length,
+    sold=listings.filter(l=>l.status==='sold').length,
+    val=listings.filter(l=>l.status==='active').reduce((s,l)=>s+l.price,0);
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value">${total}</div><div class="stat-sub">All vehicles</div><div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" stroke="currentColor" rx="1"/><path d="M16 8h5l2 3v3h-7V8z" stroke="currentColor"/><circle cx="5.5" cy="18.5" r="2.5" stroke="currentColor"/><circle cx="18.5" cy="18.5" r="2.5" stroke="currentColor"/></svg></div></div>
+    <div class="stat-card"><div class="stat-label">Active</div><div class="stat-value">${active}</div><div class="stat-sub">Live on site</div><div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10" stroke="currentColor"/><path d="M9 12l2 2 4-4" stroke="currentColor"/></svg></div></div>
+    <div class="stat-card"><div class="stat-label">Sold</div><div class="stat-value">${sold}</div><div class="stat-sub">Completed</div><div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor"/></svg></div></div>
+    <div class="stat-card"><div class="stat-label">Value</div><div class="stat-value">£${(val/1000).toFixed(0)}k</div><div class="stat-sub">Active stock</div><div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23" stroke="currentColor"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor"/></svg></div></div>`;
+}
+
+/* HELPERS */
+const mobile=()=>window.innerWidth<=640;
+function sbadge(l){
+  if(l.status==='sold')return`<span class="badge badge-sold">Sold</span>`;
+  if(l.status==='reserved')return`<span class="badge" style="background:rgba(96,165,250,0.1);color:var(--blue);border:1px solid rgba(96,165,250,0.2)">Reserved</span>`;
+  if(l.status==='draft')return`<span class="badge" style="background:var(--mid);color:var(--muted);border:1px solid var(--border)">Draft</span>`;
+  return`<span class="badge badge-active">Active</span>`;
+}
+function getFiltered(){
+  const q=(document.getElementById('tableSearch')?.value||'').toLowerCase();
+  return listings.filter(l=>{
+    const mq=!q||`${l.make} ${l.model} ${l.reg} ${l.variant}`.toLowerCase().includes(q);
+    let mf=true;
+    if(filter==='active')mf=l.status==='active';
+    else if(filter==='sold')mf=l.status==='sold';
+    else if(filter==='petrol')mf=(l.fuel||'').toLowerCase()==='petrol';
+    else if(filter==='diesel')mf=(l.fuel||'').toLowerCase()==='diesel';
+    else if(filter==='electric')mf=(l.fuel||'').toLowerCase()==='electric';
+    return mq&&mf;
+  });
+}
+
+/* TABLE ROW */
+function trow(l,compact=false){
+  const editBtn=`<button class="btn btn-sm btn-outline btn-icon" onclick="openEditModal(${l.id})" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"/></svg></button>`;
+  const delBtn=`<button class="btn btn-sm btn-danger btn-icon" onclick="openDeleteModal(${l.id})" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg></button>`;
+  if(compact)return`<tr><td><div class="td-make">${l.make}</div><div class="td-model">${l.model}</div></td><td style="color:var(--muted)">${l.reg}</td><td class="td-price">£${l.price.toLocaleString()}</td><td>${sbadge(l)}</td><td><div class="td-actions">${editBtn}${delBtn}</div></td></tr>`;
+  return`<tr><td><img class="td-img" src="${l.img}" onerror="this.style.background='var(--mid)'" alt="" loading="lazy"></td><td><div class="td-make">${l.make}</div><div class="td-model">${l.model}</div><div class="td-variant">${l.variant}</div></td><td style="color:var(--muted);font-weight:500">${l.reg}</td><td>${l.year}</td><td style="color:var(--muted)">${l.miles} mi</td><td style="color:var(--muted)">${l.fuel}</td><td class="td-price">£${l.price.toLocaleString()}</td><td>${sbadge(l)}</td><td><div class="td-actions">${editBtn}${delBtn}</div></td></tr>`;
+}
+
+/* MOBILE CARD */
+function mcard(l){
+  return`<div class="m-card">
+    <div class="m-card-top">
+      <div class="m-card-img"><img src="${l.img}" alt="${l.make} ${l.model}" loading="lazy" onerror="this.style.background='var(--mid)'"></div>
+      <div class="m-card-body">
+        <div class="m-card-make">${l.make}</div>
+        <div class="m-card-model">${l.model}</div>
+        <div class="m-card-variant">${l.variant}</div>
+        <div class="m-card-pills">
+          <span class="m-pill">${l.year}</span>
+          <span class="m-pill">${l.miles} mi</span>
+          <span class="m-pill">${l.fuel}</span>
+          <span class="m-pill">${l.reg}</span>
+        </div>
+      </div>
+    </div>
+    <div class="m-card-footer">
+      <div class="m-card-price">£${l.price.toLocaleString()}</div>
+      <div class="m-card-right">
+        ${sbadge(l)}
+        <button class="m-btn m-btn-edit" onclick="openEditModal(${l.id})" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="16" height="16"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"/></svg></button>
+        <button class="m-btn m-btn-del" onclick="openDeleteModal(${l.id})" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="16" height="16"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg></button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* RENDER */
+function renderListings(){
+  const f=getFiltered();
+  document.getElementById('paginationInfo').textContent=`${f.length} of ${listings.length} listings`;
+  if(mobile()){
+    document.getElementById('listingsTableBody').innerHTML='';
+    const el=document.getElementById('listingsMobileCards');
+    el.style.display='flex';el.innerHTML=f.map(mcard).join('');
+  }else{
+    document.getElementById('listingsMobileCards').style.display='none';
+    document.getElementById('listingsTableBody').innerHTML=f.map(l=>trow(l)).join('');
+  }
+}
+function renderDashRecent(){
+  const r=[...listings].slice(-5).reverse();
+  if(mobile()){
+    document.getElementById('dashTableBody').innerHTML='';
+    const el=document.getElementById('dashMobileCards');
+    el.style.display='flex';el.innerHTML=r.map(mcard).join('');
+  }else{
+    document.getElementById('dashMobileCards').style.display='none';
+    document.getElementById('dashTableBody').innerHTML=r.map(l=>trow(l,true)).join('');
+  }
+}
+function setChip(el,f){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');filter=f;renderListings();}
+window.addEventListener('resize',()=>{renderListings();renderDashRecent();});
+
+/* MODAL */
+function resetListingModalScroll(){
+  const overlay=document.getElementById('listingModal');
+  if(!overlay) return;
+  overlay.scrollTop=0;
+  const body=overlay.querySelector('.modal-body');
+  if(body) body.scrollTop=0;
+}
+function openNewModal(){editingId=null;feats=[];document.getElementById('modalTitle').textContent='Add Listing';clearForm();renderFeats();document.getElementById('listingModal').classList.add('open');resetListingModalScroll();}
+function openEditModal(id){
+  const l=listings.find(x=>x.id===id);if(!l)return;
+  editingId=id;feats=[...(l.features||[])];
+  document.getElementById('modalTitle').textContent=`Edit — ${l.make} ${l.model}`;
+  clearForm();
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v||''};
+  s('f_make',l.make);s('f_model',l.model);s('f_variant',l.variant);s('f_year',l.year);s('f_reg',l.reg);s('f_miles',l.miles);s('f_price',l.price);
+  s('f_body',l.body);s('f_fuel',l.fuel);s('f_trans',l.trans);s('f_color',l.color);s('f_doors',l.doors);s('f_seats',l.seats);s('f_owners',l.owners);s('f_badge',l.badge);
+  s('f_engine',l.engine);s('f_power',l.power);s('f_torque',l.torque);s('f_co2',l.co2);s('f_mot',l.mot);s('f_serviceHistory',l.serviceHistory);
+  s('f_status',l.status);s('f_featured',l.featured||'no');s('f_description',(l.description||'').replace(/<[^>]+>/g,''));
+  setPhotosFromListing(l);renderFeats();
+  document.getElementById('listingModal').classList.add('open');
+  resetListingModalScroll();
+}
+function closeModal(id){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.classList.remove('open');
+  if(id==='listingModal') resetListingModalScroll();
+}
+function clearForm(){
+  ['f_make','f_model','f_variant','f_year','f_reg','f_miles','f_price','f_body','f_fuel','f_trans','f_color','f_doors','f_seats','f_owners','f_badge','f_engine','f_power','f_torque','f_co2','f_mot','f_serviceHistory','f_description'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('f_status').value='active';document.getElementById('f_featured').value='no';
+  resetPhotos();feats=[];renderFeats();
+}
+function saveListing(){
+  const make=document.getElementById('f_make').value.trim(),model=document.getElementById('f_model').value.trim(),
+    price=parseInt(document.getElementById('f_price').value),year=parseInt(document.getElementById('f_year').value),
+    reg=document.getElementById('f_reg').value.trim();
+  if(!make||!model||!price||!year||!reg){showToast('Fill in all required fields (*)','error');return;}
+  const imgs=photos.map(p=>p.src).filter(Boolean);
+  const descRaw=document.getElementById('f_description').value.trim();
+  const desc=descRaw?descRaw.split('\n\n').map(p=>`<p>${p}</p>`).join(''):'';
+  const g=id=>document.getElementById(id)?.value?.trim()||'';
+  const gi=id=>parseInt(document.getElementById(id)?.value)||0;
+  const data={make,model,variant:g('f_variant'),year,reg,miles:g('f_miles'),price,body:g('f_body'),fuel:g('f_fuel'),trans:g('f_trans'),color:g('f_color'),doors:gi('f_doors')||4,seats:gi('f_seats')||5,owners:gi('f_owners')||1,badge:g('f_badge'),engine:g('f_engine'),power:g('f_power'),torque:g('f_torque'),co2:g('f_co2'),mot:g('f_mot'),serviceHistory:g('f_serviceHistory'),status:document.getElementById('f_status').value,featured:document.getElementById('f_featured').value,img:imgs[0]||'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80',imgs:imgs.length?imgs:['https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85'],description:desc,features:[...feats]};
+  if(editingId){const i=listings.findIndex(l=>l.id===editingId);listings[i]={...listings[i],...data};showToast(`✅ ${make} ${model} updated`,'success');}
+  else{data.id=nextId++;listings.push(data);showToast(`✅ ${make} ${model} added`,'success');}
+  closeModal('listingModal');renderStats();renderListings();renderDashRecent();updateCounts();
+}
+
+/* DELETE */
+function openDeleteModal(id){deleteTargetId=id;const l=listings.find(x=>x.id===id);document.getElementById('deleteDesc').textContent=`Permanently remove ${l.make} ${l.model} (${l.reg})? This cannot be undone.`;document.getElementById('deleteModal').classList.add('open');}
+function confirmDelete(){const l=listings.find(x=>x.id===deleteTargetId);listings=listings.filter(x=>x.id!==deleteTargetId);closeModal('deleteModal');renderStats();renderListings();renderDashRecent();updateCounts();showToast(`🗑️ ${l.make} ${l.model} deleted`,'error');}
+
+/* PHOTOS */
+function bindDropzone(){
+  const dz=document.getElementById('photoDropzone'),fi=document.getElementById('photoFileInput');
+  if(!dz||!fi||dz.dataset.b)return;dz.dataset.b='1';
+  dz.addEventListener('click',()=>fi.click());
+  fi.addEventListener('change',()=>{handleFiles(fi.files);fi.value='';});
+  ['dragenter','dragover'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.add('dragover');}));
+  ['dragleave','dragend'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.remove('dragover');}));
+  dz.addEventListener('drop',ev=>{ev.preventDefault();dz.classList.remove('dragover');handleFiles(ev.dataTransfer?.files);});
+}
+function resetPhotos(){photos=[];photoId=1;document.getElementById('photoList').innerHTML='';}
+function setPhotosFromListing(l){resetPhotos();(l.imgs?.length?l.imgs:[l.img||'']).filter(Boolean).slice(0,10).forEach(src=>photos.push({id:photoId++,src}));renderPhotos();}
+async function handleFiles(files){
+  const arr=Array.from(files||[]).filter(f=>f?.type?.startsWith('image/'));
+  const rem=Math.max(0,10-photos.length);if(!rem){showToast('Max 10 photos','error');return;}
+  for(const f of arr.slice(0,rem)){const src=await new Promise((r,j)=>{const rd=new FileReader();rd.onload=()=>r(rd.result);rd.onerror=j;rd.readAsDataURL(f);});photos.push({id:photoId++,src});}
+  renderPhotos();
+}
+function renderPhotos(){
+  const list=document.getElementById('photoList');list.innerHTML='';
+  photos.forEach(p=>{
+    const el=document.createElement('div');el.className='photo-thumb';
+    el.innerHTML=`<img src="${p.src}" alt="" loading="lazy"><button type="button" class="photo-rm" title="Remove">×</button>`;
+    el.querySelector('.photo-rm').addEventListener('click',()=>{photos=photos.filter(x=>x.id!==p.id);renderPhotos();});
+    list.appendChild(el);
+  });
+}
+
+/* FEATURES */
+function addFeat(){const inp=document.getElementById('featInput'),v=inp.value.trim();if(!v||feats.includes(v)){inp.value='';return;}feats.push(v);inp.value='';renderFeats();}
+function removeFeat(v){feats=feats.filter(f=>f!==v);renderFeats();}
+function renderFeats(){document.getElementById('featTagsEl').innerHTML=feats.map(f=>`<div class="ftag">${f}<button onclick="removeFeat('${f.replace(/'/g,"\\'")}')">×</button></div>`).join('');}
+
+/* TOAST */
+function showToast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className=`toast show ${type}`;clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+
+/* CLOSE ON OVERLAY/ESC */
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.modal-overlay').forEach(o=>o.classList.remove('open'));closeDrawer();}});
 </script>
 </body>
 </html>
