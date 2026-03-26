@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Driven3 Automotive — Premium Pre-Owned Vehicles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +34,19 @@
     color: var(--text);
     overflow-x: hidden;
     line-height: 1.6;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  button, a { touch-action: manipulation; }
+  input, select, textarea { min-height: 44px; }
+
+  .btn, .car-btn, .filter-tab, .search-btn, .view-all, .tab-btn, .form-submit {
+    min-height: 44px;
+  }
+
+  @media (max-width: 768px) {
+    input, select, textarea { font-size: 16px; }
   }
 
   /* ── THEMED SCROLLBAR ── */
@@ -644,6 +657,11 @@
   .filter-tab:hover { border-color: var(--accent); color: var(--accent); }
   .filter-tab.active { background: var(--accent); color: var(--black); border-color: var(--accent); }
 
+  @media (max-width: 768px) {
+    .car-btn { padding: 11px 18px; }
+    .filter-tab { padding: 10px 18px; }
+  }
+
   /* ── FEATURES STRIP ── */
   .features-strip {
     background: var(--dark);
@@ -859,8 +877,8 @@
   /* ── BACK TO TOP ── */
   .back-top {
     position: fixed;
-    bottom: 28px;
-    right: 28px;
+    bottom: calc(28px + env(safe-area-inset-bottom));
+    right: calc(28px + env(safe-area-inset-right));
     width: 44px;
     height: 44px;
     background: var(--accent);
@@ -878,6 +896,20 @@
   }
   .back-top.visible { opacity: 1; transform: translateY(0); }
   .back-top svg { width: 18px; height: 18px; stroke: var(--black); }
+
+  /* Avoid hover-only animations on touch devices */
+  @media (hover: none) {
+    .car-card:hover {
+      transform: none;
+      border-color: var(--border);
+      box-shadow: none;
+    }
+    .car-card:hover .car-img-wrap img { transform: none; }
+    .car-fav:hover { background: rgba(10,10,10,0.7); }
+    .car-btn:hover { background: var(--mid); color: var(--text); border-color: var(--border); }
+    .filter-tab:hover { border-color: var(--border); color: var(--muted); }
+    .btn-primary:hover, .btn-outline:hover { transform: none; }
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 1024px) {

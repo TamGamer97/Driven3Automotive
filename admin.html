@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Admin — Driven3 Automotive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +29,15 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;line-height:1.5}
+
+html{-webkit-text-size-adjust:100%}
+button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
+button,a{touch-action:manipulation}
+input,select,textarea{min-height:44px}
+
+@media(max-width:768px){
+  input,select,textarea{font-size:16px}
+}
 
 /* ─── THEMED SCROLLBAR ─── */
 *{
@@ -345,7 +354,7 @@ tbody td { padding:14px 16px;font-size:13.5px; }
 .delete-desc { font-size:14px;color:var(--muted);line-height:1.6; }
 
 /* ─── TOAST ─── */
-.toast { position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 22px;border-radius:10px;font-size:13.5px;font-weight:500;opacity:0;transition:all 0.3s;z-index:9999;white-space:nowrap;pointer-events:none;display:flex;align-items:center;gap:10px; }
+.toast { position:fixed;bottom:calc(28px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 22px;border-radius:10px;font-size:13.5px;font-weight:500;opacity:0;transition:all 0.3s;z-index:9999;white-space:nowrap;pointer-events:none;display:flex;align-items:center;gap:10px; }
 .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
 .toast.success { border-color:rgba(74,222,128,0.3);background:#0f1f14; }
 .toast.error { border-color:rgba(232,74,74,0.3);background:#1f0f0f; }
@@ -367,6 +376,10 @@ tbody td { padding:14px 16px;font-size:13.5px; }
   .form-grid-2,.form-grid-3,.form-grid-4{grid-template-columns:1fr}
   .table-toolbar{flex-direction:column;align-items:stretch}
   .table-search{width:100%}
+  .modal-overlay{padding:20px 12px calc(20px + env(safe-area-inset-bottom)) 12px}
+  .modal-header{padding:20px 16px}
+  .modal-footer{padding:16px 16px}
+  .modal-body{padding:20px}
 }
 </style>
 </head>

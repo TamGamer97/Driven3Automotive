@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Vehicle Details — Driven3 Automotive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,15 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Outfit', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+  html { -webkit-text-size-adjust: 100%; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  button, a { touch-action: manipulation; }
+  input, select, textarea { min-height: 44px; }
+
+  .btn, .car-btn, .car-btn-mini, .car-spec-mini, .gallery-nav, .tab-btn, .form-submit, .lightbox-close, .lightbox-nav {
+    min-height: 44px;
+  }
 
   /* ── THEMED SCROLLBAR ── */
   * {
@@ -261,12 +270,20 @@
   .footer-legal a:hover { color: var(--accent); }
 
   /* ── BACK TO TOP ── */
-  .back-top { position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px; background: var(--accent); border: none; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(232,200,74,0.3); opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 100; }
+  .back-top { position: fixed; bottom: calc(28px + env(safe-area-inset-bottom)); right: calc(28px + env(safe-area-inset-right)); width: 44px; height: 44px; background: var(--accent); border: none; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(232,200,74,0.3); opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 100; }
   .back-top.visible { opacity: 1; transform: translateY(0); }
   .back-top svg { width: 18px; height: 18px; stroke: var(--black); }
 
+  @media (hover: none) {
+    .car-card:hover { transform: none; border-color: var(--border); box-shadow: none; }
+    .car-card:hover .car-img-wrap img { transform: none; }
+    .thumb:hover { opacity: 0.6; }
+    .gallery-main:hover img { transform: none; }
+    .gallery-nav:hover { background: rgba(10,10,10,0.7); border-color: var(--border); color: var(--text); }
+  }
+
   /* ── TOAST ── */
-  .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--card); border: 1px solid var(--accent); color: var(--text); padding: 14px 24px; border-radius: 10px; font-size: 14px; font-weight: 500; opacity: 0; transition: all 0.3s; z-index: 9998; white-space: nowrap; pointer-events: none; }
+  .toast { position: fixed; bottom: calc(32px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%) translateY(20px); background: var(--card); border: 1px solid var(--accent); color: var(--text); padding: 14px 24px; border-radius: 10px; font-size: 14px; font-weight: 500; opacity: 0; transition: all 0.3s; z-index: 9998; white-space: nowrap; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* ── RESPONSIVE ── */
