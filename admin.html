@@ -30,6 +30,22 @@
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden;line-height:1.5}
 
+/* ─── THEMED SCROLLBAR ─── */
+*{
+  scrollbar-width:thin;
+  scrollbar-color:rgba(232,200,74,0.55) var(--dark);
+}
+*::-webkit-scrollbar{width:11px;height:11px}
+*::-webkit-scrollbar-track{background:linear-gradient(180deg,#101010 0%,#151515 100%)}
+*::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,rgba(232,200,74,0.72) 0%,rgba(201,162,39,0.72) 100%);
+  border:2px solid #121212;
+  border-radius:10px;
+}
+*::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg,rgba(232,200,74,0.92) 0%,rgba(201,162,39,0.92) 100%);
+}
+
 /* ─── LOGIN SCREEN ─── */
 #loginScreen {
   position:fixed;inset:0;background:var(--black);z-index:9999;
@@ -379,7 +395,7 @@ tbody td { padding:14px 16px;font-size:13.5px; }
         <input type="password" id="loginPass" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
       </div>
       <button class="login-btn" onclick="doLogin()">Sign In</button>
-      <div class="login-hint">Credentials: admin / 123</div>
+      <div class="login-hint">Credentials are verified securely from Supabase DB.</div>
     </div>
   </div>
 </div>
@@ -693,13 +709,6 @@ tbody td { padding:14px 16px;font-size:13.5px; }
             <option value="draft">Draft — Hidden</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Featured?</label>
-          <select id="f_featured">
-            <option value="no">No</option>
-            <option value="yes">Yes — Show in hero/featured</option>
-          </select>
-        </div>
       </div>
 
       <div class="form-section-title">Photos</div>
@@ -764,22 +773,29 @@ tbody td { padding:14px 16px;font-size:13.5px; }
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/backend/supabase-config.js"></script>
+<script src="js/backend/supabase-client.js"></script>
+<script src="js/backend/listings-api.js"></script>
 <script>
 // ─── AUTH ───
-function doLogin() {
+async function doLogin() {
   const u = document.getElementById('loginUser').value.trim();
   const p = document.getElementById('loginPass').value;
-  if (u === 'admin' && p === '123') {
+  document.getElementById('loginError').style.display = 'none';
+  try {
+    await window.D3ListingsApi.login(u, p);
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminShell').style.display = 'block';
-    init();
-  } else {
+    await init();
+  } catch (err) {
     document.getElementById('loginError').style.display = 'block';
     document.getElementById('loginPass').value = '';
     document.getElementById('loginPass').focus();
   }
 }
 function doLogout() {
+  window.D3ListingsApi.logout();
   document.getElementById('adminShell').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('loginUser').value = '';
@@ -788,57 +804,7 @@ function doLogout() {
 }
 
 // ─── DATA ───
-let listings = [
-  { id:1, make:'BMW', model:'M3 Competition', variant:'3.0 BiTurbo · Auto', year:2022, miles:'18,200', fuel:'Petrol', trans:'Automatic', price:62995, body:'saloon', color:'Pearl White', doors:4, seats:5, engine:'3.0L Twin-Turbo I6', power:'510 bhp', torque:'650 Nm', co2:'232 g/km', reg:'VN22 XYZ', owners:1, mot:'March 2026', serviceHistory:'Full BMW Service History', badge:'New In', status:'active', featured:'yes',
-    img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80',
-    imgs:['https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85','https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85','https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85','https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85','https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=900&q=85'],
-    description:'<p>This exceptional BMW M3 Competition represents the pinnacle of the iconic M3 lineage.</p>',
-    features:['M Carbon Ceramic Brakes','Head-Up Display','Harman Kardon Sound','M Drivers Package','Carbon Fibre Roof','Heated M Sport Seats','Reversing Camera','Front & Rear Parking Sensors']
-  },
-  { id:2, make:'Audi', model:'RS6 Avant', variant:'4.0 TFSI · Quattro', year:2021, miles:'24,500', fuel:'Petrol', trans:'Automatic', price:74995, body:'estate', color:'Nardo Grey', doors:5, seats:5, engine:'4.0L Twin-Turbo V8', power:'600 bhp', torque:'800 Nm', co2:'256 g/km', reg:'WN21 ABC', owners:1, mot:'June 2026', serviceHistory:'Full Audi Service History', badge:'', status:'active', featured:'no',
-    img:'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80',
-    imgs:['https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85'],
-    description:'<p>One of the most accomplished super-estates ever built.</p>',
-    features:['Bang & Olufsen 3D Sound','Carbon Optics Package','Dynamic Package Plus','Matrix LED Headlights']
-  },
-  { id:3, make:'Porsche', model:'Cayenne S', variant:'2.9 V6 · Tiptronic', year:2020, miles:'31,000', fuel:'Petrol', trans:'Automatic', price:58995, body:'suv', color:'Jet Black', doors:5, seats:5, engine:'2.9L Twin-Turbo V6', power:'440 bhp', torque:'550 Nm', co2:'220 g/km', reg:'GP20 DEF', owners:2, mot:'September 2025', serviceHistory:'Full Porsche Service History', badge:'', status:'active', featured:'no',
-    img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80',
-    imgs:['https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85'],
-    description:'<p>This Porsche Cayenne S in Jet Black is outstanding.</p>',
-    features:['Sport Chrono Package','Porsche Active Suspension','Bose Surround Sound']
-  },
-  { id:4, make:'Mercedes-Benz', model:'C63 S AMG', variant:'4.0 BiTurbo V8 · Auto', year:2021, miles:'22,700', fuel:'Petrol', trans:'Automatic', price:56995, body:'coupe', color:'Obsidian Black', doors:2, seats:4, engine:'4.0L Twin-Turbo V8', power:'510 bhp', torque:'700 Nm', co2:'242 g/km', reg:'WN21 GHI', owners:1, mot:'April 2026', serviceHistory:'Full Mercedes-Benz Service History', badge:'New In', status:'active', featured:'no',
-    img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80',
-    imgs:['https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=85'],
-    description:'<p>An absolutely stunning Mercedes-AMG C63 S Coupé.</p>',
-    features:['AMG Night Package','Burmester Surround Sound','AMG Track Pace']
-  },
-  { id:5, make:'Land Rover', model:'Defender 110 X', variant:'3.0 D300 · Auto', year:2022, miles:'15,400', fuel:'Diesel', trans:'Automatic', price:67995, body:'suv', color:'Santorini Black', doors:5, seats:7, engine:'3.0L Inline-6 Diesel MHEV', power:'300 bhp', torque:'650 Nm', co2:'210 g/km', reg:'VN22 JKL', owners:1, mot:'February 2026', serviceHistory:'Full Land Rover Service History', badge:'', status:'active', featured:'no',
-    img:'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=600&q=80',
-    imgs:['https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85'],
-    description:'<p>The Defender X represents the very pinnacle of the Defender range.</p>',
-    features:['Meridian Signature Sound','Terrain Response 2','Air Suspension']
-  },
-  { id:6, make:'Tesla', model:'Model S Plaid', variant:'Tri-Motor · Long Range', year:2022, miles:'12,800', fuel:'Electric', trans:'Automatic', price:79995, body:'electric', color:'Midnight Silver', doors:4, seats:5, engine:'Tri-Motor Electric', power:'1,020 bhp', torque:'1,420 Nm', co2:'0 g/km', reg:'VN22 MNO', owners:1, mot:'N/A (Electric)', serviceHistory:'Full Tesla Service History', badge:'New In', status:'active', featured:'yes',
-    img:'https://images.unsplash.com/photo-1617704548623-340376564e68?w=600&q=80',
-    imgs:['https://images.unsplash.com/photo-1617704548623-340376564e68?w=900&q=85'],
-    description:'<p>The Tesla Model S Plaid is the world fastest-accelerating saloon.</p>',
-    features:['Full Self-Driving','17" Touchscreen','Premium Audio','405 Mile Range']
-  },
-  { id:7, make:'Volkswagen', model:'Golf R', variant:'2.0 TSI 333 · DSG', year:2023, miles:'8,600', fuel:'Petrol', trans:'Automatic', price:39995, body:'saloon', color:'Lapiz Blue', doors:5, seats:5, engine:'2.0L Turbocharged TSI', power:'333 bhp', torque:'420 Nm', co2:'185 g/km', reg:'YN23 PQR', owners:1, mot:'January 2027', serviceHistory:'Full VW Service History', badge:'Nearly New', status:'active', featured:'no',
-    img:'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&q=80',
-    imgs:['https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=85'],
-    description:'<p>The 333 Edition Golf R is the definitive performance hatchback.</p>',
-    features:['Akrapovič Exhaust','DCC Adaptive Chassis','Harman Kardon Sound']
-  },
-  { id:8, make:'Lexus', model:'LC 500 Convertible', variant:'5.0 V8 · 10-Speed', year:2021, miles:'19,300', fuel:'Petrol', trans:'Automatic', price:71995, body:'coupe', color:'Sonic Titanium', doors:2, seats:4, engine:'5.0L Naturally Aspirated V8', power:'471 bhp', torque:'540 Nm', co2:'249 g/km', reg:'WN21 STU', owners:1, mot:'November 2025', serviceHistory:'Full Lexus Service History', badge:'', status:'sold', featured:'no',
-    img:'https://images.unsplash.com/photo-1563720223185-11003d516935?w=600&q=80',
-    imgs:['https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&q=85'],
-    description:'<p>One of the most beautiful and sonorous cars available today.</p>',
-    features:['Mark Levinson Sound','Semi-Aniline Leather','Head-Up Display']
-  },
-];
-let nextId = 9;
+let listings = [];
 let editingId = null;
 let deleteTargetId = null;
 let currentFilter = 'all';
@@ -847,7 +813,22 @@ let currentPhotos = [];
 let photoNextId = 1;
 
 // ─── INIT ───
-function init() {
+async function loadListingsFromBackend() {
+  const remote = await window.D3ListingsApi.fetchAllListings();
+  if (Array.isArray(remote) && remote.length) {
+    listings = remote;
+  } else if (Array.isArray(remote)) {
+    listings = [];
+  }
+}
+
+async function init() {
+  try {
+    await loadListingsFromBackend();
+  } catch (err) {
+    console.warn('Supabase listings unavailable in admin.', err);
+    showToast('Supabase unavailable', 'error');
+  }
   renderStats();
   renderTable();
   renderDashRecent();
@@ -938,10 +919,10 @@ function tableRow(l, compact=false) {
     <td>${statusBadge}</td>
     <td>
       <div class="td-actions">
-        <button class="btn btn-sm btn-outline btn-icon" title="Edit" onclick="openEditModal(${l.id})">
+        <button class="btn btn-sm btn-outline btn-icon" title="Edit" onclick="openEditModal('${l.id}')">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"/></svg>
         </button>
-        <button class="btn btn-sm btn-danger btn-icon" title="Delete" onclick="openDeleteModal(${l.id})">
+        <button class="btn btn-sm btn-danger btn-icon" title="Delete" onclick="openDeleteModal('${l.id}')">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg>
         </button>
       </div>
@@ -982,10 +963,11 @@ function openNewModal() {
   clearForm();
   renderFeatureTags();
   document.getElementById('listingModal').classList.add('open');
+  resetListingModalScroll();
 }
 
 function openEditModal(id) {
-  const l = listings.find(x => x.id === id);
+  const l = listings.find(x => String(x.id) === String(id));
   if (!l) return;
   editingId = id;
   document.getElementById('modalTitle').textContent = `Edit — ${l.make} ${l.model}`;
@@ -1015,7 +997,6 @@ function openEditModal(id) {
   document.getElementById('f_mot').value = l.mot || '';
   document.getElementById('f_serviceHistory').value = l.serviceHistory || '';
   document.getElementById('f_status').value = l.status || 'active';
-  document.getElementById('f_featured').value = l.featured || 'no';
   document.getElementById('f_description').value = (l.description || '').replace(/<[^>]+>/g, '');
 
   // Photos
@@ -1023,10 +1004,29 @@ function openEditModal(id) {
 
   renderFeatureTags();
   document.getElementById('listingModal').classList.add('open');
+  resetListingModalScroll();
 }
 
 function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
+  const modal = document.getElementById(id);
+  modal.classList.remove('open');
+  if (id === 'listingModal') resetListingModalScroll();
+}
+
+function resetListingModalScroll() {
+  const overlay = document.getElementById('listingModal');
+  if (!overlay) return;
+
+  const resetNow = () => {
+    overlay.scrollTop = 0;
+    const modal = overlay.querySelector('.modal');
+    const modalBody = overlay.querySelector('.modal-body');
+    if (modal) modal.scrollTop = 0;
+    if (modalBody) modalBody.scrollTop = 0;
+  };
+
+  resetNow();
+  requestAnimationFrame(resetNow);
 }
 
 function clearForm() {
@@ -1035,13 +1035,12 @@ function clearForm() {
     if (el) el.value = '';
   });
   document.getElementById('f_status').value = 'active';
-  document.getElementById('f_featured').value = 'no';
   resetPhotoUploader();
   currentFeatures = [];
   renderFeatureTags();
 }
 
-function saveListing() {
+async function saveListing() {
   const make = document.getElementById('f_make').value.trim();
   const model = document.getElementById('f_model').value.trim();
   const price = parseInt(document.getElementById('f_price').value);
@@ -1077,45 +1076,49 @@ function saveListing() {
     mot: document.getElementById('f_mot').value.trim(),
     serviceHistory: document.getElementById('f_serviceHistory').value.trim(),
     status: document.getElementById('f_status').value,
-    featured: document.getElementById('f_featured').value,
     img: imgs[0] || 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80',
     imgs: imgs.length ? imgs : ['https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85'],
     description: desc,
     features: [...currentFeatures],
   };
 
-  if (editingId) {
-    const idx = listings.findIndex(l => l.id === editingId);
-    listings[idx] = { ...listings[idx], ...data };
-    showToast(`✅ ${make} ${model} updated successfully`, 'success');
-  } else {
-    data.id = nextId++;
-    listings.push(data);
-    showToast(`✅ ${make} ${model} added to inventory`, 'success');
+  try {
+    if (editingId) {
+      await window.D3ListingsApi.updateListing(editingId, data);
+      showToast(`✅ ${make} ${model} updated successfully`, 'success');
+    } else {
+      await window.D3ListingsApi.createListing(data);
+      showToast(`✅ ${make} ${model} added to inventory`, 'success');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Failed to save listing to Supabase', 'error');
+    return;
   }
 
+  await init();
   closeModal('listingModal');
-  renderStats();
-  renderTable();
-  renderDashRecent();
-  document.getElementById('sidebarCount').textContent = listings.length;
 }
 
 // ─── DELETE ───
 function openDeleteModal(id) {
   deleteTargetId = id;
-  const l = listings.find(x => x.id === id);
+  const l = listings.find(x => String(x.id) === String(id));
   document.getElementById('deleteDesc').textContent = `This will permanently remove the ${l.make} ${l.model} (${l.reg}) from your inventory. This action cannot be undone.`;
   document.getElementById('deleteModal').classList.add('open');
 }
-function confirmDelete() {
-  const l = listings.find(x => x.id === deleteTargetId);
-  listings = listings.filter(x => x.id !== deleteTargetId);
+async function confirmDelete() {
+  const l = listings.find(x => String(x.id) === String(deleteTargetId));
+  try {
+    await window.D3ListingsApi.deleteListing(deleteTargetId);
+  } catch (err) {
+    console.error(err);
+    showToast('Failed to delete listing from Supabase', 'error');
+    return;
+  }
+
+  await init();
   closeModal('deleteModal');
-  renderStats();
-  renderTable();
-  renderDashRecent();
-  document.getElementById('sidebarCount').textContent = listings.length;
   showToast(`🗑️ ${l.make} ${l.model} deleted`,'error');
 }
 
@@ -1308,6 +1311,15 @@ document.querySelectorAll('.modal-overlay').forEach(o => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.querySelectorAll('.modal-overlay').forEach(o => o.classList.remove('open'));
 });
+
+// Restore session if already logged in.
+(async () => {
+  if (await window.D3ListingsApi.isAuthenticated()) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminShell').style.display = 'block';
+    init();
+  }
+})();
 </script>
 </body>
 </html>

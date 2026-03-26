@@ -6,7 +6,8 @@
 <title>Vehicle Details — Driven3 Automotive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital@1&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,500,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
   :root {
     --black: #0a0a0a;
@@ -25,6 +26,27 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Outfit', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+  /* ── THEMED SCROLLBAR ── */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(232,200,74,0.55) var(--dark);
+  }
+  *::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  *::-webkit-scrollbar-track {
+    background: linear-gradient(180deg, #101010 0%, #151515 100%);
+  }
+  *::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(232,200,74,0.72) 0%, rgba(201,162,39,0.72) 100%);
+    border: 2px solid #121212;
+    border-radius: 10px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(232,200,74,0.92) 0%, rgba(201,162,39,0.92) 100%);
+  }
 
   /* ── ANNOUNCEMENT ── */
   .announcement { background: var(--accent); color: var(--black); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
@@ -206,7 +228,13 @@
   .car-variant-mini { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
   .car-specs-mini { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
   .car-spec-mini { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
-  .car-spec-mini svg { width: 11px; height: 11px; stroke: var(--muted); }
+  .car-spec-mini i {
+    width: 11px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
   .car-footer-mini { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 12px; }
   .car-price-mini { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white); }
   .car-btn-mini { background: var(--mid); border: 1.5px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.2s; text-decoration: none; }
@@ -511,160 +539,26 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/backend/supabase-config.js"></script>
+<script src="js/backend/supabase-client.js"></script>
+<script src="js/backend/listings-api.js"></script>
 <script>
 // ── ALL CARS DATA ──
-const cars = [
-  {
-    id:1, make:'BMW', model:'M3 Competition', variant:'3.0 BiTurbo · Automatic', year:2022,
-    miles:'18,200', fuel:'Petrol', trans:'Automatic', price:62995, body:'saloon',
-    img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-    badge:'New In', color:'Pearl White', doors:4, seats:5, engine:'3.0L Twin-Turbo I6',
-    power:'510 bhp', torque:'650 Nm', co2:'232 g/km', reg:'VN22 XYZ',
-    owners:1, mot:'March 2026', serviceHistory:'Full BMW Service History',
-    imgs:[
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-      'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=900&q=85',
-    ],
-    description: `<p>This exceptional BMW M3 Competition represents the pinnacle of the iconic M3 lineage. With just 18,200 miles from new and a single previous owner, this is a truly outstanding example of Bavaria's finest performance saloon.</p><p>Finished in stunning Pearl White with a full black leather M Sport interior, the specification on this car is exceptional. The 3.0L twin-turbocharged straight-six engine produces 510 bhp and rockets the car from 0–62 mph in just 3.9 seconds, with an electronically limited top speed of 180 mph with the M Driver's Package.</p><p>Supplied with a full BMW service history, the original handbook pack and two keys. HPI clear with no outstanding finance or adverse history.</p>`,
-    features:['M Carbon Ceramic Brakes','Head-Up Display','Harman Kardon Sound','M Drivers Package','Carbon Fibre Roof','Heated M Sport Seats','Reversing Camera','Front & Rear Parking Sensors','Apple CarPlay / Android Auto','Adaptive M Suspension','M Sport Exhaust','20" M Alloy Wheels','Sunroof / Panoramic Roof','Ambient Interior Lighting','Wireless Phone Charging','Lane Departure Warning','Blind Spot Monitoring','Active Cruise Control']
-  },
-  {
-    id:2, make:'Audi', model:'RS6 Avant', variant:'4.0 TFSI Quattro · Automatic', year:2021,
-    miles:'24,500', fuel:'Petrol', trans:'Automatic', price:74995, body:'estate',
-    img:'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
-    badge:'Finance', color:'Nardo Grey', doors:5, seats:5, engine:'4.0L Twin-Turbo V8',
-    power:'600 bhp', torque:'800 Nm', co2:'256 g/km', reg:'WN21 ABC',
-    owners:1, mot:'June 2026', serviceHistory:'Full Audi Service History',
-    imgs:[
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
-      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
-    ],
-    description:`<p>One of the most accomplished super-estates ever built, this Audi RS6 Avant in ultra-desirable Nardo Grey is a genuinely rare find. With just one previous owner and full Audi service history, this is the ultimate performance estate.</p><p>The 4.0L twin-turbocharged V8 develops 600 bhp and despatches 0–62 mph in 3.6 seconds, while the air suspension and Quattro all-wheel drive ensure all weather capability and supreme ride quality.</p><p>Loaded with options including Dynamic Package Plus, Carbon Optics and the Bang & Olufsen 3D Premium Sound System. HPI clear, two keys, full book pack.</p>`,
-    features:['Bang & Olufsen 3D Sound','Carbon Optics Package','Dynamic Package Plus','Matrix LED Headlights','RS Sports Exhaust','Panoramic Sunroof','Air Suspension','Head-Up Display','21" RS Alloy Wheels','Heated & Ventilated Seats','Virtual Cockpit Plus','Wireless CarPlay','Night Vision Assist','Lane Change Assist','Rear Cross Traffic Alert','Active Lane Assist','Park Assist','360° Camera System']
-  },
-  {
-    id:3, make:'Porsche', model:'Cayenne S', variant:'2.9L V6 Twin-Turbo · Tiptronic S', year:2020,
-    miles:'31,000', fuel:'Petrol', trans:'Automatic', price:58995, body:'suv',
-    img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-    badge:'', color:'Jet Black', doors:5, seats:5, engine:'2.9L Twin-Turbo V6',
-    power:'440 bhp', torque:'550 Nm', co2:'220 g/km', reg:'GP20 DEF',
-    owners:2, mot:'September 2025', serviceHistory:'Full Porsche Service History',
-    imgs:[
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
-      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
-      'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85',
-    ],
-    description:`<p>This Porsche Cayenne S in Jet Black is an outstanding example of the current generation Cayenne — arguably the finest luxury performance SUV on the market. Two owners from new with full Porsche dealer service history.</p><p>The 2.9L twin-turbo V6 produces 440 bhp and takes this full-size SUV to 62 mph in just 5.0 seconds, while the air suspension delivers a ride quality that belies the performance on tap.</p><p>Specification includes Sport Chrono Package, panoramic sunroof, Bose surround sound and the Sport Design body styling pack. Immaculate throughout.</p>`,
-    features:['Sport Chrono Package','Porsche Active Suspension','Bose Surround Sound','Panoramic Sunroof','Sport Design Package','21" Cayenne S Alloys','Heated/Ventilated Seats','PCM Navigation','Rear-Axle Steering','Lane Keeping Assist','Traffic Jam Assist','Night Vision Camera','Head-Up Display','Ambient Lighting','Wireless Charging','360° Surround Camera','Tow Bar','Privacy Glass']
-  },
-  {
-    id:4, make:'Mercedes-Benz', model:'C63 S AMG', variant:'4.0L BiTurbo V8 · 9G-Tronic', year:2021,
-    miles:'22,700', fuel:'Petrol', trans:'Automatic', price:56995, body:'coupe',
-    img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=85',
-    badge:'New In', color:'Obsidian Black', doors:2, seats:4, engine:'4.0L Twin-Turbo V8',
-    power:'510 bhp', torque:'700 Nm', co2:'242 g/km', reg:'WN21 GHI',
-    owners:1, mot:'April 2026', serviceHistory:'Full Mercedes-Benz Service History',
-    imgs:[
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=85',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
-      'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=900&q=85',
-    ],
-    description:`<p>An absolutely stunning Mercedes-AMG C63 S Coupé in Obsidian Black Metallic. One owner from new with full Mercedes-Benz service history, this brutally fast and beautifully styled coupé is in immaculate condition throughout.</p><p>The hand-built 4.0L twin-turbo V8 AMG engine produces 510 bhp and propels this stunning coupé to 62 mph in 3.9 seconds, accompanied by one of the greatest exhaust notes in the business.</p><p>AMG Night Package, Burmester Surround Sound, Driver Assistance Package and AMG Track Pace. A must-see vehicle.</p>`,
-    features:['AMG Night Package','Burmester Surround Sound','AMG Track Pace','Driver Assistance Package','AMG Performance Exhaust','Carbon Fibre Trim','Heated Sport Seats','Head-Up Display','19" AMG Alloys','MBUX Infotainment','Apple CarPlay','Adaptive Cruise Control','Blind Spot Assist','Active Brake Assist','Parking Package','Panoramic Sunroof','Ambient Lighting','Rear View Camera']
-  },
-  {
-    id:5, make:'Land Rover', model:'Defender 110 X', variant:'3.0L D300 Mild Hybrid · Auto', year:2022,
-    miles:'15,400', fuel:'Diesel', trans:'Automatic', price:67995, body:'suv',
-    img:'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85',
-    badge:'Finance', color:'Santorini Black', doors:5, seats:7, engine:'3.0L Inline-6 Diesel MHEV',
-    power:'300 bhp', torque:'650 Nm', co2:'210 g/km', reg:'VN22 JKL',
-    owners:1, mot:'February 2026', serviceHistory:'Full Land Rover Service History',
-    imgs:[
-      'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85',
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-    ],
-    description:`<p>The new Defender X represents the very pinnacle of the Defender range — the most capable, luxurious and well-equipped Defender ever made. This stunning Santorini Black example has covered just 15,400 miles from new with one owner and full Land Rover service history.</p><p>The 3.0L six-cylinder mild hybrid diesel produces 300 bhp and 650 Nm of torque, offering effortless performance both on and off-road. Ground clearance of 291mm and Wade sensing to 900mm make this the ultimate all-rounder.</p><p>Specification includes Meridian Signature Sound, Pivi Pro Infotainment, configurable terrain response and the contrast roof pack. Seven seats. Immaculate condition.</p>`,
-    features:['Meridian Signature Sound','Pivi Pro Infotainment','Terrain Response 2','Wade Sensing','Air Suspension','Pixel LED Headlights','Seven Seat Configuration','Panoramic Sunroof','22" Style 5103 Alloys','Heated Steering Wheel','Front/Rear Heated Seats','360° Camera System','3D Surround Camera','Head-Up Display','Wireless Charging','Activity Key','Tow Pack 3,500kg','Apple CarPlay / Android Auto']
-  },
-  {
-    id:6, make:'Tesla', model:'Model S Plaid', variant:'Tri-Motor · Long Range AWD', year:2022,
-    miles:'12,800', fuel:'Electric', trans:'Automatic', price:79995, body:'electric',
-    img:'https://images.unsplash.com/photo-1617704548623-340376564e68?w=900&q=85',
-    badge:'New In', color:'Midnight Silver', doors:4, seats:5, engine:'Tri-Motor Electric',
-    power:'1,020 bhp', torque:'1,420 Nm', co2:'0 g/km', reg:'VN22 MNO',
-    owners:1, mot:'N/A (Electric)', serviceHistory:'Full Tesla Service History',
-    imgs:[
-      'https://images.unsplash.com/photo-1617704548623-340376564e68?w=900&q=85',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-      'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=900&q=85',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
-    ],
-    description:`<p>The Tesla Model S Plaid is the world's fastest-accelerating production saloon, full stop. With 1,020 bhp from three electric motors, it dispatches 0–62 mph in just 1.99 seconds — a number that defies belief until you experience it.</p><p>This Midnight Silver example has just 12,800 miles from new with one owner. The 405-mile WLTP range means real-world anxiety is a thing of the past, and Supercharger access across Europe makes long journeys effortless.</p><p>The 17" landscape touchscreen, yoke steering wheel, full self-driving capability and premium audio make this the most technologically advanced car in our stock. A truly extraordinary machine.</p>`,
-    features:['Full Self-Driving Capability','17" Landscape Touchscreen','Premium Audio (22 Speakers)','Yoke Steering Wheel','405 Mile WLTP Range','Supercharger Access','Over-The-Air Updates','Autopilot','Dashcam (Sentry Mode)','Rear Entertainment Screens','Heated/Cooled Seats','HEPA Air Filtration','21" Arachnid Wheels','Tinted Glass Roof','Dog Mode & Camp Mode','Bioweapon Defence Mode','Fart Mode (obviously)','Track Mode']
-  },
-  {
-    id:7, make:'Volkswagen', model:'Golf R', variant:'2.0L TSI 333 · DSG 7', year:2023,
-    miles:'8,600', fuel:'Petrol', trans:'Automatic', price:39995, body:'saloon',
-    img:'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=85',
-    badge:'Nearly New', color:'Lapiz Blue', doors:5, seats:5, engine:'2.0L Turbocharged TSI',
-    power:'333 bhp', torque:'420 Nm', co2:'185 g/km', reg:'YN23 PQR',
-    owners:1, mot:'January 2027', serviceHistory:'Full Volkswagen Service History',
-    imgs:[
-      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=85',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85',
-      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-    ],
-    description:`<p>The 333 Edition Golf R is the definitive performance hatchback — a limited edition model celebrating 333 bhp and equipped with an exclusive specification not available on the standard Golf R. This example in Lapiz Blue with just 8,600 miles is as close to new as you'll find.</p><p>The 2.0L turbocharged engine sends all 333 bhp to all four wheels via VW's 4Motion AWD system and the slick 7-speed DSG gearbox, resulting in a 0–62 mph time of 4.6 seconds.</p><p>This is genuinely one of the best all-round cars at any price. Practical, fast, understated and incredibly capable. As good as hot hatches get.</p>`,
-    features:['333 Edition Exclusive Spec','Akrapovič Titanium Exhaust','19" Estoril Alloys','DCC Adaptive Chassis','Performance Pack','Harman Kardon Sound','10" Infotainment Display','Digital Cockpit Pro','Wireless CarPlay','Heated Front Seats','Ambient Lighting Plus','Park Distance Control Front & Rear','Travel Assist','Lane Assist','Emergency Assist','Black Roof','Black Mirror Caps','Rear Spoiler']
-  },
-  {
-    id:8, make:'Lexus', model:'LC 500 Convertible', variant:'5.0L V8 · 10-Speed Direct Shift', year:2021,
-    miles:'19,300', fuel:'Petrol', trans:'Automatic', price:71995, body:'coupe',
-    img:'https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&q=85',
-    badge:'', color:'Sonic Titanium', doors:2, seats:4, engine:'5.0L Naturally Aspirated V8',
-    power:'471 bhp', torque:'540 Nm', co2:'249 g/km', reg:'WN21 STU',
-    owners:1, mot:'November 2025', serviceHistory:'Full Lexus Service History',
-    imgs:[
-      'https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&q=85',
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85',
-      'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=900&q=85',
-    ],
-    description:`<p>The Lexus LC 500 Convertible is one of the most beautiful and sonorous cars available today. This stunning Sonic Titanium example combines jaw-dropping design with a high-revving 471 bhp V8 that delivers one of the greatest engine soundtracks of any car currently on sale.</p><p>Unlike almost every other modern performance car, the LC 500 uses a naturally aspirated 5.0L V8 which revs freely to 7,100 rpm — producing a symphony of mechanical music that never gets old. The 10-speed automatic gearbox keeps the engine in its power band at all times.</p><p>Ownership has been faultless — one fastidious owner, full Lexus service history and garaged from new. A genuine collector's car in waiting.</p>`,
-    features:['Mark Levinson 13-Speaker Sound','Semi-Aniline Leather','Alcantara Headliner','Heated & Cooled Seats','10" Navigation Display','Head-Up Display','Adaptive Variable Suspension','Active Rear Spoiler','21" Split 5-Spoke Alloys','Carbon Fibre Interior Trim','360° Camera System','Automatic Emergency Steering','Lane Departure Alert','Radar Cruise Control','Rear Cross Traffic Alert','Pre-Collision System','Road Sign Assist','Four-Seat Convertible Roof']
-  },
-];
+let cars = [];
 
 // ── ROUTING ──
 function getCarId() {
   const params = new URLSearchParams(window.location.search);
-  const id = parseInt(params.get('id'));
-  return isNaN(id) ? 1 : id;
+  return params.get('id') || '';
 }
 
 function goBackToResults() {
   window.location.href = 'index.html#stock';
 }
 
-let currentCar = cars.find(c => c.id === getCarId()) || cars[0];
-let images = currentCar.imgs;
+let currentCar = null;
+let images = [];
 let currentImg = 0;
 
 // ── BUILD PAGE ──
@@ -757,7 +651,7 @@ function buildPage(car) {
   // Similar
   const similar = cars.filter(c => c.id !== car.id).slice(0, 4);
   document.getElementById('similarGrid').innerHTML = similar.map(c => `
-    <div class="car-card" onclick="window.location.href='listing.html?id=${c.id}'">
+    <div class="car-card" onclick="window.location.href='listing.html?id=${encodeURIComponent(c.id)}'">
       <div class="car-img-wrap">
         <img src="${c.img}" alt="${c.make} ${c.model}" loading="lazy">
         ${c.badge ? `<div class="car-badge">${c.badge}</div>` : ''}
@@ -767,9 +661,9 @@ function buildPage(car) {
         <div class="car-name-mini">${c.model}</div>
         <div class="car-variant-mini">${c.variant}</div>
         <div class="car-specs-mini">
-          <div class="car-spec-mini"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor"/></svg>${c.year}</div>
-          <div class="car-spec-mini"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><polyline points="12 6 12 12 16 14" stroke="currentColor"/></svg>${c.miles} mi</div>
-          <div class="car-spec-mini"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 15h18M5 19l-2-4 9-9 9 9-2 4" stroke="currentColor"/></svg>${c.fuel}</div>
+          <div class="car-spec-mini"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i>${c.year}</div>
+          <div class="car-spec-mini"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i>${c.miles} mi</div>
+          <div class="car-spec-mini"><i class="fa-solid fa-gas-pump" aria-hidden="true"></i>${c.fuel}</div>
         </div>
         <div class="car-footer-mini">
           <div class="car-price-mini">£${c.price.toLocaleString()}</div>
@@ -840,7 +734,29 @@ document.getElementById('hamburger').addEventListener('click', () => {
 });
 
 // ── INIT ──
-buildPage(currentCar);
+async function initListingPage() {
+  try {
+    cars = await window.D3ListingsApi.fetchPublicListings();
+  } catch (err) {
+    console.warn('Supabase listings unavailable.', err);
+  }
+
+  const idFromQuery = getCarId();
+  currentCar = cars.find(c => String(c.id) === String(idFromQuery)) || cars[0];
+  if (!currentCar) {
+    document.getElementById('breadcrumbTitle').textContent = 'Vehicle Not Found';
+    document.querySelector('.listing-page').innerHTML = '<div style="padding:80px 24px;text-align:center;color:var(--muted);"><div style="font-size:18px;color:var(--text);font-weight:600;">Vehicle unavailable</div><div style="margin-top:8px;">This listing could not be loaded.</div></div>';
+    document.getElementById('similarGrid').innerHTML = '';
+    return;
+  }
+  images = (currentCar && Array.isArray(currentCar.imgs) && currentCar.imgs.length)
+    ? currentCar.imgs
+    : [currentCar?.img].filter(Boolean);
+  currentImg = 0;
+  buildPage(currentCar);
+}
+
+initListingPage();
 </script>
 </body>
 </html>
