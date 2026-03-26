@@ -54,6 +54,24 @@
   /* ── BREADCRUMB ── */
   .breadcrumb-bar { background: var(--dark); border-bottom: 1px solid var(--border); padding: 14px 24px; }
   .breadcrumb-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .breadcrumb-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 8px;
+    background: var(--mid);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.2s;
+  }
+  .breadcrumb-back:hover { border-color: var(--accent); color: var(--accent); }
+  .breadcrumb-back svg { width: 14px; height: 14px; stroke: currentColor; }
   .breadcrumb-inner a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .breadcrumb-inner a:hover { color: var(--accent); }
   .breadcrumb-inner svg { width: 14px; height: 14px; stroke: var(--border); flex-shrink: 0; }
@@ -293,6 +311,10 @@
 
 <div class="breadcrumb-bar">
   <div class="breadcrumb-inner">
+    <button class="breadcrumb-back" onclick="goBackToResults()" aria-label="Go back">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
     <a href="index.html">Home</a>
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6" stroke="currentColor"/></svg>
     <a href="index.html#stock">Search</a>
@@ -635,6 +657,10 @@ function getCarId() {
   const params = new URLSearchParams(window.location.search);
   const id = parseInt(params.get('id'));
   return isNaN(id) ? 1 : id;
+}
+
+function goBackToResults() {
+  window.location.href = 'index.html#stock';
 }
 
 let currentCar = cars.find(c => c.id === getCarId()) || cars[0];

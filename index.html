@@ -448,6 +448,37 @@
     transition: transform 0.5s ease;
   }
   .car-card:hover .car-img-wrap img { transform: scale(1.07); }
+  .car-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(10,10,10,0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+  .car-loader-spinner {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.22);
+    border-top-color: var(--accent);
+    animation: spin 0.7s linear infinite;
+  }
+  .car-loader-text {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .car-card.loading .car-loader { opacity: 1; }
+  .car-card.loading .car-img-wrap img { filter: brightness(0.6); }
+  @keyframes spin { to { transform: rotate(360deg); } }
   .car-badge {
     position: absolute;
     top: 12px;
@@ -1251,6 +1282,7 @@ const cars = [
 
 let activeTab = 'all';
 let favs = new Set();
+let isNavigating = false;
 
 function renderCars(list) {
   const grid = document.getElementById('carsGrid');
@@ -1259,13 +1291,17 @@ function renderCars(list) {
     return;
   }
   grid.innerHTML = list.map(c => `
-    <div class="car-card" data-body="${c.body}">
+    <div class="car-card" data-body="${c.body}" onclick="openListing(event, ${c.id})">
       <div class="car-img-wrap">
         <img src="${c.img}" alt="${c.make} ${c.model}" loading="lazy">
         ${c.badge ? `<div class="car-badge ${c.badge==='Sold'?'sold':c.badge==='Nearly New'?'new':''}">${c.badge}</div>` : ''}
         <button class="car-fav ${favs.has(c.id)?'active':''}" onclick="toggleFav(event,${c.id})" aria-label="Save">
           <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke-width="2"/></svg>
         </button>
+        <div class="car-loader" aria-hidden="true">
+          <div class="car-loader-spinner"></div>
+          <div class="car-loader-text">Loading</div>
+        </div>
       </div>
       <div class="car-body">
         <div class="car-make">${c.make}</div>
@@ -1280,7 +1316,7 @@ function renderCars(list) {
         <div class="car-divider"></div>
         <div class="car-footer">
           <div class="car-price">£${c.price.toLocaleString()}</div>
-          <a href="listing.html?id=${c.id}" class="car-btn">View Details</a>
+          <a href="listing.html?id=${c.id}" class="car-btn" onclick="return openListing(event, ${c.id})">View Details</a>
         </div>
       </div>
     </div>
@@ -1315,6 +1351,26 @@ function toggleFav(e, id) {
   else { favs.add(id); btn.classList.add('active'); }
 }
 
+function openListing(e, id) {
+  if (e.target.closest('.car-fav')) return false;
+  if (isNavigating) {
+    e.preventDefault();
+    return false;
+  }
+
+  isNavigating = true;
+  const card = e.currentTarget?.classList?.contains('car-card')
+    ? e.currentTarget
+    : e.target.closest('.car-card');
+  if (card) card.classList.add('loading');
+
+  e.preventDefault();
+  setTimeout(() => {
+    window.location.href = `listing.html?id=${id}`;
+  }, 120);
+  return false;
+}
+
 // Back to top
 window.addEventListener('scroll', () => {
   document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
@@ -1344,6 +1400,7 @@ const gridObserver = new MutationObserver(() => {
   });
 });
 gridObserver.observe(document.getElementById('carsGrid'), { childList: true });
+
 </script>
 </body>
 </html>
