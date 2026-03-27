@@ -758,14 +758,16 @@ function getFiltered(){
 
 /* TABLE ROW */
 function trow(l,compact=false){
-  const editBtn=`<button class="btn btn-sm btn-outline btn-icon" onclick="openEditModal(${l.id})" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"/></svg></button>`;
-  const delBtn=`<button class="btn btn-sm btn-danger btn-icon" onclick="openDeleteModal(${l.id})" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg></button>`;
+  const idArg=JSON.stringify(String(l.id ?? ''));
+  const editBtn=`<button class="btn btn-sm btn-outline btn-icon" onclick='openEditModal(${idArg})' title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"/></svg></button>`;
+  const delBtn=`<button class="btn btn-sm btn-danger btn-icon" onclick='openDeleteModal(${idArg})' title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="14" height="14"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg></button>`;
   if(compact)return`<tr><td><div class="td-make">${l.make}</div><div class="td-model">${l.model}</div></td><td style="color:var(--muted)">${l.reg}</td><td class="td-price">£${l.price.toLocaleString()}</td><td>${sbadge(l)}</td><td><div class="td-actions">${editBtn}${delBtn}</div></td></tr>`;
   return`<tr><td><img class="td-img" src="${l.img}" onerror="this.style.background='var(--mid)'" alt="" loading="lazy"></td><td><div class="td-make">${l.make}</div><div class="td-model">${l.model}</div><div class="td-variant">${l.variant}</div></td><td style="color:var(--muted);font-weight:500">${l.reg}</td><td>${l.year}</td><td style="color:var(--muted)">${l.miles} mi</td><td style="color:var(--muted)">${l.fuel}</td><td class="td-price">£${l.price.toLocaleString()}</td><td>${sbadge(l)}</td><td><div class="td-actions">${editBtn}${delBtn}</div></td></tr>`;
 }
 
 /* MOBILE CARD */
 function mcard(l){
+  const idArg=JSON.stringify(String(l.id ?? ''));
   return`<div class="m-card">
     <div class="m-card-top">
       <div class="m-card-img"><img src="${l.img}" alt="${l.make} ${l.model}" loading="lazy" onerror="this.style.background='var(--mid)'"></div>
@@ -785,8 +787,8 @@ function mcard(l){
       <div class="m-card-price">£${l.price.toLocaleString()}</div>
       <div class="m-card-right">
         ${sbadge(l)}
-        <button class="m-btn m-btn-edit" onclick="openEditModal(${l.id})" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="16" height="16"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"/></svg></button>
-        <button class="m-btn m-btn-del" onclick="openDeleteModal(${l.id})" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="16" height="16"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg></button>
+        <button class="m-btn m-btn-edit" onclick='openEditModal(${idArg})' title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="16" height="16"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"/></svg></button>
+        <button class="m-btn m-btn-del" onclick='openDeleteModal(${idArg})' title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="16" height="16"><polyline points="3 6 5 6 21 6" stroke="currentColor"/><path d="M19 6l-1 14H6L5 6" stroke="currentColor"/><path d="M10 11v6M14 11v6M9 6V4h6v2" stroke="currentColor"/></svg></button>
       </div>
     </div>
   </div>`;
@@ -829,7 +831,7 @@ function resetListingModalScroll(){
 }
 function openNewModal(){editingId=null;feats=[];document.getElementById('modalTitle').textContent='Add Listing';clearForm();renderFeats();document.getElementById('listingModal').classList.add('open');resetListingModalScroll();}
 function openEditModal(id){
-  const l=listings.find(x=>x.id===id);if(!l)return;
+  const l=listings.find(x=>String(x.id)===String(id));if(!l)return;
   editingId=id;feats=[...(l.features||[])];
   document.getElementById('modalTitle').textContent=`Edit — ${l.make} ${l.model}`;
   clearForm();
@@ -894,7 +896,16 @@ async function saveListing(){
 }
 
 /* DELETE */
-function openDeleteModal(id){deleteTargetId=id;const l=listings.find(x=>x.id===id);document.getElementById('deleteDesc').textContent=`Permanently remove ${l.make} ${l.model} (${l.reg})? This cannot be undone.`;document.getElementById('deleteModal').classList.add('open');}
+function openDeleteModal(id){
+  deleteTargetId=id;
+  const l=listings.find(x=>String(x.id)===String(id));
+  if(!l){
+    showToast('Listing not found','error');
+    return;
+  }
+  document.getElementById('deleteDesc').textContent=`Permanently remove ${l.make} ${l.model} (${l.reg})? This cannot be undone.`;
+  document.getElementById('deleteModal').classList.add('open');
+}
 async function confirmDelete(){
   if(isDeleting||!deleteTargetId) return;
   isDeleting=true;
