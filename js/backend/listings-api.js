@@ -43,6 +43,7 @@
       features: safeArray(record.features),
       imgs: safeArray(record.imgs),
       status: record.status || 'active',
+      featured: record.featured || 'no',
     };
   }
 
@@ -74,6 +75,7 @@
       features: safeArray(listing.features),
       imgs: safeArray(listing.imgs),
       status: listing.status || 'active',
+      featured: listing.featured || 'no',
     };
   }
 

@@ -642,16 +642,27 @@ async function doLogin(){
   }
   try{
     await api.login(u,p);
-    document.getElementById('loginError').style.display='none';
-    document.getElementById('loginError').textContent='Incorrect username or password.';
-    document.getElementById('loginScreen').style.display='none';
-    document.getElementById('adminShell').style.display='block';
-    init();
   }catch{
     document.getElementById('loginError').style.display='block';
     document.getElementById('loginPass').value='';
     document.getElementById('loginPass').focus();
     document.getElementById('loginError').textContent='Incorrect username or password.';
+    return;
+  }
+  try{
+    document.getElementById('loginError').style.display='none';
+    document.getElementById('loginError').textContent='Incorrect username or password.';
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminShell').style.display='block';
+    await init();
+  }catch(err){
+    await window.D3ListingsApi?.logout?.();
+    document.getElementById('adminShell').style.display='none';
+    document.getElementById('loginScreen').style.display='flex';
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('loginPass').value='';
+    document.getElementById('loginPass').focus();
+    document.getElementById('loginError').textContent=err?.message||'Could not load listings from backend.';
   }
 }
 async function doLogout(){
@@ -667,20 +678,28 @@ async function doLogout(){
 }
 
 /* DATA */
-let listings=[
-  {id:1,make:'BMW',model:'M3 Competition',variant:'3.0 BiTurbo · Auto',year:2022,miles:'18,200',fuel:'Petrol',trans:'Automatic',price:62995,body:'saloon',color:'Pearl White',doors:4,seats:5,engine:'3.0L Twin-Turbo I6',power:'510 bhp',torque:'650 Nm',co2:'232 g/km',reg:'VN22 XYZ',owners:1,mot:'March 2026',serviceHistory:'Full BMW Service History',badge:'New In',status:'active',featured:'yes',img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80',imgs:['https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=85'],description:'<p>Exceptional BMW M3 Competition with full history.</p>',features:['M Carbon Brakes','Head-Up Display','Harman Kardon','Carbon Roof']},
-  {id:2,make:'Audi',model:'RS6 Avant',variant:'4.0 TFSI · Quattro',year:2021,miles:'24,500',fuel:'Petrol',trans:'Automatic',price:74995,body:'estate',color:'Nardo Grey',doors:5,seats:5,engine:'4.0L Twin-Turbo V8',power:'600 bhp',torque:'800 Nm',co2:'256 g/km',reg:'WN21 ABC',owners:1,mot:'June 2026',serviceHistory:'Full Audi Service History',badge:'',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80',imgs:['https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85'],description:'<p>One of the most accomplished super-estates ever built.</p>',features:['B&O 3D Sound','Carbon Optics','Matrix LED']},
-  {id:3,make:'Porsche',model:'Cayenne S',variant:'2.9 V6 · Tiptronic',year:2020,miles:'31,000',fuel:'Petrol',trans:'Automatic',price:58995,body:'suv',color:'Jet Black',doors:5,seats:5,engine:'2.9L Twin-Turbo V6',power:'440 bhp',torque:'550 Nm',co2:'220 g/km',reg:'GP20 DEF',owners:2,mot:'September 2025',serviceHistory:'Full Porsche Service History',badge:'',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80',imgs:['https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=85'],description:'<p>Outstanding Cayenne S in Jet Black.</p>',features:['Sport Chrono','Bose Sound','Air Suspension']},
-  {id:4,make:'Mercedes-Benz',model:'C63 S AMG',variant:'4.0 BiTurbo V8 · Auto',year:2021,miles:'22,700',fuel:'Petrol',trans:'Automatic',price:56995,body:'coupe',color:'Obsidian Black',doors:2,seats:4,engine:'4.0L Twin-Turbo V8',power:'510 bhp',torque:'700 Nm',co2:'242 g/km',reg:'WN21 GHI',owners:1,mot:'April 2026',serviceHistory:'Full Mercedes-Benz Service History',badge:'New In',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80',imgs:['https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=85'],description:'<p>Stunning AMG C63 S in Obsidian Black.</p>',features:['AMG Night Pack','Burmester Sound','AMG Track Pace']},
-  {id:5,make:'Land Rover',model:'Defender 110 X',variant:'3.0 D300 · Auto',year:2022,miles:'15,400',fuel:'Diesel',trans:'Automatic',price:67995,body:'suv',color:'Santorini Black',doors:5,seats:7,engine:'3.0L Inline-6 MHEV',power:'300 bhp',torque:'650 Nm',co2:'210 g/km',reg:'VN22 JKL',owners:1,mot:'February 2026',serviceHistory:'Full Land Rover Service History',badge:'',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=600&q=80',imgs:['https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=900&q=85'],description:'<p>Pinnacle of the Defender range.</p>',features:['Meridian Sound','Terrain Response 2','Air Suspension']},
-  {id:6,make:'Tesla',model:'Model S Plaid',variant:'Tri-Motor · Long Range',year:2022,miles:'12,800',fuel:'Electric',trans:'Automatic',price:79995,body:'electric',color:'Midnight Silver',doors:4,seats:5,engine:'Tri-Motor Electric',power:'1,020 bhp',torque:'1,420 Nm',co2:'0 g/km',reg:'VN22 MNO',owners:1,mot:'N/A',serviceHistory:'Full Tesla Service History',badge:'New In',status:'active',featured:'yes',img:'https://images.unsplash.com/photo-1617704548623-340376564e68?w=600&q=80',imgs:['https://images.unsplash.com/photo-1617704548623-340376564e68?w=900&q=85'],description:'<p>World fastest-accelerating saloon.</p>',features:['Full Self-Driving','17" Touchscreen','405mi Range']},
-  {id:7,make:'Volkswagen',model:'Golf R',variant:'2.0 TSI 333 · DSG',year:2023,miles:'8,600',fuel:'Petrol',trans:'Automatic',price:39995,body:'saloon',color:'Lapiz Blue',doors:5,seats:5,engine:'2.0L TSI',power:'333 bhp',torque:'420 Nm',co2:'185 g/km',reg:'YN23 PQR',owners:1,mot:'January 2027',serviceHistory:'Full VW Service History',badge:'Nearly New',status:'active',featured:'no',img:'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&q=80',imgs:['https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=85'],description:'<p>Definitive performance hatchback.</p>',features:['Akrapovič Exhaust','DCC Chassis','Harman Kardon']},
-  {id:8,make:'Lexus',model:'LC 500 Convertible',variant:'5.0 V8 · 10-Speed',year:2021,miles:'19,300',fuel:'Petrol',trans:'Automatic',price:71995,body:'coupe',color:'Sonic Titanium',doors:2,seats:4,engine:'5.0L NA V8',power:'471 bhp',torque:'540 Nm',co2:'249 g/km',reg:'WN21 STU',owners:1,mot:'November 2025',serviceHistory:'Full Lexus Service History',badge:'',status:'sold',featured:'no',img:'https://images.unsplash.com/photo-1563720223185-11003d516935?w=600&q=80',imgs:['https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&q=85'],description:'<p>One of the most beautiful cars available.</p>',features:['Mark Levinson Audio','Semi-Aniline Leather','HUD']},
-];
-let nextId=9,editingId=null,deleteTargetId=null,filter='all',feats=[],photos=[],photoId=1;
+let listings=[];
+let nextId=1,editingId=null,deleteTargetId=null,filter='all',feats=[],photos=[],photoId=1,isSaving=false,isDeleting=false;
 
 /* INIT */
-function init(){renderStats();renderListings();renderDashRecent();updateCounts();bindDropzone();}
+async function init(){
+  await loadListingsFromBackend();
+  renderStats();
+  renderListings();
+  renderDashRecent();
+  updateCounts();
+  bindDropzone();
+}
+async function loadListingsFromBackend(){
+  const api=window.D3ListingsApi;
+  if(!api?.fetchAllListings){
+    throw new Error('Listings API is not configured.');
+  }
+  const data=await api.fetchAllListings();
+  listings=Array.isArray(data)?data:[];
+  const maxId=listings.reduce((m,l)=>Math.max(m,Number(l.id)||0),0);
+  nextId=maxId+1;
+}
 function updateCounts(){
   const active=listings.filter(l=>l.status==='active').length;
   document.getElementById('sidebarCount').textContent=listings.length;
@@ -834,7 +853,12 @@ function clearForm(){
   document.getElementById('f_status').value='active';document.getElementById('f_featured').value='no';
   resetPhotos();feats=[];renderFeats();
 }
-function saveListing(){
+async function saveListing(){
+  if(isSaving) return;
+  isSaving=true;
+  const saveBtn=document.querySelector('#listingModal .btn-primary');
+  if(saveBtn) saveBtn.disabled=true;
+  try{
   const make=document.getElementById('f_make').value.trim(),model=document.getElementById('f_model').value.trim(),
     price=parseInt(document.getElementById('f_price').value),year=parseInt(document.getElementById('f_year').value),
     reg=document.getElementById('f_reg').value.trim();
@@ -845,14 +869,56 @@ function saveListing(){
   const g=id=>document.getElementById(id)?.value?.trim()||'';
   const gi=id=>parseInt(document.getElementById(id)?.value)||0;
   const data={make,model,variant:g('f_variant'),year,reg,miles:g('f_miles'),price,body:g('f_body'),fuel:g('f_fuel'),trans:g('f_trans'),color:g('f_color'),doors:gi('f_doors')||4,seats:gi('f_seats')||5,owners:gi('f_owners')||1,badge:g('f_badge'),engine:g('f_engine'),power:g('f_power'),torque:g('f_torque'),co2:g('f_co2'),mot:g('f_mot'),serviceHistory:g('f_serviceHistory'),status:document.getElementById('f_status').value,featured:document.getElementById('f_featured').value,img:imgs[0]||'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80',imgs:imgs.length?imgs:['https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85'],description:desc,features:[...feats]};
-  if(editingId){const i=listings.findIndex(l=>l.id===editingId);listings[i]={...listings[i],...data};showToast(`✅ ${make} ${model} updated`,'success');}
-  else{data.id=nextId++;listings.push(data);showToast(`✅ ${make} ${model} added`,'success');}
+  const api=window.D3ListingsApi;
+  if(!api?.createListing||!api?.updateListing){
+    throw new Error('Listings API is not configured.');
+  }
+  if(editingId){
+    const saved=await api.updateListing(editingId,data);
+    const i=listings.findIndex(l=>String(l.id)===String(editingId));
+    if(i>=0) listings[i]=saved;
+    showToast(`✅ ${make} ${model} updated`,'success');
+  }else{
+    const created=await api.createListing(data);
+    listings.unshift(created);
+    nextId=Math.max(nextId,(Number(created?.id)||0)+1);
+    showToast(`✅ ${make} ${model} added`,'success');
+  }
   closeModal('listingModal');renderStats();renderListings();renderDashRecent();updateCounts();
+  }catch(err){
+    showToast(err?.message||'Could not save listing','error');
+  }finally{
+    isSaving=false;
+    if(saveBtn) saveBtn.disabled=false;
+  }
 }
 
 /* DELETE */
 function openDeleteModal(id){deleteTargetId=id;const l=listings.find(x=>x.id===id);document.getElementById('deleteDesc').textContent=`Permanently remove ${l.make} ${l.model} (${l.reg})? This cannot be undone.`;document.getElementById('deleteModal').classList.add('open');}
-function confirmDelete(){const l=listings.find(x=>x.id===deleteTargetId);listings=listings.filter(x=>x.id!==deleteTargetId);closeModal('deleteModal');renderStats();renderListings();renderDashRecent();updateCounts();showToast(`🗑️ ${l.make} ${l.model} deleted`,'error');}
+async function confirmDelete(){
+  if(isDeleting||!deleteTargetId) return;
+  isDeleting=true;
+  const l=listings.find(x=>String(x.id)===String(deleteTargetId));
+  try{
+    const api=window.D3ListingsApi;
+    if(!api?.deleteListing){
+      throw new Error('Listings API is not configured.');
+    }
+    await api.deleteListing(deleteTargetId);
+    listings=listings.filter(x=>String(x.id)!==String(deleteTargetId));
+    closeModal('deleteModal');
+    renderStats();
+    renderListings();
+    renderDashRecent();
+    updateCounts();
+    if(l) showToast(`🗑️ ${l.make} ${l.model} deleted`,'error');
+  }catch(err){
+    showToast(err?.message||'Could not delete listing','error');
+  }finally{
+    isDeleting=false;
+    deleteTargetId=null;
+  }
+}
 
 /* PHOTOS */
 function bindDropzone(){
@@ -893,6 +959,17 @@ function showToast(msg,type=''){const t=document.getElementById('toast');t.textC
 /* CLOSE ON OVERLAY/ESC */
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.modal-overlay').forEach(o=>o.classList.remove('open'));closeDrawer();}});
+window.addEventListener('DOMContentLoaded',async()=>{
+  try{
+    const authed=await window.D3ListingsApi?.isAuthenticated?.();
+    if(!authed) return;
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminShell').style.display='block';
+    await init();
+  }catch{
+    // Keep login screen visible when auth/bootstrap fails.
+  }
+});
 </script>
 </body>
 </html>
