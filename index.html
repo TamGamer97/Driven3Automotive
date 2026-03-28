@@ -5,21 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Driven3 Automotive — reliable used cars, trusted service, AA approved. Quality vehicles from trusted brands, honestly inspected. Nationwide delivery.">
 <title>Driven3 Automotive — Reliable Used Cars | AA Approved</title>
+<link rel="icon" href="icon.jpeg" type="image/jpeg">
+<link rel="apple-touch-icon" href="icon.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital@1&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,500,0,0&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
   :root {
-    --black: #0a0a0a;
+    --black: #000000;
     --dark: #111111;
     --card: #161616;
     --border: #232323;
     --mid: #2a2a2a;
     --text: #e8e8e8;
     --muted: #888;
-    --accent: #e8c84a;
-    --accent2: #c9a227;
+    --accent: #e31e35;
+    --accent2: #b01021;
     --red: #e84a4a;
     --white: #ffffff;
     --radius: 10px;
@@ -53,7 +55,7 @@
   /* ── THEMED SCROLLBAR ── */
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(232,200,74,0.55) var(--dark);
+    scrollbar-color: rgba(227,30,53,0.55) var(--dark);
   }
   *::-webkit-scrollbar {
     width: 11px;
@@ -63,12 +65,12 @@
     background: linear-gradient(180deg, #101010 0%, #151515 100%);
   }
   *::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(232,200,74,0.72) 0%, rgba(201,162,39,0.72) 100%);
+    background: linear-gradient(180deg, rgba(227,30,53,0.72) 0%, rgba(176,16,33,0.72) 100%);
     border: 2px solid #121212;
     border-radius: 10px;
   }
   *::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(232,200,74,0.92) 0%, rgba(201,162,39,0.92) 100%);
+    background: linear-gradient(180deg, rgba(227,30,53,0.92) 0%, rgba(176,16,33,0.92) 100%);
   }
 
   /* ── ANNOUNCEMENT BAR ── */
@@ -113,15 +115,11 @@
   .logo-icon {
     width: 36px;
     height: 36px;
-    background: var(--accent);
     border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    color: var(--black);
-    letter-spacing: 0;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    background: var(--mid);
   }
   .logo-text {
     display: flex;
@@ -255,8 +253,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(232,200,74,0.15);
-    border: 1px solid rgba(232,200,74,0.3);
+    background: rgba(227,30,53,0.15);
+    border: 1px solid rgba(227,30,53,0.3);
     color: var(--accent);
     font-size: 11px;
     font-weight: 700;
@@ -445,7 +443,7 @@
     padding-top: 88px;
     padding-bottom: 88px;
     border-top: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(232,200,74,0.03) 0%, transparent 45%);
+    background: linear-gradient(180deg, rgba(227,30,53,0.03) 0%, transparent 45%);
   }
   .about-head {
     text-align: center;
@@ -509,7 +507,7 @@
     transition: border-color 0.2s, background 0.2s;
   }
   .about-pillar:hover {
-    border-color: rgba(232,200,74,0.28);
+    border-color: rgba(227,30,53,0.28);
     background: rgba(255,255,255,0.02);
   }
   .about-pillar > i {
@@ -555,11 +553,11 @@
     gap: 6px;
     white-space: nowrap;
     padding: 10px 20px;
-    border: 1.5px solid rgba(232,200,74,0.3);
+    border: 1.5px solid rgba(227,30,53,0.3);
     border-radius: 8px;
     transition: all 0.2s;
   }
-  .view-all:hover { background: rgba(232,200,74,0.08); border-color: var(--accent); }
+  .view-all:hover { background: rgba(227,30,53,0.08); border-color: var(--accent); }
 
   /* ── CAR GRID ── */
   .cars-grid {
@@ -578,7 +576,7 @@
   }
   .car-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(232,200,74,0.3);
+    border-color: rgba(227,30,53,0.3);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   }
   .car-img-wrap {
@@ -656,7 +654,7 @@
     transition: all 0.2s;
     backdrop-filter: blur(6px);
   }
-  .car-fav:hover { background: rgba(232,200,74,0.2); }
+  .car-fav:hover { background: rgba(227,30,53,0.2); }
   .car-fav svg { width: 16px; height: 16px; stroke: var(--text); fill: none; transition: all 0.2s; }
   .car-fav.active svg { stroke: var(--red); fill: var(--red); }
   .car-body {
@@ -795,8 +793,8 @@
   .feature-icon {
     width: 48px;
     height: 48px;
-    background: rgba(232,200,74,0.1);
-    border: 1px solid rgba(232,200,74,0.2);
+    background: rgba(227,30,53,0.1);
+    border: 1px solid rgba(227,30,53,0.2);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -931,8 +929,8 @@
   .review-date { font-size: 12px; color: var(--muted); }
   .review-source { font-size: 11px; color: var(--muted); margin-top: 2px; }
   .review-card.featured {
-    border-color: rgba(232, 200, 74, 0.35);
-    box-shadow: 0 0 0 1px rgba(232, 200, 74, 0.12);
+    border-color: rgba(227, 30, 53, 0.35);
+    box-shadow: 0 0 0 1px rgba(227, 30, 53, 0.12);
   }
   .review-featured-badge {
     display: inline-block;
@@ -1030,7 +1028,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 24px rgba(232,200,74,0.3);
+    box-shadow: 0 8px 24px rgba(227,30,53,0.3);
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.3s;
@@ -1091,8 +1089,8 @@
   .tag {
     display: inline-flex;
     align-items: center;
-    background: rgba(232,200,74,0.1);
-    border: 1px solid rgba(232,200,74,0.2);
+    background: rgba(227,30,53,0.1);
+    border: 1px solid rgba(227,30,53,0.2);
     color: var(--accent);
     font-size: 10px;
     font-weight: 700;
@@ -1121,7 +1119,7 @@
 <nav>
   <div class="nav-inner">
     <a href="#" class="logo">
-      <div class="logo-icon">D3</div>
+      <img class="logo-icon" src="icon.jpeg" alt="Driven3 Automotive" width="36" height="36" decoding="async">
       <div class="logo-text">
         <span class="logo-name">Driven3</span>
         <span class="logo-sub">Automotive</span>
@@ -1639,7 +1637,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="#" class="logo" style="margin-bottom:18px;display:inline-flex;">
-          <div class="logo-icon">D3</div>
+          <img class="logo-icon" src="icon.jpeg" alt="Driven3 Automotive" width="36" height="36" decoding="async">
           <div class="logo-text">
             <span class="logo-name">Driven3</span>
             <span class="logo-sub">Automotive</span>
