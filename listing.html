@@ -199,8 +199,10 @@
   .form-group input, .form-group textarea, .form-group select { width: 100%; background: var(--mid); border: 1.5px solid var(--border); color: var(--text); padding: 11px 14px; border-radius: 8px; font-size: 13.5px; font-family: 'Outfit', sans-serif; outline: none; transition: border-color 0.2s; resize: vertical; }
   .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); }
   .form-group textarea { min-height: 80px; }
+  .enquiry-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
   .form-submit { width: 100%; background: var(--accent); color: var(--black); border: none; padding: 13px; border-radius: var(--radius); font-size: 14px; font-weight: 700; font-family: 'Outfit', sans-serif; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; }
   .form-submit:hover { background: var(--accent2); }
+  .form-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
 
   /* Dealer card */
   .dealer-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
@@ -458,27 +460,30 @@
         </div>
       </div>
 
-      <!-- Enquiry Form -->
+      <!-- Enquiry Form (submitted via Web3Forms — see js/enquiry-config.js) -->
       <div class="enquiry-card" id="enquiryCard">
-        <div class="enquiry-title">Make an Enquiry</div>
-        <div class="enquiry-sub">We'll get back to you within 2 hours.</div>
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" placeholder="John Smith">
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="john@example.com">
-        </div>
-        <div class="form-group">
-          <label>Phone</label>
-          <input type="tel" placeholder="07700 900 000">
-        </div>
-        <div class="form-group">
-          <label>Message</label>
-          <textarea placeholder="I'm interested in this vehicle and would like to arrange a viewing…"></textarea>
-        </div>
-        <button class="form-submit" onclick="showToast('✅ Enquiry sent! We\'ll be in touch shortly.')">Send Enquiry</button>
+        <form id="listingEnquiryForm" novalidate>
+          <div class="enquiry-title">Make an Enquiry</div>
+          <div class="enquiry-sub">We'll get back to you within 2 hours.</div>
+          <input type="text" name="website" class="enquiry-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-group">
+            <label for="enquiryName">Full Name</label>
+            <input id="enquiryName" name="name" type="text" required placeholder="John Smith" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="enquiryEmail">Email</label>
+            <input id="enquiryEmail" name="email" type="email" required placeholder="john@example.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="enquiryPhone">Phone</label>
+            <input id="enquiryPhone" name="phone" type="tel" placeholder="07700 900 000" autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label for="enquiryMessage">Message</label>
+            <textarea id="enquiryMessage" name="message" required placeholder="I'm interested in this vehicle and would like to arrange a viewing…"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Enquiry</button>
+        </form>
       </div>
 
       <!-- Dealer -->
@@ -561,6 +566,8 @@
 <script src="js/backend/supabase-config.js"></script>
 <script src="js/backend/supabase-client.js"></script>
 <script src="js/backend/listings-api.js"></script>
+<script src="js/enquiry-config.js"></script>
+<script src="js/enquiry-form.js"></script>
 <script>
 // ── ALL CARS DATA ──
 let cars = [];
@@ -761,6 +768,7 @@ async function initListingPage() {
 
   const idFromQuery = getCarId();
   currentCar = cars.find(c => String(c.id) === String(idFromQuery)) || cars[0];
+  window.currentCar = currentCar || null;
   if (!currentCar) {
     document.getElementById('breadcrumbTitle').textContent = 'Vehicle Not Found';
     document.querySelector('.listing-page').innerHTML = '<div style="padding:80px 24px;text-align:center;color:var(--muted);"><div style="font-size:18px;color:var(--text);font-weight:600;">Vehicle unavailable</div><div style="margin-top:8px;">This listing could not be loaded.</div></div>';

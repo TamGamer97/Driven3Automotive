@@ -319,6 +319,10 @@
     transition: all 0.25s;
     font-family: 'Outfit', sans-serif;
   }
+  /* .btn sets display:inline-flex, which overrides the UA [hidden] rule — keep hidden elements hidden */
+  .btn[hidden] {
+    display: none !important;
+  }
   .btn-primary { background: var(--accent); color: var(--black); }
   .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
   .btn-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.25); }
@@ -1721,6 +1725,11 @@ let activeTab = 'all';
 let favs = new Set();
 let isNavigating = false;
 
+function resetListingNavigationState() {
+  isNavigating = false;
+  document.querySelectorAll('.car-card.loading').forEach((el) => el.classList.remove('loading'));
+}
+
 function renderCars(list) {
   const grid = document.getElementById('carsGrid');
   if (!list.length) {
@@ -1810,6 +1819,13 @@ function openListing(e) {
   }, 120);
   return false;
 }
+
+/* Android / Chrome back restores this page from the bfcache with stale JS — isNavigating
+   stayed true and .loading never cleared. Reset on every show (idempotent; fixes WebViews
+   that omit pageshow.persisted). */
+window.addEventListener('pageshow', () => {
+  resetListingNavigationState();
+});
 
 // Back to top
 window.addEventListener('scroll', () => {
