@@ -22,6 +22,7 @@
     --muted: #888;
     --accent: #e31e35;
     --accent2: #b01021;
+    --logo-num: #3d7dcc;
     --red: #e84a4a;
     --white: #ffffff;
     --radius: 10px;
@@ -91,9 +92,8 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(10,10,10,0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    background: transparent;
+    border-bottom: none;
   }
   .nav-inner {
     max-width: 1400px;
@@ -119,7 +119,7 @@
     object-fit: contain;
     display: block;
     flex-shrink: 0;
-    background: var(--mid);
+    background: transparent;
   }
   .logo-text {
     display: flex;
@@ -131,6 +131,9 @@
     font-size: 22px;
     letter-spacing: 0.08em;
     color: var(--white);
+  }
+  .logo-name-num {
+    color: var(--logo-num);
   }
   .logo-sub {
     font-size: 9px;
@@ -213,6 +216,8 @@
   /* ── HERO ── */
   .hero {
     position: relative;
+    z-index: 1;
+    margin-top: -68px;
     height: 92vh;
     min-height: 580px;
     max-height: 860px;
@@ -1118,12 +1123,8 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo">
-      <img class="logo-icon" src="icon.jpeg" alt="Driven3 Automotive" width="36" height="36" decoding="async">
-      <div class="logo-text">
-        <span class="logo-name">Driven3</span>
-        <span class="logo-sub">Automotive</span>
-      </div>
+    <a href="#" class="logo" aria-label="Driven3 Automotive home">
+      <img class="logo-icon" src="icon.jpeg" alt="" width="36" height="36" decoding="async">
     </a>
     <ul class="nav-links">
       <li><a href="#" class="active">Home</a></li>
@@ -1388,9 +1389,9 @@
         </div>
       </div>
       <div class="about-copy-card">
-        <p>At <strong>Driven3 Automotive</strong> we take the hassle out of finding the right car. We specialise in quality used vehicles from trusted brands, with a focus on <strong>reliability and value</strong> that won’t break the bank.</p>
+        <p>At <strong>Driven<span class="logo-name-num">3</span> Automotive</strong> we take the hassle out of finding the right car. We specialise in quality used vehicles from trusted brands, with a focus on <strong>reliability and value</strong> that won’t break the bank.</p>
         <p>What sets us apart is simple: <strong>honest service</strong> and thoroughly inspected cars, so you can drive away with confidence. No fluff—just straight answers and cars presented properly.</p>
-        <p class="about-tagline">Find your next car with Driven3 Automotive—where trust drives everything we do.</p>
+        <p class="about-tagline">Find your next car with Driven<span class="logo-name-num">3</span> Automotive—where trust drives everything we do.</p>
       </div>
     </div>
   </div>
@@ -1639,7 +1640,7 @@
         <a href="#" class="logo" style="margin-bottom:18px;display:inline-flex;">
           <img class="logo-icon" src="icon.jpeg" alt="Driven3 Automotive" width="36" height="36" decoding="async">
           <div class="logo-text">
-            <span class="logo-name">Driven3</span>
+            <span class="logo-name">Driven<span class="logo-name-num">3</span></span>
             <span class="logo-sub">Automotive</span>
           </div>
         </a>
@@ -1695,7 +1696,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Driven3 Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
+      <div>© 2026 Driven<span class="logo-name-num">3</span> Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
       <div class="footer-legal">
         <a href="#">Privacy Policy</a>
         <a href="#">Cookie Policy</a>

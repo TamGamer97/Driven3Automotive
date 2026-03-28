@@ -20,6 +20,7 @@
       --muted: #888;
       --accent: #e31e35;
       --accent2: #b01021;
+      --logo-num: #3d7dcc;
       --red: #e84a4a;
       --white: #ffffff;
       --radius: 10px;
@@ -39,9 +40,8 @@
       position:sticky;
       top:0;
       z-index:1000;
-      background:rgba(10,10,10,0.95);
-      border-bottom:1px solid var(--border);
-      backdrop-filter: blur(12px);
+      background:transparent;
+      border-bottom:none;
     }
     .nav-inner {
       max-width:1400px;
@@ -73,6 +73,7 @@
       color:var(--white);
       line-height:1;
     }
+    .logo-name-num { color: var(--logo-num); }
     .logo-sub {
       font-size:9px;
       letter-spacing:0.2em;
@@ -174,11 +175,7 @@
   <nav>
     <div class="nav-inner">
       <a href="index.html" class="logo" aria-label="Driven3 Automotive home">
-        <img class="logo-icon" src="icon.jpeg" alt="Driven3 Automotive" width="36" height="36" decoding="async">
-        <div>
-          <span class="logo-name">Driven3</span>
-          <span class="logo-sub">Automotive</span>
-        </div>
+        <img class="logo-icon" src="icon.jpeg" alt="" width="36" height="36" decoding="async">
       </a>
       <a href="tel:+447537123456" class="btn btn-outline" style="padding:10px 18px;border-radius:8px;">📞 Call Us</a>
     </div>
@@ -192,7 +189,7 @@
       </div>
       <h1>We’re developing the site.</h1>
       <p>
-        Driven3 Automotive is currently in development.
+        Driven<span class="logo-name-num">3</span> Automotive is currently in development.
         We’ll share the full experience as soon as the updates are ready.
       </p>
       <div class="hero-actions">

@@ -11,7 +11,7 @@
 <style>
 :root {
   --black:#000000; --dark:#111; --card:#161616; --border:#232323; --mid:#2a2a2a;
-  --text:#e8e8e8; --muted:#777; --accent:#e31e35; --accent2:#b01021;
+  --text:#e8e8e8; --muted:#777; --accent:#e31e35; --accent2:#b01021; --logo-num:#3d7dcc;
   --red:#e84a4a; --green:#4ade80; --blue:#60a5fa; --white:#fff;
   --radius:10px; --sidebar-w:240px; --topbar-h:62px; --bottom-nav-h:62px;
 }
@@ -33,6 +33,7 @@ button,a{touch-action:manipulation}
 .login-logo{display:flex;align-items:center;gap:12px;margin-bottom:36px;justify-content:center}
 .login-logo-icon{width:44px;height:44px;border-radius:9px;object-fit:contain;display:block;background:var(--mid)}
 .login-logo-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.08em;color:var(--white);line-height:1}
+.logo-name-num{color:var(--logo-num)}
 .login-logo-sub{font-size:10px;letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;font-weight:600}
 .login-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 28px}
 .login-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:0.04em;color:var(--white);margin-bottom:4px}
@@ -311,7 +312,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
     <div class="login-logo">
       <img class="login-logo-icon" src="icon.jpeg" alt="Driven3 Automotive" width="44" height="44" decoding="async">
       <div>
-        <div class="login-logo-name">Driven3</div>
+        <div class="login-logo-name">Driven<span class="logo-name-num">3</span></div>
         <div class="login-logo-sub">Automotive</div>
       </div>
     </div>
@@ -344,7 +345,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
       </button>
       <a href="driven3automotive.html" class="topbar-logo">
         <img class="topbar-logo-icon" src="icon.jpeg" alt="" width="32" height="32" decoding="async">
-        <span class="topbar-logo-name">Driven3</span>
+        <span class="topbar-logo-name">Driven<span class="logo-name-num">3</span></span>
       </a>
       <div class="topbar-badge">Admin</div>
     </div>

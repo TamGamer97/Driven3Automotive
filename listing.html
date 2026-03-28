@@ -22,6 +22,7 @@
     --muted: #888;
     --accent: #e31e35;
     --accent2: #b01021;
+    --logo-num: #3d7dcc;
     --red: #e84a4a;
     --white: #ffffff;
     --radius: 10px;
@@ -64,12 +65,13 @@
   .announcement { background: var(--accent); color: var(--black); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
 
   /* ── NAV ── */
-  nav { position: sticky; top: 0; z-index: 1000; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  nav { position: sticky; top: 0; z-index: 1000; background: transparent; border-bottom: none; }
   .nav-inner { max-width: 1400px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-  .logo-icon { width: 36px; height: 36px; border-radius: 6px; object-fit: contain; display: block; flex-shrink: 0; background: var(--mid); }
+  .logo-icon { width: 36px; height: 36px; border-radius: 6px; object-fit: contain; display: block; flex-shrink: 0; background: transparent; }
   .logo-text { display: flex; flex-direction: column; line-height: 1; }
   .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.08em; color: var(--white); }
+  .logo-name-num { color: var(--logo-num); }
   .logo-sub { font-size: 9px; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; font-weight: 600; }
   .nav-links { display: flex; list-style: none; gap: 4px; align-items: center; }
   .nav-links a { text-decoration: none; color: var(--muted); font-size: 13.5px; font-weight: 500; padding: 8px 14px; border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
@@ -86,7 +88,14 @@
   .mobile-menu a:last-child { border-bottom: none; }
 
   /* ── BREADCRUMB ── */
-  .breadcrumb-bar { background: var(--dark); border-bottom: 1px solid var(--border); padding: 14px 24px; }
+  .breadcrumb-bar {
+    position: relative;
+    z-index: 1;
+    margin-top: -68px;
+    padding: 82px 24px 14px;
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+  }
   .breadcrumb-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
   .breadcrumb-back {
     display: inline-flex;
@@ -328,12 +337,8 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="logo">
-      <img class="logo-icon" src="icon.jpeg" alt="Driven3 Automotive" width="36" height="36" decoding="async">
-      <div class="logo-text">
-        <span class="logo-name">Driven3</span>
-        <span class="logo-sub">Automotive</span>
-      </div>
+    <a href="index.html" class="logo" aria-label="Driven3 Automotive home">
+      <img class="logo-icon" src="icon.jpeg" alt="" width="36" height="36" decoding="async">
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -493,7 +498,7 @@
         <div class="dealer-header">
           <img class="dealer-logo" src="icon.jpeg" alt="" width="44" height="44" decoding="async">
           <div>
-            <div class="dealer-name">Driven3 Automotive</div>
+            <div class="dealer-name">Driven<span class="logo-name-num">3</span> Automotive</div>
             <div class="dealer-location">Grape Mill, Royton, Oldham OL2 5LW</div>
             <div style="margin-top:4px;">
               <span class="dealer-stars">★★★★★</span>
@@ -535,7 +540,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-bottom">© 2025 Driven3 Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
+    <div class="footer-bottom">© 2025 Driven<span class="logo-name-num">3</span> Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
     <div class="footer-legal">
       <a href="#">Privacy Policy</a>
       <a href="#">Cookie Policy</a>
