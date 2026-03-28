@@ -93,6 +93,7 @@
     top: 0;
     z-index: 1000;
     background: transparent;
+    background-color: transparent;
     border-bottom: none;
   }
   .nav-inner {
@@ -104,6 +105,7 @@
     justify-content: space-between;
     height: 68px;
     gap: 24px;
+    background: transparent;
   }
   .logo {
     display: flex;
@@ -197,8 +199,10 @@
   }
   .mobile-menu {
     display: none;
-    background: var(--dark);
-    border-top: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 16px 24px 24px;
   }
   .mobile-menu.open { display: block; }
@@ -218,17 +222,31 @@
     position: relative;
     z-index: 1;
     margin-top: -68px;
+    /* Reserve space for sticky nav; grid keeps content in row 2 so it never stacks under the logo */
+    padding-top: 68px;
     height: 92vh;
     min-height: 580px;
     max-height: 860px;
     overflow: hidden;
-    display: flex;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    box-sizing: border-box;
   }
   .hero-bg {
     position: absolute;
-    inset: 0;
+    left: 0;
+    right: 0;
+    top: -68px;
+    bottom: 0;
+    z-index: 0;
     background: #0a0a0a;
+  }
+  .hero-grow {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+    pointer-events: none;
   }
   .hero-bg img {
     position: absolute;
@@ -243,16 +261,31 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(10,10,10,0.97) 30%, rgba(10,10,10,0.4) 100%);
+    background: linear-gradient(to right, rgba(10,10,10,0.82) 30%, rgba(10,10,10,0.38) 100%);
     z-index: 1;
   }
+  /* Lighten the top band so the sticky nav (transparent) reads over the photo, not solid black */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: min(120px, 28vh);
+    background: linear-gradient(to bottom, rgba(10,10,10,0.15) 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
   .hero-content {
+    grid-column: 1;
+    grid-row: 2;
     position: relative;
     z-index: 2;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 24px 80px;
     width: 100%;
+    min-width: 0;
   }
   .hero-badge {
     display: inline-flex;
@@ -1069,9 +1102,16 @@
   @media (max-width: 768px) {
     .nav-links, .nav-phone { display: none; }
     .hamburger { display: flex; }
+    /* margin-top + padding-top: hero image under nav; content starts below logo row */
+    .hero {
+      margin-top: -68px;
+      min-height: min(580px, 88vh);
+    }
     .hero h1 { font-size: clamp(44px, 12vw, 72px); }
     .hero-stats { gap: 24px; }
     .hero-bg { background-position: 70% center; }
+    .hero-content { padding-bottom: 56px; }
+    .search-section { padding-top: 32px; padding-bottom: 36px; }
     .search-form { grid-template-columns: 1fr; }
     .search-btn { grid-column: span 1; }
     .features-grid { grid-template-columns: 1fr; }
@@ -1160,6 +1200,7 @@
     -->
     <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1920&q=85&auto=format&fit=crop" alt="Used car for sale at Driven3 Automotive" fetchpriority="high">
   </div>
+  <div class="hero-grow" aria-hidden="true"></div>
   <div class="hero-content">
     <div class="hero-badge">AA Approved · Reliable Used Cars</div>
     <h1>Find Your<br><em>Perfect</em><br>Drive</h1>
@@ -1181,8 +1222,8 @@
         <div class="hero-stat-label">Customer Rating</div>
       </div>
       <div>
-        <div class="hero-stat-num">12yr</div>
-        <div class="hero-stat-label">In Business</div>
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Years in Business</div>
       </div>
       <div>
         <div class="hero-stat-num">Nationwide</div>
