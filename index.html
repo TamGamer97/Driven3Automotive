@@ -911,11 +911,42 @@
     border-radius: 50%;
     background: var(--mid);
     overflow: hidden;
+    flex-shrink: 0;
   }
   .review-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .review-avatar-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
   .review-name { font-size: 14px; font-weight: 700; color: var(--white); }
   .review-date { font-size: 12px; color: var(--muted); }
-
+  .review-source { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .review-card.featured {
+    border-color: rgba(232, 200, 74, 0.35);
+    box-shadow: 0 0 0 1px rgba(232, 200, 74, 0.12);
+  }
+  .review-featured-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .review-card.review-card--collapsed {
+    display: none;
+  }
+  .reviews-load-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
   /* ── FOOTER ── */
   footer {
     background: var(--dark);
@@ -1098,11 +1129,11 @@
       <li><a href="#sell">Sell Your Car</a></li>
       <li><a href="#about">About Us</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="tel:01234567890" class="nav-cta">📞 Call Us</a></li>
+      <li><a href="tel:+447537123456" class="nav-cta">📞 Call Us</a></li>
     </ul>
     <div class="nav-phone">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.34h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-      <a href="tel:01234567890">01234 567 890</a>
+      <a href="tel:+447537123456">07537 123456</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1114,7 +1145,7 @@
     <a href="#sell">Sell Your Car</a>
     <a href="#about">About Us</a>
     <a href="#contact">Contact</a>
-    <a href="tel:01234567890" style="color:var(--accent);font-weight:700;">📞 01234 567 890</a>
+    <a href="tel:+447537123456" style="color:var(--accent);font-weight:700;">📞 07537 123456</a>
   </div>
 </nav>
 
@@ -1363,45 +1394,237 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIALS — Feefo reviews as shown on Auto Trader dealer profile -->
 <section class="section reviews-section" id="reviews">
   <div class="section-inner">
     <div class="section-header fade-in">
       <div>
         <div class="section-eyebrow">Customer Reviews</div>
-        <div class="section-title">What Our Customers Say</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;color:var(--accent);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;">4.9</span>
-        <span style="font-size:13px;color:var(--muted);">from 240+ reviews</span>
+        <div class="section-title">What our customers say</div>
       </div>
     </div>
-    <div class="reviews-grid">
-      <div class="review-card fade-in">
+    <div class="reviews-grid fade-in" id="reviewsGrid">
+      <article class="review-card featured">
+        <span class="review-featured-badge">Featured</span>
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Straightforward from start to finish. Clear answers, no pressure, and the car was exactly as described. Would happily buy from Driven3 again."</p>
+        <p class="review-text">100% recommend upon arrival they where deep cleaning my car brilliant customer service and genuine good people</p>
         <div class="review-author">
-          <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=11" alt=""></div>
-          <div><div class="review-name">James Thornton</div><div class="review-date">2 weeks ago · Google</div></div>
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">A</div>
+          <div>
+            <div class="review-name">Anonymous</div>
+            <div class="review-date">22 Dec 2025</div>
+            <div class="review-source">Feefo · 10/10 · 100% recommend</div>
+          </div>
         </div>
-      </div>
-      <div class="review-card fade-in">
+      </article>
+      <article class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Part-exchanged my old car without any fuss. Fair price and I drove away the same day. Good communication throughout."</p>
+        <p class="review-text">They cared for me !!!! All i can say is these guys honestly give time to you even after buying the car, they helped me save money on certain stuff that i did with the car after buying like modifications and other mechanical work i wanted done on the car, these guys really know their stuff! Cheers guys !</p>
         <div class="review-author">
-          <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=5" alt=""></div>
-          <div><div class="review-name">Sarah Mitchell</div><div class="review-date">1 month ago · Trustpilot</div></div>
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">RC</div>
+          <div>
+            <div class="review-name">Rey C</div>
+            <div class="review-date">6 Nov 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
         </div>
-      </div>
-      <div class="review-card fade-in">
+      </article>
+      <article class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Bought a used saloon and had it delivered. It arrived as described and the paperwork was simple. Honest dealer."</p>
+        <p class="review-text">Excellent Customer Service! I brought my car in for routine maintenance, and the entire process was smooth from start to finish. The staff was friendly, professional, and explained everything clearly. My car runs better than ever—highly recommend this dealership’s service department!</p>
         <div class="review-author">
-          <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=22" alt=""></div>
-          <div><div class="review-name">David Campbell</div><div class="review-date">3 weeks ago · Google</div></div>
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">MX</div>
+          <div>
+            <div class="review-name">Martin X</div>
+            <div class="review-date">2 Nov 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
         </div>
-      </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Great service! Bought my first car from here, great service. Will be back when I upgrade!</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">HS</div>
+          <div>
+            <div class="review-name">Hannah S</div>
+            <div class="review-date">27 Oct 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">10/10 service Excellent service from these guys! Walked me through everything and made everything simple and hassle free</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">JA</div>
+          <div>
+            <div class="review-name">Jonathan A</div>
+            <div class="review-date">15 Oct 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Quick and easy, great service from Adam, would highly recommend!</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">WG</div>
+          <div>
+            <div class="review-name">Will G</div>
+            <div class="review-date">17 Sept 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">When I went to Castle cars they were so welcoming and offered free drinks and the GTI that I got was so clean with no problems with one of the best prices I highly recommend coming here. L</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">IS</div>
+          <div>
+            <div class="review-name">Is S</div>
+            <div class="review-date">9 Aug 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Highly recommend. What you see is what you get Top service from start to finish no messing about, straight to the point. Car was exactly as described clean and ready to go.</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">MN</div>
+          <div>
+            <div class="review-name">Mohammed N H</div>
+            <div class="review-date">9 Aug 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">⭐️⭐️⭐️⭐️⭐️⭐️ ⭐️⭐️⭐️⭐️⭐️Just bought a VW Polo from Castle Cars – great service, friendly team, and the car is perfect. Highly recommend!</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">SB</div>
+          <div>
+            <div class="review-name">Sarah B</div>
+            <div class="review-date">8 Aug 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">I bought a Nissan Quashqai from Castle Cars.Any questions I needed to know about the car prior to purchasing they were very helpful. The service was excellent.</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">A</div>
+          <div>
+            <div class="review-name">Anonymous</div>
+            <div class="review-date">21 Apr 2025</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Great experience…. Great experience, bought a Skoda Octavia with a video call viewing as I was 120 miles away, car was delivered and was exactly as described, they made the buying process so easy.</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">JW</div>
+          <div>
+            <div class="review-name">Jess W</div>
+            <div class="review-date">24 Nov 2024</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Great price, solid service!</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">A</div>
+          <div>
+            <div class="review-name">Anonymous</div>
+            <div class="review-date">12 Nov 2024</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">BMW 335 I had a great experience at Castle cars. The staff was friendly and knowledgeable. I purchased a BMW 335D from them and I highly recommend them for anyone looking for a reliable car.Aftersales was great, rang back a few times because I never had a BMW before but the team was more then happy to help.</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">DH</div>
+          <div>
+            <div class="review-name">Dilwar H</div>
+            <div class="review-date">26 Oct 2024</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Exceptional service Wonderful experience from start to end with Castle Cars, highly recommend their service, loving the Seat Leon I bought</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">MY</div>
+          <div>
+            <div class="review-name">Mohammed Y</div>
+            <div class="review-date">6 Oct 2024</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Top notch car! Bought a vauxhall corsa sxi off these lads, lived up to the expectations! The guys are also very nice to talk to when I had lots a questions about the car. Definitely recommend them.</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">A</div>
+          <div>
+            <div class="review-name">Anonymous</div>
+            <div class="review-date">6 Oct 2024</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">10/10 customer service Bought golf TDi from here, customer service was mint and the car drives smooth</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">AM</div>
+          <div>
+            <div class="review-name">Aman M</div>
+            <div class="review-date">1 Oct 2024</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Quick, reliable service.</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">SC</div>
+          <div>
+            <div class="review-name">S C</div>
+            <div class="review-date">1 Oct 2024</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">5 starts Bought a bmw 335d from here, was a good price, customer service was great and car is wonderful, thank you.</p>
+        <div class="review-author">
+          <div class="review-avatar review-avatar-initials" aria-hidden="true">LB</div>
+          <div>
+            <div class="review-name">Luke B</div>
+            <div class="review-date">1 Oct 2024</div>
+            <div class="review-source">Feefo · 5 / 5</div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="reviews-load-more-wrap fade-in">
+      <button type="button" class="btn btn-outline" id="reviewsLoadMore" aria-controls="reviewsGrid">Load more reviews</button>
+      <a href="https://www.autotrader.co.uk/dealers/lancashire/oldham/driven3-automotive-10042640?channel=cars" class="btn btn-outline" id="reviewsAutoTrader" target="_blank" rel="noopener noreferrer" hidden>View reviews on Auto Trader</a>
     </div>
   </div>
 </section>
@@ -1450,27 +1673,27 @@
         <h4>Contact Us</h4>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor"/><circle cx="12" cy="10" r="3" stroke="currentColor"/></svg>
-          <span>123 Motor Mile, Birmingham, B1 1AB</span>
+          <span>Grape Mill, Royton, Oldham OL2 5LW</span>
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.34h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor"/></svg>
-          <a href="tel:01234567890">01234 567 890</a>
+          <a href="tel:+447537123456">07537 123456</a>
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor"/><polyline points="22,6 12,13 2,6" stroke="currentColor"/></svg>
-          <a href="/cdn-cgi/l/email-protection#2e474048416e4a5c47584b401d4f5b5a4143415a47584b004d41005b45"><span class="__cf_email__" data-cfemail="8be2e5ede4cbeff9e2fdeee5b8eafeffe4e6e4ffe2fdeea5e8e4a5fee0">[email&#160;protected]</span></a>
+          <a href="https://www.autotrader.co.uk/dealers/lancashire/oldham/driven3-automotive-10042640?channel=cars" target="_blank" rel="noopener noreferrer">Message via Auto Trader</a>
         </div>
         <div class="footer-contact-item" style="margin-top:8px;">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10" stroke="currentColor"/><polyline points="12 6 12 12 16 14" stroke="currentColor"/></svg>
           <div>
-            <div>Mon–Sat: 9am – 6pm</div>
-            <div>Sunday: 10am – 4pm</div>
+            <div>Visits by appointment</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px;">See Auto Trader for opening hours</div>
           </div>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2025 Driven3 Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
+      <div>© 2026 Driven3 Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
       <div class="footer-legal">
         <a href="#">Privacy Policy</a>
         <a href="#">Cookie Policy</a>
@@ -1603,6 +1826,39 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
 }, { threshold: 0.12 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+(function initReviewsLoadMore() {
+  const INITIAL = 6;
+  const STEP = 3;
+  const grid = document.getElementById('reviewsGrid');
+  const btn = document.getElementById('reviewsLoadMore');
+  const atLink = document.getElementById('reviewsAutoTrader');
+  if (!grid || !btn || !atLink) return;
+  const cards = Array.from(grid.querySelectorAll('.review-card'));
+  const wrap = btn.closest('.reviews-load-more-wrap');
+
+  function revealAutoTraderCta() {
+    btn.remove();
+    atLink.hidden = false;
+  }
+
+  if (cards.length <= INITIAL) {
+    if (wrap) wrap.hidden = true;
+    return;
+  }
+  cards.forEach((card, i) => {
+    if (i >= INITIAL) card.classList.add('review-card--collapsed');
+  });
+  let shown = INITIAL;
+  btn.addEventListener('click', () => {
+    const next = Math.min(shown + STEP, cards.length);
+    for (let i = shown; i < next; i++) {
+      cards[i].classList.remove('review-card--collapsed');
+    }
+    shown = next;
+    if (shown >= cards.length) revealAutoTraderCta();
+  });
+})();
 
 // Init
 async function initCars() {
