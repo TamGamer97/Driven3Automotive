@@ -31,11 +31,8 @@ button,a{touch-action:manipulation}
 /* ═══ LOGIN ═══ */
 #loginScreen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--black);background-image:radial-gradient(ellipse at 20% 50%,rgba(61,125,204,0.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(61,125,204,0.03) 0%,transparent 50%);padding:20px}
 .login-box{width:100%;max-width:400px}
-.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:36px;justify-content:center}
+.login-logo{display:flex;align-items:center;justify-content:center;margin-bottom:36px}
 .login-logo-icon{width:144px;height:144px;border-radius:18px;object-fit:contain;display:block;background:transparent}
-.login-logo-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.08em;color:var(--white);line-height:1}
-.logo-name-num{color:var(--logo-num)}
-.login-logo-sub{font-size:10px;letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;font-weight:600}
 .login-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 28px}
 .login-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:0.04em;color:var(--white);margin-bottom:4px}
 .login-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
@@ -54,9 +51,8 @@ button,a{touch-action:manipulation}
 /* ─ TOPBAR ─ */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--topbar-h);background:rgba(17,17,17,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:12px}
 .topbar-left{display:flex;align-items:center;gap:10px}
-.topbar-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
-.topbar-logo-icon{width:64px;height:64px;border-radius:10px;object-fit:contain;display:block;flex-shrink:0;background:transparent}
-.topbar-logo-name{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:0.06em;color:var(--white)}
+.topbar-logo{display:flex;align-items:center;text-decoration:none}
+.topbar-logo-icon{width:96px;height:96px;border-radius:12px;object-fit:contain;display:block;flex-shrink:0;background:transparent}
 .topbar-badge{background:rgba(61,125,204,0.12);border:1px solid rgba(61,125,204,0.25);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:50px}
 .topbar-right{display:flex;align-items:center;gap:10px}
 .topbar-avatar{width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--black)}
@@ -312,10 +308,6 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
   <div class="login-box">
     <div class="login-logo">
       <img class="login-logo-icon" src="icon-removebg-preview.png" alt="Driven3 Automotive" width="144" height="144" decoding="async">
-      <div>
-        <div class="login-logo-name">Driven<span class="logo-name-num">3</span></div>
-        <div class="login-logo-sub">Automotive</div>
-      </div>
     </div>
     <div class="login-card">
       <div class="login-title">Admin Portal</div>
@@ -344,9 +336,8 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
       <button class="menu-toggle" id="menuToggle" onclick="toggleDrawer()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
-      <a href="driven3automotive.html" class="topbar-logo">
+      <a href="driven3automotive.html" class="topbar-logo" aria-label="Driven3 Automotive home">
         <img class="topbar-logo-icon" src="icon-removebg-preview.png" alt="" width="96" height="96" decoding="async">
-        <span class="topbar-logo-name">Driven<span class="logo-name-num">3</span></span>
       </a>
       <div class="topbar-badge">Admin</div>
     </div>
