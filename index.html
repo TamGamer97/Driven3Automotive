@@ -1102,15 +1102,18 @@
   @media (max-width: 768px) {
     .nav-links, .nav-phone { display: none; }
     .hamburger { display: flex; }
-    /* margin-top + padding-top: hero image under nav; content starts below logo row */
+    /* Taller hero so stats row (e.g. Nationwide) isn’t clipped; content can define height */
     .hero {
       margin-top: -68px;
-      min-height: min(580px, 88vh);
+      height: auto;
+      min-height: max(92vh, 720px);
+      max-height: none;
+      overflow: visible;
     }
     .hero h1 { font-size: clamp(44px, 12vw, 72px); }
     .hero-stats { gap: 24px; }
     .hero-bg { background-position: 70% center; }
-    .hero-content { padding-bottom: 56px; }
+    .hero-content { padding-bottom: 72px; }
     .search-section { padding-top: 32px; padding-bottom: 36px; }
     .search-form { grid-template-columns: 1fr; }
     .search-btn { grid-column: span 1; }
