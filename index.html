@@ -76,6 +76,9 @@
 
   /* ── ANNOUNCEMENT BAR ── */
   .announcement {
+    position: relative;
+    /* Above .hero (z-index 1): hero-bg extends upward with top:-68px and would cover this bar */
+    z-index: 100;
     background: var(--accent);
     color: var(--black);
     text-align: center;
