@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Driven3 Automotive — Premium Pre-Owned Vehicles</title>
+<meta name="description" content="Driven3 Automotive — reliable used cars, trusted service, AA approved. Quality vehicles from trusted brands, honestly inspected. Nationwide delivery.">
+<title>Driven3 Automotive — Reliable Used Cars | AA Approved</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital@1&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,500,0,0&display=swap" rel="stylesheet">
@@ -434,6 +435,112 @@
     color: var(--white);
     line-height: 1;
   }
+
+  /* ── ABOUT ── */
+  .about-section {
+    padding-top: 88px;
+    padding-bottom: 88px;
+    border-top: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(232,200,74,0.03) 0%, transparent 45%);
+  }
+  .about-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 48px;
+  }
+  .about-head .section-eyebrow { margin-bottom: 10px; }
+  .about-lead {
+    margin-top: 18px;
+    font-size: clamp(15px, 1.9vw, 17px);
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 500;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 28px 40px;
+    max-width: 1120px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .about-copy-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 30px 30px;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.22);
+  }
+  .about-copy-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.75;
+    margin: 0;
+  }
+  .about-copy-card p + p { margin-top: 16px; }
+  .about-copy-card strong { color: var(--text); font-weight: 600; }
+  .about-tagline {
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+  .about-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .about-pillar {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 18px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .about-pillar:hover {
+    border-color: rgba(232,200,74,0.28);
+    background: rgba(255,255,255,0.02);
+  }
+  .about-pillar > i {
+    color: var(--accent);
+    font-size: 20px;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    opacity: 0.95;
+  }
+  .about-pillar-text strong {
+    display: block;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .about-pillar-text span {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  @media (max-width: 960px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-copy-card { order: -1; }
+  }
+  @media (max-width: 600px) {
+    .about-section { padding-top: 64px; padding-bottom: 64px; }
+    .about-copy-card { padding: 22px 20px 24px; }
+    .about-head { margin-bottom: 36px; }
+  }
+
   .view-all {
     color: var(--accent);
     text-decoration: none;
@@ -972,7 +1079,7 @@
 
 <!-- Announcement -->
 <div class="announcement">
-  🏆 Award-Winning Used Car Dealer — Nationwide Delivery Available — All Vehicles HPI Checked
+  AA Approved — Reliable Vehicles, Trusted Service — Nationwide Delivery — All Vehicles HPI Checked
 </div>
 
 <!-- NAV -->
@@ -1014,10 +1121,13 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=85&auto=format&fit=crop" alt="Luxury car" fetchpriority="high">
+    <!-- Previous hero image (e.g. high-performance / supercar look) — swap back if needed:
+    <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=85&auto=format&fit=crop" alt="" fetchpriority="high">
+    -->
+    <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1920&q=85&auto=format&fit=crop" alt="Used car for sale at Driven3 Automotive" fetchpriority="high">
   </div>
   <div class="hero-content">
-    <div class="hero-badge">Premium Pre-Owned Vehicles</div>
+    <div class="hero-badge">AA Approved · Reliable Used Cars</div>
     <h1>Find Your<br><em>Perfect</em><br>Drive</h1>
     <p class="hero-desc">Hand-picked quality and reliability vehicles. Every car inspected, prepared and presented to the highest standard.</p>
     <div class="hero-btns">
@@ -1029,8 +1139,8 @@
     </div>
     <div class="hero-stats">
       <div>
-        <div class="hero-stat-num">Quality</div>
-        <div class="hero-stat-label">Assured</div>
+        <div class="hero-stat-num">AA</div>
+        <div class="hero-stat-label">Approved</div>
       </div>
       <div>
         <div class="hero-stat-num">5★</div>
@@ -1146,8 +1256,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"/></svg>
       </div>
       <div>
-        <div class="feature-title">Fully Inspected</div>
-        <div class="feature-desc">Every vehicle undergoes a rigorous 120-point inspection before sale.</div>
+        <div class="feature-title">Thoroughly Inspected</div>
+        <div class="feature-desc">Honest, thorough checks on every vehicle before sale—no surprises.</div>
       </div>
     </div>
     <div class="feature-item fade-in">
@@ -1155,8 +1265,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor"/></svg>
       </div>
       <div>
-        <div class="feature-title">Warranty Included</div>
-        <div class="feature-desc">All vehicles come with a minimum 3-month warranty for your peace of mind.</div>
+        <div class="feature-title">Trusted Aftercare</div>
+        <div class="feature-desc">Minimum 3-month warranty available on qualifying vehicles—ask us for details.</div>
       </div>
     </div>
     <div class="feature-item fade-in">
@@ -1205,8 +1315,56 @@
   </div>
 </section>
 
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="section-inner fade-in">
+    <div class="about-head">
+      <div class="section-eyebrow">About Us</div>
+      <div class="section-title">Trust Drives Everything We Do</div>
+      <p class="about-lead">Reliable vehicles, trusted service, AA approved—we focus on honest advice and cars that are checked properly, so you can buy with confidence.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-pillars" aria-label="What we stand for">
+        <div class="about-pillar">
+          <i class="fa-solid fa-award" aria-hidden="true"></i>
+          <div class="about-pillar-text">
+            <strong>AA approved</strong>
+            <span>Standards you can recognise—trusted service, not sales pressure.</span>
+          </div>
+        </div>
+        <div class="about-pillar">
+          <i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i>
+          <div class="about-pillar-text">
+            <strong>Thorough checks</strong>
+            <span>We inspect our stock properly and describe condition honestly—no surprises after you’ve bought.</span>
+          </div>
+        </div>
+        <div class="about-pillar">
+          <i class="fa-solid fa-tags" aria-hidden="true"></i>
+          <div class="about-pillar-text">
+            <strong>Value that makes sense</strong>
+            <span>Quality used cars from trusted brands, priced fairly so reliability doesn’t mean overpaying.</span>
+          </div>
+        </div>
+        <div class="about-pillar">
+          <i class="fa-solid fa-car-side" aria-hidden="true"></i>
+          <div class="about-pillar-text">
+            <strong>Something for everyone</strong>
+            <span>From compact commuters to family SUVs—we’ll help you find the right fit.</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-copy-card">
+        <p>At <strong>Driven3 Automotive</strong> we take the hassle out of finding the right car. We specialise in quality used vehicles from trusted brands, with a focus on <strong>reliability and value</strong> that won’t break the bank.</p>
+        <p>What sets us apart is simple: <strong>honest service</strong> and thoroughly inspected cars, so you can drive away with confidence. No fluff—just straight answers and cars presented properly.</p>
+        <p class="about-tagline">Find your next car with Driven3 Automotive—where trust drives everything we do.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- TESTIMONIALS -->
-<section class="section reviews-section" id="about">
+<section class="section reviews-section" id="reviews">
   <div class="section-inner">
     <div class="section-header fade-in">
       <div>
@@ -1222,7 +1380,7 @@
     <div class="reviews-grid">
       <div class="review-card fade-in">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Absolutely brilliant experience from start to finish. Found my dream BMW M3 and the team made everything so easy. Would 100% recommend to anyone looking for a quality used car."</p>
+        <p class="review-text">"Straightforward from start to finish. Clear answers, no pressure, and the car was exactly as described. Would happily buy from Driven3 again."</p>
         <div class="review-author">
           <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=11" alt=""></div>
           <div><div class="review-name">James Thornton</div><div class="review-date">2 weeks ago · Google</div></div>
@@ -1230,7 +1388,7 @@
       </div>
       <div class="review-card fade-in">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Part-exchanged my old car and it was seamless. Got a great price and drove away in a stunning Audi Q5 the same day. The finance team found me a really competitive rate too."</p>
+        <p class="review-text">"Part-exchanged my old car without any fuss. Fair price and I drove away the same day. Good communication throughout."</p>
         <div class="review-author">
           <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=5" alt=""></div>
           <div><div class="review-name">Sarah Mitchell</div><div class="review-date">1 month ago · Trustpilot</div></div>
@@ -1238,7 +1396,7 @@
       </div>
       <div class="review-card fade-in">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Bought a Mercedes C Class and had it delivered to my door in Scotland. Arrived immaculate, exactly as described. Exceptional service — these guys genuinely care about their customers."</p>
+        <p class="review-text">"Bought a used saloon and had it delivered. It arrived as described and the paperwork was simple. Honest dealer."</p>
         <div class="review-author">
           <div class="review-avatar"><img src="https://i.pravatar.cc/80?img=22" alt=""></div>
           <div><div class="review-name">David Campbell</div><div class="review-date">3 weeks ago · Google</div></div>
@@ -1260,7 +1418,7 @@
             <span class="logo-sub">Automotive</span>
           </div>
         </a>
-        <p>Premium pre-owned vehicles, hand-picked and prepared to the highest standard. Finance available, with nationwide delivery.</p>
+        <p>Reliable used cars, trusted service, AA approved. Honest descriptions and thorough checks. Finance options and nationwide delivery—ask us how we can help.</p>
         <div class="footer-social">
           <div class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor"/></svg></div>
           <div class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-linecap="round"/></svg></div>
@@ -1274,7 +1432,7 @@
           <li><a href="#sell">Sell Your Car</a></li>
           <li><a href="#">Part-Exchange</a></li>
           <li><a href="#">Sold Cars</a></li>
-          <li><a href="#">About Us</a></li>
+          <li><a href="#about">About Us</a></li>
         </ul>
       </div>
       <div class="footer-col">
