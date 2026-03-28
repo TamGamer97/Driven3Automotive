@@ -1002,6 +1002,9 @@
     justify-content: center;
     transition: all 0.2s;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    box-sizing: border-box;
   }
   .social-btn:hover { background: var(--accent); border-color: var(--accent); }
   .social-btn svg { width: 16px; height: 16px; stroke: var(--text); transition: stroke 0.2s; }
@@ -1669,9 +1672,11 @@
         </a>
         <p>Reliable used cars, trusted service, AA approved. Honest descriptions and thorough checks. Finance options and nationwide delivery—ask us how we can help.</p>
         <div class="footer-social">
-          <div class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-linecap="round"/></svg></div>
-          <div class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="currentColor"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="currentColor"/></svg></div>
+          <div class="social-btn" role="presentation" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor"/></svg></div>
+          <a class="social-btn" href="https://www.instagram.com/driven3automotive/" target="_blank" rel="noopener noreferrer" aria-label="Driven3 Automotive on Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-linecap="round"/></svg>
+          </a>
+          <div class="social-btn" role="presentation" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="currentColor"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="currentColor"/></svg></div>
         </div>
       </div>
       <div class="footer-col">
@@ -1699,11 +1704,15 @@
         <h4>Contact Us</h4>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor"/><circle cx="12" cy="10" r="3" stroke="currentColor"/></svg>
-          <span>Grape Mill, Royton, Oldham OL2 5LW</span>
+          <span>Grape Mill, Holden Fold Lane, Royton, OL2 5LW</span>
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.34h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor"/></svg>
           <a href="tel:+447537123456">07537 123456</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-linecap="round"/></svg>
+          <a href="https://www.instagram.com/driven3automotive/" target="_blank" rel="noopener noreferrer">Instagram — @driven3automotive</a>
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor"/><polyline points="22,6 12,13 2,6" stroke="currentColor"/></svg>
@@ -1719,7 +1728,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Driven3 Automotive Ltd. All rights reserved. FCA Authorised & Regulated.</div>
+      <div>© 2026 Driven3 Automotive Ltd. All rights reserved.</div>
       <div class="footer-legal">
         <a href="#">Privacy Policy</a>
         <a href="#">Cookie Policy</a>
