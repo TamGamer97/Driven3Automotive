@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Admin — Driven3 Automotive</title>
-<link rel="icon" href="icon-removebg-preview.png" type="image/png">
-<link rel="apple-touch-icon" href="icon-removebg-preview.png">
+<link rel="icon" href="/assets/images/icon-removebg-preview.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/images/icon-removebg-preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -219,11 +219,19 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
 .dropzone:hover,.dropzone.dragover{border-color:var(--accent);background:rgba(61,125,204,0.1)}
 .dz-label{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:13px;font-weight:600;flex-wrap:wrap}
 .dz-label strong{color:var(--accent)}
-.photo-list{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px}
-.photo-thumb{width:96px;height:68px;border-radius:10px;background:var(--mid);border:1.5px solid var(--border);overflow:hidden;position:relative;flex-shrink:0}
-.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.photo-thumb.dragging{opacity:0.5;border-color:var(--accent)}
-.photo-rm{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:6px;border:1px solid rgba(232,74,74,0.3);background:rgba(10,10,10,0.8);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;transition:all 0.15s}
+.photo-list{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.photo-thumb{width:96px;height:68px;border-radius:10px;background:var(--mid);border:1.5px solid var(--border);overflow:hidden;position:relative;flex-shrink:0;cursor:grab}
+.photo-thumb:active{cursor:grabbing}
+.photo-thumb.is-thumb{border-color:rgba(61,125,204,0.55);box-shadow:0 0 0 1px rgba(61,125,204,0.2)}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.photo-thumb.dragging{opacity:0.55;border-color:var(--accent);z-index:2}
+.photo-thumb.drag-over{outline:2px dashed var(--accent);outline-offset:-2px}
+.photo-thumb-badge{position:absolute;top:5px;left:5px;font-size:8px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:3px 5px;border-radius:4px;line-height:1;pointer-events:none;z-index:1}
+.photo-reorder{position:absolute;bottom:4px;left:4px;right:22px;display:flex;gap:3px;z-index:1}
+.photo-reorder button{width:22px;height:22px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);background:rgba(10,10,10,0.82);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;line-height:1;padding:0;transition:background 0.15s}
+.photo-reorder button:hover:not(:disabled){background:rgba(61,125,204,0.45);border-color:rgba(61,125,204,0.5)}
+.photo-reorder button:disabled{opacity:0.35;cursor:not-allowed}
+.photo-rm{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:6px;border:1px solid rgba(232,74,74,0.3);background:rgba(10,10,10,0.8);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;transition:all 0.15s;z-index:1}
 .photo-rm:hover{background:rgba(232,74,74,0.25)}
 
 /* ─ FEATURES ─ */
@@ -297,9 +305,9 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
 </style>
 <!-- Supabase-backed admin auth + listings API -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/backend/supabase-config.js"></script>
-<script src="js/backend/supabase-client.js"></script>
-<script src="js/backend/listings-api.js"></script>
+<script src="/js/backend/supabase-config.js"></script>
+<script src="/js/backend/supabase-client.js"></script>
+<script src="/js/backend/listings-api.js"></script>
 </head>
 <body>
 
@@ -307,7 +315,7 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">
-      <img class="login-logo-icon" src="icon-removebg-preview.png" alt="Driven3 Automotive" width="144" height="144" decoding="async">
+      <img class="login-logo-icon" src="/assets/images/icon-removebg-preview.png" alt="Driven3 Automotive" width="144" height="144" decoding="async">
     </div>
     <div class="login-card">
       <div class="login-title">Admin Portal</div>
@@ -336,13 +344,13 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
       <button class="menu-toggle" id="menuToggle" onclick="toggleDrawer()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
-      <a href="driven3automotive.html" class="topbar-logo" aria-label="Driven3 Automotive home">
-        <img class="topbar-logo-icon" src="icon-removebg-preview.png" alt="" width="96" height="96" decoding="async">
+      <a href="/index.html" class="topbar-logo" aria-label="Driven3 Automotive home">
+        <img class="topbar-logo-icon" src="/assets/images/icon-removebg-preview.png" alt="" width="96" height="96" decoding="async">
       </a>
       <div class="topbar-badge">Admin</div>
     </div>
     <div class="topbar-right">
-      <a href="driven3automotive.html" target="_blank" class="view-site-btn">View Site →</a>
+      <a href="/index.html" target="_blank" class="view-site-btn">View Site →</a>
       <div class="topbar-user" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)">
         <div class="topbar-avatar">A</div>
         <strong style="color:var(--text)">Admin</strong>
@@ -565,13 +573,22 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
       </div>
 
       <div class="fsec">Photos</div>
-      <div class="fhint" style="margin-bottom:10px">Tap or drag to add up to 10 images. First image = thumbnail.</div>
+      <div class="fhint" style="margin-bottom:10px">Up to 10 images — <strong>first = thumbnail</strong>. Drag thumbnails to reorder, or use ◀ ▶ on each image. Upload files, or paste direct image URLs (e.g. Autotrader <code style="font-size:11px;opacity:.85">m.atcdn.co.uk/…/media/….jpg</code>).</div>
       <div id="photoDropzone" class="dropzone">
         <div class="dz-label">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="2" stroke="currentColor"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/><polyline points="7 10 12 5 17 10"/><line x1="12" y1="5" x2="12" y2="15"/></svg>
           <span><strong>Tap to upload</strong> or drag images here</span>
         </div>
         <input type="file" id="photoFileInput" accept="image/*" multiple style="display:none">
+      </div>
+      <div class="fadd-row photo-url-row" style="margin-top:12px">
+        <input id="photoUrlInput" type="url" inputmode="url" autocomplete="off" placeholder="https://m.atcdn.co.uk/a/media/…" onkeydown="if(event.key==='Enter'){event.preventDefault();addPhotoFromUrlInput();}">
+        <button type="button" onclick="addPhotoFromUrlInput()">Add URL</button>
+      </div>
+      <div class="fgroup photo-url-bulk" style="margin-top:10px">
+        <label>Or paste multiple image URLs</label>
+        <textarea id="photoUrlBulk" rows="3" placeholder="One URL per line, or comma / semicolon separated…"></textarea>
+        <button type="button" class="btn btn-outline btn-sm" style="align-self:flex-start;margin-top:4px" onclick="addPhotoUrlsFromBulk()">Add all URLs</button>
       </div>
       <div class="photo-list" id="photoList"></div>
 
@@ -673,7 +690,7 @@ async function doLogout(){
 
 /* DATA */
 let listings=[];
-let nextId=1,editingId=null,deleteTargetId=null,filter='all',feats=[],photos=[],photoId=1,isSaving=false,isDeleting=false;
+let nextId=1,editingId=null,deleteTargetId=null,filter='all',feats=[],photos=[],photoId=1,photoDragId=null,isSaving=false,isDeleting=false;
 
 /* INIT */
 async function init(){
@@ -847,6 +864,9 @@ function closeModal(id){
 function clearForm(){
   ['f_make','f_model','f_variant','f_year','f_reg','f_miles','f_price','f_body','f_fuel','f_trans','f_color','f_doors','f_seats','f_owners','f_badge','f_engine','f_power','f_torque','f_co2','f_mot','f_serviceHistory','f_description'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('f_status').value='active';document.getElementById('f_featured').value='no';
+  const pu=document.getElementById('photoUrlInput'),pb=document.getElementById('photoUrlBulk');
+  if(pu) pu.value='';
+  if(pb) pb.value='';
   resetPhotos();feats=[];renderFeats();
 }
 async function saveListing(){
@@ -937,19 +957,146 @@ function bindDropzone(){
 }
 function resetPhotos(){photos=[];photoId=1;document.getElementById('photoList').innerHTML='';}
 function setPhotosFromListing(l){resetPhotos();(l.imgs?.length?l.imgs:[l.img||'']).filter(Boolean).slice(0,10).forEach(src=>photos.push({id:photoId++,src}));renderPhotos();}
+function isAllowedImageSrc(u){
+  const s=String(u||'').trim();
+  if(!s) return false;
+  if(s.startsWith('data:image/')) return true;
+  try{const x=new URL(s);return x.protocol==='https:'||x.protocol==='http:';}catch{return false;}
+}
+function pushImageUrls(urlList){
+  const seen=new Set(photos.map(p=>p.src));
+  let added=0;
+  for(let raw of urlList){
+    if(photos.length>=10) break;
+    const u=String(raw).trim();
+    if(!u||seen.has(u)) continue;
+    if(!isAllowedImageSrc(u)) continue;
+    seen.add(u);
+    photos.push({id:photoId++,src:u});
+    added++;
+  }
+  renderPhotos();
+  return added;
+}
+function addPhotoFromUrlInput(){
+  const inp=document.getElementById('photoUrlInput');
+  const raw=inp?.value?.trim();
+  if(!raw){showToast('Paste an image URL','error');return;}
+  const n=pushImageUrls([raw]);
+  if(n){inp.value='';showToast('Image added','');}
+  else showToast('Invalid URL, duplicate, or max 10 photos','error');
+}
+function addPhotoUrlsFromBulk(){
+  const ta=document.getElementById('photoUrlBulk');
+  const text=ta?.value||'';
+  const urls=text.split(/\r?\n/).flatMap(line=>line.split(/[,;]/)).map(s=>s.trim()).filter(Boolean);
+  if(!urls.length){showToast('Paste at least one URL','error');return;}
+  const n=pushImageUrls(urls);
+  if(n) ta.value='';
+  if(n) showToast(n===1?'1 image added':`${n} images added`,'');
+  else showToast('No new valid URLs (use https:// or http://, no duplicates, max 10 photos)','error');
+}
 async function handleFiles(files){
   const arr=Array.from(files||[]).filter(f=>f?.type?.startsWith('image/'));
   const rem=Math.max(0,10-photos.length);if(!rem){showToast('Max 10 photos','error');return;}
   for(const f of arr.slice(0,rem)){const src=await new Promise((r,j)=>{const rd=new FileReader();rd.onload=()=>r(rd.result);rd.onerror=j;rd.readAsDataURL(f);});photos.push({id:photoId++,src});}
   renderPhotos();
 }
+function movePhotoIndex(i,dir){
+  const j=i+dir;
+  if(j<0||j>=photos.length) return;
+  const next=[...photos];
+  const t=next[i];
+  next[i]=next[j];
+  next[j]=t;
+  photos=next;
+  renderPhotos();
+}
+function reorderPhotosById(fromId,toId){
+  if(fromId===toId) return;
+  const fromIdx=photos.findIndex(x=>x.id===fromId);
+  const toIdx=photos.findIndex(x=>x.id===toId);
+  if(fromIdx<0||toIdx<0) return;
+  const next=[...photos];
+  const [item]=next.splice(fromIdx,1);
+  next.splice(toIdx,0,item);
+  photos=next;
+  renderPhotos();
+}
+function clearPhotoDragState(){
+  photoDragId=null;
+  document.querySelectorAll('.photo-thumb.drag-over,.photo-thumb.dragging').forEach(el=>{
+    el.classList.remove('drag-over','dragging');
+  });
+}
 function renderPhotos(){
-  const list=document.getElementById('photoList');list.innerHTML='';
-  photos.forEach(p=>{
-    const el=document.createElement('div');el.className='photo-thumb';
-    el.innerHTML=`<img src="${p.src}" alt="" loading="lazy"><button type="button" class="photo-rm" title="Remove">×</button>`;
-    el.querySelector('.photo-rm').addEventListener('click',()=>{photos=photos.filter(x=>x.id!==p.id);renderPhotos();});
-    list.appendChild(el);
+  const list=document.getElementById('photoList');
+  list.innerHTML='';
+  photos.forEach((p,i)=>{
+    const wrap=document.createElement('div');
+    wrap.className='photo-thumb'+(i===0?' is-thumb':'');
+    wrap.draggable=true;
+    wrap.dataset.photoId=String(p.id);
+    const img=document.createElement('img');
+    img.alt='';
+    img.loading='lazy';
+    img.src=p.src;
+    const row=document.createElement('div');
+    row.className='photo-reorder';
+    const btnL=document.createElement('button');
+    btnL.type='button';
+    btnL.draggable=false;
+    btnL.title='Move earlier (toward thumbnail)';
+    btnL.textContent='◀';
+    btnL.disabled=i<=0;
+    btnL.addEventListener('click',e=>{e.stopPropagation();movePhotoIndex(i,-1);});
+    const btnR=document.createElement('button');
+    btnR.type='button';
+    btnR.draggable=false;
+    btnR.title='Move later';
+    btnR.textContent='▶';
+    btnR.disabled=i>=photos.length-1;
+    btnR.addEventListener('click',e=>{e.stopPropagation();movePhotoIndex(i,1);});
+    row.appendChild(btnL);
+    row.appendChild(btnR);
+    const rm=document.createElement('button');
+    rm.type='button';
+    rm.draggable=false;
+    rm.className='photo-rm';
+    rm.title='Remove';
+    rm.textContent='×';
+    rm.addEventListener('click',e=>{e.stopPropagation();photos=photos.filter(x=>x.id!==p.id);renderPhotos();});
+    wrap.addEventListener('dragstart',e=>{
+      photoDragId=p.id;
+      wrap.classList.add('dragging');
+      try{e.dataTransfer.setData('text/plain',String(p.id));e.dataTransfer.effectAllowed='move';}catch{}
+    });
+    wrap.addEventListener('dragend',()=>{clearPhotoDragState();});
+    wrap.addEventListener('dragover',e=>{
+      e.preventDefault();
+      try{e.dataTransfer.dropEffect='move';}catch{}
+      if(photoDragId!=null&&photoDragId!==p.id) wrap.classList.add('drag-over');
+    });
+    wrap.addEventListener('dragleave',e=>{
+      if(!wrap.contains(e.relatedTarget)) wrap.classList.remove('drag-over');
+    });
+    wrap.addEventListener('drop',e=>{
+      e.preventDefault();
+      wrap.classList.remove('drag-over');
+      const from=photoDragId;
+      clearPhotoDragState();
+      if(from!=null&&from!==p.id) reorderPhotosById(from,p.id);
+    });
+    if(i===0){
+      const badge=document.createElement('span');
+      badge.className='photo-thumb-badge';
+      badge.textContent='Thumb';
+      wrap.appendChild(badge);
+    }
+    wrap.appendChild(img);
+    wrap.appendChild(row);
+    wrap.appendChild(rm);
+    list.appendChild(wrap);
   });
 }
 
