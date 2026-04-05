@@ -344,13 +344,13 @@ tbody td{padding:12px 14px;font-size:13px;vertical-align:middle}
       <button class="menu-toggle" id="menuToggle" onclick="toggleDrawer()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
-      <a href="/index.html" class="topbar-logo" aria-label="Driven3 Automotive home">
+      <a href="/" class="topbar-logo" aria-label="Driven3 Automotive home">
         <img class="topbar-logo-icon" src="/assets/images/icon-removebg-preview.png" alt="" width="96" height="96" decoding="async">
       </a>
       <div class="topbar-badge">Admin</div>
     </div>
     <div class="topbar-right">
-      <a href="/index.html" target="_blank" class="view-site-btn">View Site →</a>
+      <a href="/" target="_blank" class="view-site-btn">View Site →</a>
       <div class="topbar-user" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)">
         <div class="topbar-avatar">A</div>
         <strong style="color:var(--text)">Admin</strong>
@@ -884,7 +884,7 @@ async function saveListing(){
   const desc=descRaw?descRaw.split('\n\n').map(p=>`<p>${p}</p>`).join(''):'';
   const g=id=>document.getElementById(id)?.value?.trim()||'';
   const gi=id=>parseInt(document.getElementById(id)?.value)||0;
-  const data={make,model,variant:g('f_variant'),year,reg,miles:g('f_miles'),price,body:g('f_body'),fuel:g('f_fuel'),trans:g('f_trans'),color:g('f_color'),doors:gi('f_doors')||4,seats:gi('f_seats')||5,owners:gi('f_owners')||1,badge:g('f_badge'),engine:g('f_engine'),power:g('f_power'),torque:g('f_torque'),co2:g('f_co2'),mot:g('f_mot'),serviceHistory:g('f_serviceHistory'),status:document.getElementById('f_status').value,featured:document.getElementById('f_featured').value,img:imgs[0]||'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80',imgs:imgs.length?imgs:['https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85'],description:desc,features:[...feats]};
+  const data={make,model,variant:g('f_variant'),year,reg,miles:g('f_miles'),price,body:g('f_body'),fuel:g('f_fuel'),trans:g('f_trans'),color:g('f_color'),doors:gi('f_doors')||4,seats:gi('f_seats')||5,owners:gi('f_owners')||1,badge:g('f_badge'),engine:g('f_engine'),power:g('f_power'),torque:g('f_torque'),co2:g('f_co2'),mot:g('f_mot'),serviceHistory:g('f_serviceHistory'),status:document.getElementById('f_status').value,featured:document.getElementById('f_featured').value,img:imgs[0]||'/assets/images/listing-placeholder.svg',imgs:imgs.length?imgs:['/assets/images/listing-placeholder.svg'],description:desc,features:[...feats]};
   const api=window.D3ListingsApi;
   if(!api?.createListing||!api?.updateListing){
     throw new Error('Listings API is not configured.');

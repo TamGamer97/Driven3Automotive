@@ -351,15 +351,15 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="/index.html" class="logo" aria-label="Driven3 Automotive home">
+    <a href="/" class="logo" aria-label="Driven3 Automotive home">
       <img class="logo-icon" src="/assets/images/icon-removebg-preview.png" alt="" width="120" height="120" decoding="async">
     </a>
     <ul class="nav-links">
-      <li><a href="/index.html">Home</a></li>
-      <li><a href="/index.html#stock">Search</a></li>
-      <li><a href="/index.html#sell">Sell Your Car</a></li>
-      <li><a href="/index.html#about">About Us</a></li>
-      <li><a href="/index.html#contact">Contact</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/#stock">Search</a></li>
+      <li><a href="/#sell">Sell Your Car</a></li>
+      <li><a href="/#about">About Us</a></li>
+      <li><a href="/#contact">Contact</a></li>
       <li><a href="tel:+447537123456" class="nav-cta">📞 Call Us</a></li>
     </ul>
     <div class="nav-phone">
@@ -369,11 +369,11 @@
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="/index.html">Home</a>
-    <a href="/index.html#stock">Search</a>
-    <a href="/index.html#sell">Sell Your Car</a>
-    <a href="/index.html#about">About Us</a>
-    <a href="/index.html#contact">Contact</a>
+    <a href="/">Home</a>
+    <a href="/#stock">Search</a>
+    <a href="/#sell">Sell Your Car</a>
+    <a href="/#about">About Us</a>
+    <a href="/#contact">Contact</a>
     <a href="tel:+447537123456" style="color:var(--accent);font-weight:700;">📞 07537 123456</a>
   </div>
 </nav>
@@ -384,9 +384,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
-    <a href="/index.html">Home</a>
+    <a href="/">Home</a>
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6" stroke="currentColor"/></svg>
-    <a href="/index.html#stock">Search</a>
+    <a href="/#stock">Search</a>
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6" stroke="currentColor"/></svg>
     <span id="breadcrumbTitle">Vehicle Details</span>
   </div>
@@ -546,7 +546,7 @@
       <div class="section-eyebrow">You Might Also Like</div>
       <div class="section-title">Similar Vehicles</div>
     </div>
-    <a href="/index.html#stock" class="view-all">View All Stock →</a>
+    <a href="/#stock" class="view-all">View All Stock →</a>
   </div>
   <div class="similar-grid" id="similarGrid"></div>
 </div>
@@ -600,7 +600,7 @@ function getCarId() {
 }
 
 function goBackToResults() {
-  window.location.href = '/index.html#stock';
+  window.location.href = '/#stock';
 }
 
 let currentCar = null;
@@ -697,7 +697,7 @@ function buildPage(car) {
   // Similar
   const similar = cars.filter(c => c.id !== car.id).slice(0, 4);
   document.getElementById('similarGrid').innerHTML = similar.map(c => `
-    <div class="car-card" onclick="window.location.href='/pages/listing.html?id=${encodeURIComponent(c.id)}'">
+    <div class="car-card" onclick="window.location.href='/listing?id=${encodeURIComponent(c.id)}'">
       <div class="car-img-wrap">
         <img src="${c.img}" alt="${c.make} ${c.model}" loading="lazy">
         ${c.badge ? `<div class="car-badge">${c.badge}</div>` : ''}

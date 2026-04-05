@@ -14,7 +14,31 @@
     return Array.isArray(value) ? value : [];
   }
 
+  /** Neutral local asset; replaces empty images and the old Unsplash default (BMW-style stock photo). */
+  var DEFAULT_LISTING_IMG = '/assets/images/listing-placeholder.svg';
+  var LEGACY_DEFAULT_UNSPLASH = 'photo-1544636331-e26879cd4d9b';
+
+  function normalizeListingImageUrl(url) {
+    var s = typeof url === 'string' ? url.trim() : '';
+    if (!s) return DEFAULT_LISTING_IMG;
+    if (s.indexOf(LEGACY_DEFAULT_UNSPLASH) !== -1) return DEFAULT_LISTING_IMG;
+    return s;
+  }
+
+  function normalizeListingImages(record) {
+    var raw = safeArray(record.imgs);
+    var imgs;
+    if (raw.length) {
+      imgs = raw.map(normalizeListingImageUrl);
+    } else {
+      imgs = [normalizeListingImageUrl(record.img || '')];
+    }
+    var img = imgs[0] || DEFAULT_LISTING_IMG;
+    return { img: img, imgs: imgs };
+  }
+
   function normalizeListing(record) {
+    var images = normalizeListingImages(record);
     return {
       id: record.id,
       make: record.make || '',
@@ -26,7 +50,7 @@
       trans: record.trans || '',
       price: toNum(record.price, 0),
       body: (record.body || '').toLowerCase(),
-      img: record.img || '',
+      img: images.img,
       badge: record.badge || '',
       color: record.color || '',
       doors: toNum(record.doors, 0),
@@ -41,7 +65,7 @@
       serviceHistory: record.service_history || record.serviceHistory || '',
       description: record.description || '',
       features: safeArray(record.features),
-      imgs: safeArray(record.imgs),
+      imgs: images.imgs,
       status: record.status || 'active',
       featured: record.featured || 'no',
     };

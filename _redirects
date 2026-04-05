@@ -1,4 +1,11 @@
-/home   /index.html        200
+# Canonical URLs (strip .html from address bar)
+/index.html   /   301
+/pages/listing.html   /listing   301
+/pages/admin.html   /admin   301
+/pages/coming-soon.html   /coming-soon   301
+
+# Pretty routes → static files (200 = rewrite, URL stays clean)
+/home   /index.html   200
 /listing   /pages/listing.html   200
 /admin   /pages/admin.html   200
 /coming-soon   /pages/coming-soon.html   200

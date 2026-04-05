@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="No vehicle photo">
+  <defs>
+    <linearGradient id="lp-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1c1e"/>
+      <stop offset="100%" stop-color="#0d0d0f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#lp-bg)"/>
+  <!-- Generic side-view car silhouette (brand-neutral) -->
+  <g fill="none" stroke="#3a3a3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="220" cy="318" rx="52" ry="52"/>
+    <ellipse cx="580" cy="318" rx="52" ry="52"/>
+    <path d="M120 318h40M640 318h40" stroke-width="4" stroke="#2e2e32"/>
+    <path d="M168 318c0-85 72-155 160-168h144c88 13 160 83 160 168" stroke-width="2.5" opacity="0.85"/>
+    <path d="M195 250h410c28 0 52 24 52 52v16H143v-16c0-28 24-52 52-52z" fill="#252528" stroke="#4a5568" stroke-width="2"/>
+    <path d="M230 195h280l55 55H188z" fill="#2c2c30" stroke="#4a5568" stroke-width="2"/>
+  </g>
+  <path d="M400 115v40M380 135h40" stroke="#3d7dcc" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+</svg>
