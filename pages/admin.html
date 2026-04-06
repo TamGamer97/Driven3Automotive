@@ -884,7 +884,7 @@ async function saveListing(){
   const desc=descRaw?descRaw.split('\n\n').map(p=>`<p>${p}</p>`).join(''):'';
   const g=id=>document.getElementById(id)?.value?.trim()||'';
   const gi=id=>parseInt(document.getElementById(id)?.value)||0;
-  const data={make,model,variant:g('f_variant'),year,reg,miles:g('f_miles'),price,body:g('f_body'),fuel:g('f_fuel'),trans:g('f_trans'),color:g('f_color'),doors:gi('f_doors')||4,seats:gi('f_seats')||5,owners:gi('f_owners')||1,badge:g('f_badge'),engine:g('f_engine'),power:g('f_power'),torque:g('f_torque'),co2:g('f_co2'),mot:g('f_mot'),serviceHistory:g('f_serviceHistory'),status:document.getElementById('f_status').value,featured:document.getElementById('f_featured').value,img:imgs[0]||'/assets/images/listing-placeholder.svg',imgs:imgs.length?imgs:['/assets/images/listing-placeholder.svg'],description:desc,features:[...feats]};
+  const data={make,model,variant:g('f_variant'),year,reg,miles:g('f_miles'),price,body:g('f_body'),fuel:g('f_fuel'),trans:g('f_trans'),color:g('f_color'),doors:gi('f_doors')||4,seats:gi('f_seats')||5,owners:gi('f_owners')||1,badge:g('f_badge'),engine:g('f_engine'),power:g('f_power'),torque:g('f_torque'),co2:g('f_co2'),mot:g('f_mot'),serviceHistory:g('f_serviceHistory'),status:document.getElementById('f_status').value,featured:document.getElementById('f_featured').value,img:imgs[0]||'/assets/images/Coming-soon-image.png',imgs:imgs.length?imgs:['/assets/images/Coming-soon-image.png'],description:desc,features:[...feats]};
   const api=window.D3ListingsApi;
   if(!api?.createListing||!api?.updateListing){
     throw new Error('Listings API is not configured.');

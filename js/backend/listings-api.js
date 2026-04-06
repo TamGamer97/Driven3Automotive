@@ -14,14 +14,15 @@
     return Array.isArray(value) ? value : [];
   }
 
-  /** Neutral local asset; replaces empty images and the old Unsplash default (BMW-style stock photo). */
-  var DEFAULT_LISTING_IMG = '/assets/images/listing-placeholder.svg';
+  /** Default “coming soon” artwork in assets; replaces empty/legacy placeholder URLs. */
+  var DEFAULT_LISTING_IMG = '/assets/images/Coming-soon-image.png';
   var LEGACY_DEFAULT_UNSPLASH = 'photo-1544636331-e26879cd4d9b';
 
   function normalizeListingImageUrl(url) {
     var s = typeof url === 'string' ? url.trim() : '';
     if (!s) return DEFAULT_LISTING_IMG;
     if (s.indexOf(LEGACY_DEFAULT_UNSPLASH) !== -1) return DEFAULT_LISTING_IMG;
+    if (s.indexOf('listing-placeholder.') !== -1) return DEFAULT_LISTING_IMG;
     return s;
   }
 
