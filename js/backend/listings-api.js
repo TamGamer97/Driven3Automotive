@@ -104,7 +104,21 @@
     };
   }
 
-  async function fetchPublicListings() {
+  async function fetchFromAutoTraderApi(path) {
+    const res = await fetch(path, {
+      headers: { Accept: 'application/json' },
+    });
+    const data = await res.json().catch(function () {
+      return {};
+    });
+    if (!res.ok) {
+      const msg = data && data.error ? data.error : res.statusText || 'Listings API error';
+      throw new Error(msg);
+    }
+    return Array.isArray(data) ? data : data;
+  }
+
+  async function fetchPublicListingsFromSupabase() {
     const supabase = getSupabase();
     const { data, error } = await supabase
       .from(window.D3SupabaseConfig.listingsTable)
@@ -113,6 +127,20 @@
       .order('created_at', { ascending: false });
     if (error) throw error;
     return (data || []).map(normalizeListing);
+  }
+
+  async function fetchPublicListings() {
+    try {
+      const data = await fetchFromAutoTraderApi('/api/listings');
+      return (data || [])
+        .map(normalizeListing)
+        .filter(function (l) {
+          return l.status === 'active' || l.status === 'reserved';
+        });
+    } catch (err) {
+      console.warn('AutoTrader listings API unavailable, trying Supabase.', err);
+      return fetchPublicListingsFromSupabase();
+    }
   }
 
   async function fetchAllListings() {
@@ -129,14 +157,22 @@
   }
 
   async function fetchListingById(id) {
-    const supabase = getSupabase();
-    const { data, error } = await supabase
-      .from(window.D3SupabaseConfig.listingsTable)
-      .select('*')
-      .eq('id', String(id))
-      .single();
-    if (error) throw error;
-    return normalizeListing(data);
+    try {
+      const data = await fetchFromAutoTraderApi(
+        '/api/listings/' + encodeURIComponent(String(id))
+      );
+      return normalizeListing(data);
+    } catch (err) {
+      console.warn('AutoTrader listing API unavailable, trying Supabase.', err);
+      const supabase = getSupabase();
+      const { data, error } = await supabase
+        .from(window.D3SupabaseConfig.listingsTable)
+        .select('*')
+        .eq('id', String(id))
+        .single();
+      if (error) throw error;
+      return normalizeListing(data);
+    }
   }
 
   async function createListing(listing) {

@@ -47,6 +47,12 @@ set password_hash = excluded.password_hash,
     updated_at = now();
 ```
 
+## Public listings (AutoTrader)
+
+Homepage and vehicle detail pages call `/api/listings` (Netlify Functions). Configure `AT_API_KEY` and `AT_API_SECRET` on Netlify; see root `README.md` and `.env.example`.
+
+Admin CRUD still uses Supabase only.
+
 ## Change Supabase connection
 
 Default URL and key are in `supabase-config.js`.

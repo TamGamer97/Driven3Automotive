@@ -1,0 +1,16 @@
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/listings"
+  to = "/.netlify/functions/listings"
+  status = 200
+
+[[redirects]]
+  from = "/api/listings/*"
+  to = "/.netlify/functions/listing/:stockId"
+  status = 200
