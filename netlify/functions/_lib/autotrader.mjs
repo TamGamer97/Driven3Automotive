@@ -84,6 +84,12 @@ function pickAdvertiser(results) {
     throw new Error('No advertisers returned for these API credentials');
   }
 
+  const preferredId = process.env.AT_ADVERTISER_ID;
+  if (preferredId) {
+    const byId = results.find((a) => String(a?.advertiserId) === String(preferredId));
+    if (byId?.advertiserId) return byId.advertiserId;
+  }
+
   const preferredName = (process.env.AT_ADVERTISER_NAME || 'driven3').toLowerCase();
   const byName = results.find((a) =>
     String(a?.name || '').toLowerCase().includes(preferredName)
@@ -133,12 +139,40 @@ export async function fetchStockList({ forceRefresh = false } = {}) {
   }
 
   const advertiserId = await resolveAdvertiserId();
-  const payload = await authedFetch('/stock', {
-    advertiserId,
-    lifecycleState: 'FORECOURT',
-    pageSize: 100,
-    page: 1,
-  });
+  const pageSize = 100;
+  const seenStockIds = new Set();
+  const allResults = [];
+  let page = 1;
+  let totalResults = Infinity;
+
+  while (allResults.length < totalResults && page <= 50) {
+    const payload = await authedFetch('/stock', {
+      advertiserId,
+      pageSize,
+      page,
+    });
+    const batch = Array.isArray(payload?.results) ? payload.results : [];
+    const reportedTotal = Number(payload?.totalResults);
+    if (Number.isFinite(reportedTotal) && reportedTotal >= 0) {
+      totalResults = reportedTotal;
+    } else if (batch.length < pageSize) {
+      totalResults = allResults.length + batch.length;
+    }
+
+    for (const item of batch) {
+      const stockId = item?.metadata?.stockId;
+      if (stockId) {
+        if (seenStockIds.has(stockId)) continue;
+        seenStockIds.add(stockId);
+      }
+      allResults.push(item);
+    }
+
+    if (!batch.length || batch.length < pageSize) break;
+    page += 1;
+  }
+
+  const payload = { results: allResults, totalResults: allResults.length };
 
   stockListCache = {
     payload,

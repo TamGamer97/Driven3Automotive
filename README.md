@@ -33,4 +33,4 @@ Public stock is loaded from **AutoTrader Connect** via Netlify Functions (`/api/
 | `AT_ADVERTISER_ID` | No (auto-discovered) |
 | `AT_STOCK_CACHE_SECONDS` | No (default `300`) |
 
-Admin (`/admin`) still uses Supabase. If the AutoTrader API fails, the homepage falls back to Supabase active listings.
+Admin (`/admin`) still uses Supabase. The homepage **merges** AutoTrader stock and Supabase `active` listings (same registration = AutoTrader wins). Set `AT_ADVERTISER_ID=10042640` on Netlify if auto-discovery picks the wrong dealer account.

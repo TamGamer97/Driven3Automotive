@@ -129,18 +129,59 @@
     return (data || []).map(normalizeListing);
   }
 
+  function isPublicStatus(status) {
+    return status === 'active' || status === 'reserved';
+  }
+
+  function listingMergeKey(listing) {
+    var reg = String(listing.reg || '').replace(/\s+/g, '').toUpperCase();
+    if (reg && reg.length >= 2) return 'reg:' + reg;
+    return 'id:' + String(listing.id || '');
+  }
+
+  function mergePublicListings(autoTraderListings, supabaseListings) {
+    var merged = new Map();
+
+    (autoTraderListings || []).forEach(function (listing) {
+      if (!isPublicStatus(listing.status)) return;
+      merged.set(listingMergeKey(listing), listing);
+    });
+
+    (supabaseListings || []).forEach(function (listing) {
+      if (!isPublicStatus(listing.status)) return;
+      var key = listingMergeKey(listing);
+      if (!merged.has(key)) merged.set(key, listing);
+    });
+
+    return Array.from(merged.values());
+  }
+
   async function fetchPublicListings() {
+    var autoTraderListings = [];
+    var supabaseListings = [];
+    var atError = null;
+
     try {
-      const data = await fetchFromAutoTraderApi('/api/listings');
-      return (data || [])
-        .map(normalizeListing)
-        .filter(function (l) {
-          return l.status === 'active' || l.status === 'reserved';
-        });
+      var data = await fetchFromAutoTraderApi('/api/listings');
+      autoTraderListings = (data || []).map(normalizeListing);
     } catch (err) {
-      console.warn('AutoTrader listings API unavailable, trying Supabase.', err);
-      return fetchPublicListingsFromSupabase();
+      atError = err;
+      console.warn('AutoTrader listings API unavailable.', err);
     }
+
+    try {
+      supabaseListings = await fetchPublicListingsFromSupabase();
+    } catch (err) {
+      console.warn('Supabase listings unavailable.', err);
+    }
+
+    var merged = mergePublicListings(autoTraderListings, supabaseListings);
+
+    if (!merged.length && atError) {
+      throw atError;
+    }
+
+    return merged;
   }
 
   async function fetchAllListings() {
